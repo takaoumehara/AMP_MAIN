@@ -1,32 +1,15 @@
-import React from 'react';
-import { ProfileCard } from './ProfileCard';
+import React from "react"
+import { ProfileCard } from "./ProfileCard"
+import peopleData from "../data/people.json"
+
 export const PeopleGrid = () => {
-  const people = [{
-    id: 1,
-    name: 'Sarah Chen',
-    role: 'Product Designer',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80',
-    skills: ['UI Design', 'User Research', 'Prototyping'],
-    hobbies: ['Photography', 'Hiking'],
-    recentActivity: 'Completed the new onboarding flow design'
-  }, {
-    id: 2,
-    name: 'Michael Park',
-    role: 'Senior Engineer',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80',
-    skills: ['React', 'TypeScript', 'System Design'],
-    hobbies: ['Rock Climbing', 'Chess'],
-    recentActivity: 'Launched new authentication system'
-  }, {
-    id: 3,
-    name: 'Emma Wilson',
-    role: 'Product Manager',
-    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80',
-    skills: ['Strategy', 'User Stories', 'Analytics'],
-    hobbies: ['Yoga', 'Cooking'],
-    recentActivity: 'Led Q2 product planning session'
-  }];
-  return <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {people.map(person => <ProfileCard key={person.id} {...person} />)}
-    </div>;
-};
+  const people = peopleData
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {people.map((person) => (
+        <ProfileCard key={person.id} {...person} />
+      ))}
+    </div>
+  )
+}
