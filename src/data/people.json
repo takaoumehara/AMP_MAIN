@@ -1,29 +1,1757 @@
 [
   {
     "id": 1,
-    "name": "Sarah Chen",
-    "role": "Product Designer",
-    "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80",
-    "skills": ["UI Design", "User Research", "Prototyping"],
-    "hobbies": ["Photography", "Hiking"],
-    "recentActivity": "Completed the new onboarding flow design"
+    "name_en": "Yuki Takahashi",
+    "name_ja": "髙橋祐樹",
+    "role_en": "PM, Engineer",
+    "role_ja": "PM, Engineer",
+    "avatar_initials": "YT",
+    "avatar_color": "#1E88E5",
+    "profile_url_en": "https://note.com/yuki0627",
+    "profile_url_ja": "https://note.com/yuki0627",
+    "github_account": "yuki0627",
+    "team_en": "CommunityRadio EchoLab (tentative)",
+    "team_ja": "CommunityRadio EchoLab(仮)",
+    "specialty_en": "Management, Backend",
+    "specialty_ja": "マネジメント, バックエンド",
+    "ideas_en": "Community radio, Always-on AI",
+    "ideas_ja": "コミュニティラジオ, 常時起動型AI",
+    "interests_en": "TTS related",
+    "interests_ja": "TTS関連",
+    "concurrent_possible": true,
+    "rocket_incubator": "",
+    "graphai_ai_podcaster": true,
+    "skills_en": [
+      "Management",
+      "Backend"
+    ],
+    "skills_ja": [
+      "マネジメント",
+      "バックエンド"
+    ],
+    "hobbies_en": [
+      "TTS related"
+    ],
+    "hobbies_ja": [
+      "TTS関連"
+    ],
+    "recentActivity_en": "Community radio, Always-on AI",
+    "recentActivity_ja": "コミュニティラジオ, 常時起動型AI"
   },
   {
     "id": 2,
-    "name": "Michael Park",
-    "role": "Senior Engineer",
-    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80",
-    "skills": ["React", "TypeScript", "System Design"],
-    "hobbies": ["Rock Climbing", "Chess"],
-    "recentActivity": "Launched new authentication system"
+    "name_en": "Shunya Nakazato",
+    "name_ja": "中里俊也",
+    "role_en": "Full Stack",
+    "role_ja": "フルスタック",
+    "avatar_initials": "SN",
+    "avatar_color": "#43A047",
+    "profile_url_en": "N/A",
+    "profile_url_ja": "N/A",
+    "github_account": "shunya-nakazato",
+    "team_en": "come come club (tentative)",
+    "team_ja": "come come club(仮)",
+    "specialty_en": "Engineer",
+    "specialty_ja": "Engineer",
+    "ideas_en": "Autonomous driving",
+    "ideas_ja": "自動運転",
+    "interests_en": "GPS",
+    "interests_ja": "GPS",
+    "concurrent_possible": true,
+    "rocket_incubator": "",
+    "graphai_ai_podcaster": "",
+    "skills_en": [
+      "Engineer"
+    ],
+    "skills_ja": [
+      "Engineer"
+    ],
+    "hobbies_en": [
+      "GPS"
+    ],
+    "hobbies_ja": [
+      "GPS"
+    ],
+    "recentActivity_en": "Autonomous driving",
+    "recentActivity_ja": "自動運転"
   },
   {
     "id": 3,
-    "name": "Emma Wilson",
-    "role": "Product Manager",
-    "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80",
-    "skills": ["Strategy", "User Stories", "Analytics"],
-    "hobbies": ["Yoga", "Cooking"],
-    "recentActivity": "Led Q2 product planning session"
+    "name_en": "Yuki Kohiyama",
+    "name_ja": "小檜山結稀",
+    "role_en": "PM, Engineer",
+    "role_ja": "PM，Engineer",
+    "avatar_initials": "YK",
+    "avatar_color": "#F4511E",
+    "profile_url_en": "N/A",
+    "profile_url_ja": "N/A",
+    "github_account": "asterism45",
+    "team_en": "altermis (tentative)",
+    "team_ja": "altermis（仮）",
+    "specialty_en": "Engineer, PM (CS)",
+    "specialty_ja": "Engineer，PM（CS）",
+    "ideas_en": "Personal AI",
+    "ideas_ja": "パーソナルAI",
+    "interests_en": "Robotics",
+    "interests_ja": "ロボティクス",
+    "concurrent_possible": true,
+    "rocket_incubator": "",
+    "graphai_ai_podcaster": "",
+    "skills_en": [
+      "Engineer",
+      "PM (CS)"
+    ],
+    "skills_ja": [
+      "Engineer",
+      "PM（CS）"
+    ],
+    "hobbies_en": [
+      "Robotics"
+    ],
+    "hobbies_ja": [
+      "ロボティクス"
+    ],
+    "recentActivity_en": "Personal AI",
+    "recentActivity_ja": "パーソナルAI"
+  },
+  {
+    "id": 4,
+    "name_en": "Haruhi Shida",
+    "name_ja": "志田遥飛",
+    "role_en": "PM, Engineer",
+    "role_ja": "PM，Engineer",
+    "avatar_initials": "HS",
+    "avatar_color": "#8E24AA",
+    "profile_url_en": "https://www.linkedin.com/in/haruhi-shida-3b5455249/",
+    "profile_url_ja": "https://www.linkedin.com/in/haruhi-shida-3b5455249/",
+    "github_account": "hs4449889",
+    "team_en": "Jinarashi",
+    "team_ja": "ジナラシ",
+    "specialty_en": "AI field in general",
+    "specialty_ja": "AI領域全般",
+    "ideas_en": "AI service to support grant applications",
+    "ideas_ja": "補助金申請を支援するAIサービス",
+    "interests_en": "AI, BPO",
+    "interests_ja": "AI,BPO",
+    "concurrent_possible": false,
+    "rocket_incubator": true,
+    "graphai_ai_podcaster": false,
+    "skills_en": [
+      "AI field in general"
+    ],
+    "skills_ja": [
+      "AI領域全般"
+    ],
+    "hobbies_en": [
+      "AI",
+      "BPO"
+    ],
+    "hobbies_ja": [
+      "AI",
+      "BPO"
+    ],
+    "recentActivity_en": "AI service to support grant applications",
+    "recentActivity_ja": "補助金申請を支援するAIサービス"
+  },
+  {
+    "id": 5,
+    "name_en": "Kazumasa Sugawara",
+    "name_ja": "菅原和将",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "KS",
+    "avatar_color": "#FDD835",
+    "profile_url_en": "N/A",
+    "profile_url_ja": "N/A",
+    "github_account": "sugamass",
+    "team_en": "EchoLab (tentative)",
+    "team_ja": "EchoLab(仮)",
+    "specialty_en": "Engineer",
+    "specialty_ja": "Engineer",
+    "ideas_en": "Commercialization of AI podcaster service",
+    "ideas_ja": "AI podcasterのサービス化",
+    "interests_en": "AI",
+    "interests_ja": "AI",
+    "concurrent_possible": false,
+    "rocket_incubator": "",
+    "graphai_ai_podcaster": "",
+    "skills_en": [
+      "Engineer"
+    ],
+    "skills_ja": [
+      "Engineer"
+    ],
+    "hobbies_en": [
+      "AI"
+    ],
+    "hobbies_ja": [
+      "AI"
+    ],
+    "recentActivity_en": "Commercialization of AI podcaster service",
+    "recentActivity_ja": "AI podcasterのサービス化"
+  },
+  {
+    "id": 6,
+    "name_en": "Keita Tsushima",
+    "name_ja": "對馬啓太",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "KT",
+    "avatar_color": "#00ACC1",
+    "profile_url_en": "https://www.linkedin.com/in/keitatsushima/",
+    "profile_url_ja": "https://www.linkedin.com/in/keitatsushima/",
+    "github_account": "KeitaTsushima",
+    "team_en": "Gabon",
+    "team_ja": "ガボン",
+    "specialty_en": "Consulting/Sales",
+    "specialty_ja": "コンサル/営業",
+    "ideas_en": "PokePal",
+    "ideas_ja": "PokePal",
+    "interests_en": "AI, IoT",
+    "interests_ja": "AI, IoT",
+    "concurrent_possible": false,
+    "rocket_incubator": "",
+    "graphai_ai_podcaster": "",
+    "skills_en": [
+      "Consulting/Sales"
+    ],
+    "skills_ja": [
+      "コンサル/営業"
+    ],
+    "hobbies_en": [
+      "AI",
+      "IoT"
+    ],
+    "hobbies_ja": [
+      "AI",
+      "IoT"
+    ],
+    "recentActivity_en": "PokePal",
+    "recentActivity_ja": "PokePal"
+  },
+  {
+    "id": 7,
+    "name_en": "Yoshiki Atsumi",
+    "name_ja": "渥美嘉樹",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "YA",
+    "avatar_color": "#D81B60",
+    "profile_url_en": "https://www.linkedin.com/in/yoshiki-atsumi",
+    "profile_url_ja": "https://www.linkedin.com/in/yoshiki-atsumi",
+    "github_account": "demotech-jp",
+    "team_en": "TBD",
+    "team_ja": "未定",
+    "specialty_en": "Politics, Elections",
+    "specialty_ja": "政治・選挙",
+    "ideas_en": "Updating democracy with AI",
+    "ideas_ja": "AIで民主主義をアップデート",
+    "interests_en": "AI",
+    "interests_ja": "AI",
+    "concurrent_possible": "",
+    "rocket_incubator": "",
+    "graphai_ai_podcaster": "",
+    "skills_en": [
+      "Politics",
+      "Elections"
+    ],
+    "skills_ja": [
+      "政治・選挙"
+    ],
+    "hobbies_en": [
+      "AI"
+    ],
+    "hobbies_ja": [
+      "AI"
+    ],
+    "recentActivity_en": "Updating democracy with AI",
+    "recentActivity_ja": "AIで民主主義をアップデート"
+  },
+  {
+    "id": 8,
+    "name_en": "Seiji Nakayama",
+    "name_ja": "中山聖司",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "SN",
+    "avatar_color": "#D81B60",
+    "profile_url_en": "https://www.sijis.me/",
+    "profile_url_ja": "https://www.sijis.me/",
+    "github_account": "n-seiji",
+    "team_en": "TBD",
+    "team_ja": "未定",
+    "specialty_en": "Machine learning, Location-based systems, Creating moving things",
+    "specialty_ja": "機械学習, 位置情報系, 動くものを作ること",
+    "ideas_en": "Want to create podcasts!",
+    "ideas_ja": "podcast作りたい!",
+    "interests_en": "Any technology",
+    "interests_ja": "技術ならなんでも",
+    "concurrent_possible": true,
+    "rocket_incubator": true,
+    "graphai_ai_podcaster": true,
+    "skills_en": [
+      "Machine learning",
+      "Location-based systems",
+      "Creating moving things"
+    ],
+    "skills_ja": [
+      "機械学習",
+      "位置情報系",
+      "動くものを作ること"
+    ],
+    "hobbies_en": [
+      "Any technology"
+    ],
+    "hobbies_ja": [
+      "技術ならなんでも"
+    ],
+    "recentActivity_en": "Want to create podcasts!",
+    "recentActivity_ja": "podcast作りたい!"
+  },
+  {
+    "id": 9,
+    "name_en": "Ryo Kodama",
+    "name_ja": "兒玉涼",
+    "role_en": "PM, Engineer, Sales",
+    "role_ja": "PM, Engineer, 営業",
+    "avatar_initials": "RK",
+    "avatar_color": "#D81B60",
+    "profile_url_en": "https://www.linkedin.com/in/rkodama/",
+    "profile_url_ja": "https://www.linkedin.com/in/rkodama/",
+    "github_account": "x4066x",
+    "team_en": "TBD",
+    "team_ja": "未定",
+    "specialty_en": "Technical sales",
+    "specialty_ja": "技術営業",
+    "ideas_en": "Browser agent like Cline",
+    "ideas_ja": "Clineのようなブラウザエージェント",
+    "interests_en": "Robotics",
+    "interests_ja": "ロボティクス",
+    "concurrent_possible": false,
+    "rocket_incubator": false,
+    "graphai_ai_podcaster": false,
+    "skills_en": [
+      "Technical sales"
+    ],
+    "skills_ja": [
+      "技術営業"
+    ],
+    "hobbies_en": [
+      "Robotics"
+    ],
+    "hobbies_ja": [
+      "ロボティクス"
+    ],
+    "recentActivity_en": "Browser agent like Cline",
+    "recentActivity_ja": "Clineのようなブラウザエージェント"
+  },
+  {
+    "id": 10,
+    "name_en": "Shunji Muto",
+    "name_ja": "武藤駿嗣",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "SM",
+    "avatar_color": "#D81B60",
+    "profile_url_en": "N/A",
+    "profile_url_ja": "N/A",
+    "github_account": "shunji-muto",
+    "team_en": "TBD",
+    "team_ja": "未定",
+    "specialty_en": "Web (FE/BE/Infra)",
+    "specialty_ja": "Web(FE/BE/Infra)",
+    "ideas_en": "Robotics",
+    "ideas_ja": "ロボティクス",
+    "interests_en": "Robotics",
+    "interests_ja": "ロボティクス",
+    "concurrent_possible": "△",
+    "rocket_incubator": "",
+    "graphai_ai_podcaster": "",
+    "skills_en": [
+      "Web (FE/BE/Infra)"
+    ],
+    "skills_ja": [
+      "Web(FE/BE/Infra)"
+    ],
+    "hobbies_en": [
+      "Robotics"
+    ],
+    "hobbies_ja": [
+      "ロボティクス"
+    ],
+    "recentActivity_en": "Robotics",
+    "recentActivity_ja": "ロボティクス"
+  },
+  {
+    "id": 11,
+    "name_en": "Masato Arai Jensen",
+    "name_ja": "新井イェンセン維人",
+    "role_en": "PM/Engineer",
+    "role_ja": "PM/Engineer",
+    "avatar_initials": "MJ",
+    "avatar_color": "#3949AB",
+    "profile_url_en": "N/A",
+    "profile_url_ja": "N/A",
+    "github_account": "KoretyAutomate",
+    "team_en": "FP&A Automation",
+    "team_ja": "FP&A Automation",
+    "specialty_en": "FP&A, SNS Marketing, Geo-expansion",
+    "specialty_ja": "FP&A, sns Marketing, Geo-expansion",
+    "ideas_en": "FP&A Automation",
+    "ideas_ja": "FP&A Automation",
+    "interests_en": "AI Agent",
+    "interests_ja": "AI Agent",
+    "concurrent_possible": "△",
+    "rocket_incubator": false,
+    "graphai_ai_podcaster": false,
+    "skills_en": [
+      "FP&A",
+      "SNS Marketing",
+      "Geo-expansion"
+    ],
+    "skills_ja": [
+      "FP&A",
+      "sns Marketing",
+      "Geo-expansion"
+    ],
+    "hobbies_en": [
+      "AI Agent"
+    ],
+    "hobbies_ja": [
+      "AI Agent"
+    ],
+    "recentActivity_en": "FP&A Automation",
+    "recentActivity_ja": "FP&A Automation"
+  },
+  {
+    "id": 12,
+    "name_en": "Kazumasa Matsumoto",
+    "name_ja": "松本一将",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "KM",
+    "avatar_color": "#FB8C00",
+    "profile_url_en": "https://x.com/kazumasamatsumo",
+    "profile_url_ja": "https://x.com/kazumasamatsumo",
+    "github_account": "Kazumasa",
+    "team_en": "Arcanex",
+    "team_ja": "Arcanex",
+    "specialty_en": "TypeScript",
+    "specialty_ja": "TypeScript",
+    "ideas_en": "Under consideration",
+    "ideas_ja": "考え中",
+    "interests_en": "AI Agent",
+    "interests_ja": "AI Agent",
+    "concurrent_possible": "△",
+    "rocket_incubator": "",
+    "graphai_ai_podcaster": "",
+    "skills_en": [
+      "TypeScript"
+    ],
+    "skills_ja": [
+      "TypeScript"
+    ],
+    "hobbies_en": [
+      "AI Agent"
+    ],
+    "hobbies_ja": [
+      "AI Agent"
+    ],
+    "recentActivity_en": "Under consideration",
+    "recentActivity_ja": "考え中"
+  },
+  {
+    "id": 13,
+    "name_en": "Norihiro Sunada",
+    "name_ja": "砂田憲廣",
+    "role_en": "PM, Engineer",
+    "role_ja": "PM, Engineer",
+    "avatar_initials": "NS",
+    "avatar_color": "#FDD835",
+    "profile_url_en": "N/A",
+    "profile_url_ja": "N/A",
+    "github_account": "norihirosunada",
+    "team_en": "EchoLab (tentative)",
+    "team_ja": "EchoLab(仮)",
+    "specialty_en": "Data Science, Mobile",
+    "specialty_ja": "DS, Mobile",
+    "ideas_en": "Podcast, AI agent development platform, NFT platform",
+    "ideas_ja": "ポッドキャスト、AIエージェント開発プラットフォーム、NFTプラットフォーム",
+    "interests_en": "Robotics, World model",
+    "interests_ja": "ロボティクス、世界モデル",
+    "concurrent_possible": true,
+    "rocket_incubator": "Interested",
+    "graphai_ai_podcaster": true,
+    "skills_en": [
+      "Data Science",
+      "Mobile"
+    ],
+    "skills_ja": [
+      "DS",
+      "Mobile"
+    ],
+    "hobbies_en": [
+      "Robotics",
+      "World model"
+    ],
+    "hobbies_ja": [
+      "ロボティクス",
+      "世界モデル"
+    ],
+    "recentActivity_en": "Podcast, AI agent development platform, NFT platform",
+    "recentActivity_ja": "ポッドキャスト、AIエージェント開発プラットフォーム、NFTプラットフォーム"
+  },
+  {
+    "id": 14,
+    "name_en": "Takayuki Saito",
+    "name_ja": "斉藤喬智",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "TS",
+    "avatar_color": "#FDD835",
+    "profile_url_en": "N/A",
+    "profile_url_ja": "N/A",
+    "github_account": "Taka499",
+    "team_en": "EchoLab (tentative)",
+    "team_ja": "EchoLab(仮)",
+    "specialty_en": "AI/Backend",
+    "specialty_ja": "AI/backend",
+    "ideas_en": "AI Podcast",
+    "ideas_ja": "AI Podcast",
+    "interests_en": "AI Agent",
+    "interests_ja": "AI Agent",
+    "concurrent_possible": "△",
+    "rocket_incubator": "",
+    "graphai_ai_podcaster": true,
+    "skills_en": [
+      "AI/Backend"
+    ],
+    "skills_ja": [
+      "AI/backend"
+    ],
+    "hobbies_en": [
+      "AI Agent"
+    ],
+    "hobbies_ja": [
+      "AI Agent"
+    ],
+    "recentActivity_en": "AI Podcast",
+    "recentActivity_ja": "AI Podcast"
+  },
+  {
+    "id": 15,
+    "name_en": "Hiroaki Kawahashi",
+    "name_ja": "川橋博昭",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "HK",
+    "avatar_color": "#D81B60",
+    "profile_url_en": "N/A",
+    "profile_url_ja": "N/A",
+    "github_account": "MejikaAkira",
+    "team_en": "TBD",
+    "team_ja": "未定",
+    "specialty_en": "Web3",
+    "specialty_ja": "web3",
+    "ideas_en": "Real-time data analysis AI app",
+    "ideas_ja": "リアルタイムデータ分析AIアプリ",
+    "interests_en": "AI Agent",
+    "interests_ja": "AI Agent",
+    "concurrent_possible": "△",
+    "rocket_incubator": "",
+    "graphai_ai_podcaster": "",
+    "skills_en": [
+      "Web3"
+    ],
+    "skills_ja": [
+      "web3"
+    ],
+    "hobbies_en": [
+      "AI Agent"
+    ],
+    "hobbies_ja": [
+      "AI Agent"
+    ],
+    "recentActivity_en": "Real-time data analysis AI app",
+    "recentActivity_ja": "リアルタイムデータ分析AIアプリ"
+  },
+  {
+    "id": 16,
+    "name_en": "Johan Näslund",
+    "name_ja": "ネスルンド　ヨハン",
+    "role_en": "Founder",
+    "role_ja": "Founder",
+    "avatar_initials": "JN",
+    "avatar_color": "#FB8C00",
+    "profile_url_en": "https://www.linkedin.com/in/johan-naslund",
+    "profile_url_ja": "https://www.linkedin.com/in/johan-naslund",
+    "github_account": "humacss",
+    "team_en": "Arcanex",
+    "team_ja": "Arcanex",
+    "specialty_en": "Engineer",
+    "specialty_ja": "エンジニア",
+    "ideas_en": "MMORPG game Arcanex",
+    "ideas_ja": "MMORPGゲームArcanex",
+    "interests_en": "Game Development, AI Generation, Asset Creation (Music, Sound, 3D Models, Animation etc.), Virtual World Building",
+    "interests_ja": "Game Development, AI Generation, Asset Creation (Music, Sound, 3D Models, Animation etc.), Virtual World Building",
+    "concurrent_possible": true,
+    "rocket_incubator": true,
+    "graphai_ai_podcaster": true,
+    "skills_en": [
+      "Engineer"
+    ],
+    "skills_ja": [
+      "エンジニア"
+    ],
+    "hobbies_en": [
+      "Game Development",
+      "AI Generation",
+      "Asset Creation (Music",
+      "Sound",
+      "3D Models",
+      "Animation etc.)",
+      "Virtual World Building"
+    ],
+    "hobbies_ja": [
+      "Game Development",
+      "AI Generation",
+      "Asset Creation (Music",
+      "Sound",
+      "3D Models",
+      "Animation etc.)",
+      "Virtual World Building"
+    ],
+    "recentActivity_en": "MMORPG game Arcanex",
+    "recentActivity_ja": "MMORPGゲームArcanex"
+  },
+  {
+    "id": 17,
+    "name_en": "Elena McCauley",
+    "name_ja": "マッコーレー瑛黎奈",
+    "role_en": "PR/Public Relations",
+    "role_ja": "PR/広報",
+    "avatar_initials": "EM",
+    "avatar_color": "#D81B60",
+    "profile_url_en": "https://linkedin.com/in/elena-mcaulay",
+    "profile_url_ja": "https://linkedin.com/in/elena-mcaulay",
+    "github_account": "elenajapan",
+    "team_en": "TBD",
+    "team_ja": "未定",
+    "specialty_en": "PR, Management",
+    "specialty_ja": "PR、マネジメント",
+    "ideas_en": "Restaurant automatic recommendation service",
+    "ideas_ja": "レストラン自動提案サービス",
+    "interests_en": "AI",
+    "interests_ja": "AI",
+    "concurrent_possible": false,
+    "rocket_incubator": "",
+    "graphai_ai_podcaster": "",
+    "skills_en": [
+      "PR",
+      "Management"
+    ],
+    "skills_ja": [
+      "PR",
+      "マネジメント"
+    ],
+    "hobbies_en": [
+      "AI"
+    ],
+    "hobbies_ja": [
+      "AI"
+    ],
+    "recentActivity_en": "Restaurant automatic recommendation service",
+    "recentActivity_ja": "レストラン自動提案サービス"
+  },
+  {
+    "id": 18,
+    "name_en": "Ran Arino",
+    "name_ja": "有野嵐",
+    "role_en": "Engineer/Developer",
+    "role_ja": "Engineer/Developer",
+    "avatar_initials": "RA",
+    "avatar_color": "#00897B",
+    "profile_url_en": "https://www.linkedin.com/in/ran-arino-25253022b/",
+    "profile_url_ja": "https://www.linkedin.com/in/ran-arino-25253022b/",
+    "github_account": "RanArino",
+    "team_en": "TBD (individual?)",
+    "team_ja": "未定(個人？)",
+    "specialty_en": "AI-driven development, Machine learning, Data analysis",
+    "specialty_ja": "AI駆動開発, 機械学習, データ分析",
+    "ideas_en": "Knowledge platform for structuring information",
+    "ideas_ja": "情報を構造化する知識プラットフォーム",
+    "interests_en": "AI Agent, RAG, ML, AR, MCP",
+    "interests_ja": "AI Agent, RAG, ML, AR, MCP",
+    "concurrent_possible": false,
+    "rocket_incubator": "",
+    "graphai_ai_podcaster": "",
+    "skills_en": [
+      "AI-driven development",
+      "Machine learning",
+      "Data analysis"
+    ],
+    "skills_ja": [
+      "AI駆動開発",
+      "機械学習",
+      "データ分析"
+    ],
+    "hobbies_en": [
+      "AI Agent",
+      "RAG",
+      "ML",
+      "AR",
+      "MCP"
+    ],
+    "hobbies_ja": [
+      "AI Agent",
+      "RAG",
+      "ML",
+      "AR",
+      "MCP"
+    ],
+    "recentActivity_en": "Knowledge platform for structuring information",
+    "recentActivity_ja": "情報を構造化する知識プラットフォーム"
+  },
+  {
+    "id": 19,
+    "name_en": "Kazuya Kojima",
+    "name_ja": "小島一也",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "KK",
+    "avatar_color": "#D81B60",
+    "profile_url_en": "https://www.linkedin.com/in/kazuya-kojima/",
+    "profile_url_ja": "https://www.linkedin.com/in/kazuya-kojima/",
+    "github_account": "kkoji",
+    "team_en": "TBD",
+    "team_ja": "未定",
+    "specialty_en": "Web application development",
+    "specialty_ja": "Webアプリ開発",
+    "ideas_en": "Cooking assistant app",
+    "ideas_ja": "料理アシスタントアプリ",
+    "interests_en": "AI",
+    "interests_ja": "AI",
+    "concurrent_possible": true,
+    "rocket_incubator": true,
+    "graphai_ai_podcaster": "",
+    "skills_en": [
+      "Web application development"
+    ],
+    "skills_ja": [
+      "Webアプリ開発"
+    ],
+    "hobbies_en": [
+      "AI"
+    ],
+    "hobbies_ja": [
+      "AI"
+    ],
+    "recentActivity_en": "Cooking assistant app",
+    "recentActivity_ja": "料理アシスタントアプリ"
+  },
+  {
+    "id": 20,
+    "name_en": "Tomonori Yamazaki",
+    "name_ja": "山崎智則",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "TY",
+    "avatar_color": "#C0CA33",
+    "profile_url_en": "N/A",
+    "profile_url_ja": "N/A",
+    "github_account": "tomonoriyamazaki",
+    "team_en": "toytalk",
+    "team_ja": "toytalk",
+    "specialty_en": "Infrastructure Engineer/AWS",
+    "specialty_ja": "インフラエンジニア/AWS",
+    "ideas_en": "Generative AI toys",
+    "ideas_ja": "生成AIおもちゃ",
+    "interests_en": "Voice generation",
+    "interests_ja": "ボイス生成",
+    "concurrent_possible": false,
+    "rocket_incubator": "",
+    "graphai_ai_podcaster": "",
+    "skills_en": [
+      "Infrastructure Engineer/AWS"
+    ],
+    "skills_ja": [
+      "インフラエンジニア/AWS"
+    ],
+    "hobbies_en": [
+      "Voice generation"
+    ],
+    "hobbies_ja": [
+      "ボイス生成"
+    ],
+    "recentActivity_en": "Generative AI toys",
+    "recentActivity_ja": "生成AIおもちゃ"
+  },
+  {
+    "id": 21,
+    "name_en": "Nagisa Mizukami",
+    "name_ja": "水上 渚",
+    "role_en": "Founder, PM",
+    "role_ja": "Founder, PM",
+    "avatar_initials": "NM",
+    "avatar_color": "#5E35B1",
+    "profile_url_en": "https://www.linkedin.com/in/nagisamizukmai/",
+    "profile_url_ja": "https://www.linkedin.com/in/nagisamizukmai/",
+    "github_account": "nagisamizukami",
+    "team_en": "MagicHolic",
+    "team_ja": "MagicHolic",
+    "specialty_en": "12+ years experience in game/manga/anime industry. Global expansion experience at ByteDance.",
+    "specialty_ja": "ゲーム・漫画・アニメ業界で12年以上の経験。ByteDanceでの海外展開経験あり。",
+    "ideas_en": "Challenging 'Digital Studio/Agency' model that converts existing IP and indie manga into AI motion comics for global expansion.",
+    "ideas_ja": "既存IPやインディ漫画をAIでモーションコミック化し、グローバル展開する「デジタルスタジオ/エージェンシー」モデルに挑戦中。",
+    "interests_en": "AI, Entertainment, IP development, Global expansion",
+    "interests_ja": "AI、エンタメ、IP開発、海外展開",
+    "concurrent_possible": "△",
+    "rocket_incubator": true,
+    "graphai_ai_podcaster": true,
+    "skills_en": [
+      "12+ years experience in game/manga/anime industry. Global expansion experience at ByteDance."
+    ],
+    "skills_ja": [
+      "ゲーム・漫画・アニメ業界で12年以上の経験。ByteDanceでの海外展開経験あり。"
+    ],
+    "hobbies_en": [
+      "AI",
+      "Entertainment",
+      "IP development",
+      "Global expansion"
+    ],
+    "hobbies_ja": [
+      "AI",
+      "エンタメ",
+      "IP開発",
+      "海外展開"
+    ],
+    "recentActivity_en": "Challenging 'Digital Studio/Agency' model that converts existing IP and indie manga into AI motion comics for global expansion.",
+    "recentActivity_ja": "既存IPやインディ漫画をAIでモーションコミック化し、グローバル展開する「デジタルスタジオ/エージェンシー」モデルに挑戦中。"
+  },
+  {
+    "id": 22,
+    "name_en": "Yusuke Hirota",
+    "name_ja": "廣田 裕介",
+    "role_en": "Founder, PM",
+    "role_ja": "Founder, PM",
+    "avatar_initials": "YH",
+    "avatar_color": "#F06292",
+    "profile_url_en": "https://www.linkedin.com/in/yusuke-hirota-204a01150/",
+    "profile_url_ja": "https://www.linkedin.com/in/yusuke-hirota-204a01150/",
+    "github_account": "hiro-yuske",
+    "team_en": "Esper",
+    "team_ja": "Esper",
+    "specialty_en": "Founder of Neuron X, ex-Amazon",
+    "specialty_ja": "Founder　of Neuron X, ex-Amazon",
+    "ideas_en": "AI agent development for online shops. Developing AI agents for short videos ahead of TikTok Shop's Japan launch.",
+    "ideas_ja": "オンラインショップ向けのAIエージェント開発。Tiktok Shopの日本上陸に向けて、Short動画用AIエージェント開発中。",
+    "interests_en": "AI agents, MCP, Blockchain",
+    "interests_ja": "AIエージェント、MCP、ブロックチェーン",
+    "concurrent_possible": true,
+    "rocket_incubator": true,
+    "graphai_ai_podcaster": false,
+    "skills_en": [
+      "Founder of Neuron X",
+      "ex-Amazon"
+    ],
+    "skills_ja": [
+      "Founder　of Neuron X",
+      "ex-Amazon"
+    ],
+    "hobbies_en": [
+      "AI agents",
+      "MCP",
+      "Blockchain"
+    ],
+    "hobbies_ja": [
+      "AIエージェント",
+      "MCP",
+      "ブロックチェーン"
+    ],
+    "recentActivity_en": "AI agent development for online shops. Developing AI agents for short videos ahead of TikTok Shop's Japan launch.",
+    "recentActivity_ja": "オンラインショップ向けのAIエージェント開発。Tiktok Shopの日本上陸に向けて、Short動画用AIエージェント開発中。"
+  },
+  {
+    "id": 23,
+    "name_en": "Masakatsu Mohri",
+    "name_ja": "毛利 真克",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "MM",
+    "avatar_color": "#D81B60",
+    "profile_url_en": "https://x.com/mouri45",
+    "profile_url_ja": "https://x.com/mouri45",
+    "github_account": "mouri45",
+    "team_en": "TBD",
+    "team_ja": "未定",
+    "specialty_en": "Unity, XR, Web",
+    "specialty_ja": "Unity, XR, Web",
+    "ideas_en": "Interactive AI agent",
+    "ideas_ja": "対話型AIエージェント",
+    "interests_en": "AI agents",
+    "interests_ja": "AIエージェント",
+    "concurrent_possible": "TBD",
+    "rocket_incubator": false,
+    "graphai_ai_podcaster": "TBD",
+    "skills_en": [
+      "Unity",
+      "XR",
+      "Web"
+    ],
+    "skills_ja": [
+      "Unity",
+      "XR",
+      "Web"
+    ],
+    "hobbies_en": [
+      "AI agents"
+    ],
+    "hobbies_ja": [
+      "AIエージェント"
+    ],
+    "recentActivity_en": "Interactive AI agent",
+    "recentActivity_ja": "対話型AIエージェント"
+  },
+  {
+    "id": 24,
+    "name_en": "Toshio Hirasawa",
+    "name_ja": "平澤 寅庄",
+    "role_en": "PdM, Engineer",
+    "role_ja": "PdM, Engineer",
+    "avatar_initials": "TH",
+    "avatar_color": "#7CB342",
+    "profile_url_en": "https://toshohirasawa.github.io/",
+    "profile_url_ja": "https://toshohirasawa.github.io/",
+    "github_account": "toshohirasawa",
+    "team_en": "AI Patent Attorney @NexaScience",
+    "team_ja": "AI 弁理士 @NexaScience",
+    "specialty_en": "ML, NLP",
+    "specialty_ja": "ML, NLP",
+    "ideas_en": "AI patent attorney that engineers and researchers can easily consult",
+    "ideas_ja": "エンジニア・研究者が気軽に相談できるAI弁理士",
+    "interests_en": "AI in general",
+    "interests_ja": "AI全般",
+    "concurrent_possible": "△",
+    "rocket_incubator": "Interested",
+    "graphai_ai_podcaster": "Interested",
+    "skills_en": [
+      "ML",
+      "NLP"
+    ],
+    "skills_ja": [
+      "ML",
+      "NLP"
+    ],
+    "hobbies_en": [
+      "AI in general"
+    ],
+    "hobbies_ja": [
+      "AI全般"
+    ],
+    "recentActivity_en": "AI patent attorney that engineers and researchers can easily consult",
+    "recentActivity_ja": "エンジニア・研究者が気軽に相談できるAI弁理士"
+  },
+  {
+    "id": 25,
+    "name_en": "Masahiro Morino",
+    "name_ja": "森野正博",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "MM",
+    "avatar_color": "#FB8C00",
+    "profile_url_en": "https://www.linkedin.com/in/masahiro-morino-8b6198210/",
+    "profile_url_ja": "https://www.linkedin.com/in/masahiro-morino-8b6198210/",
+    "github_account": "masamori0083",
+    "team_en": "Arcanex",
+    "team_ja": "Arcanex",
+    "specialty_en": "Full Stack",
+    "specialty_ja": "フルスタック",
+    "ideas_en": "Satellite orbit calculation and mission planning with embedded agents",
+    "ideas_ja": "エージェントを組み込んだ衛星の軌道計算やミッションプランニング",
+    "interests_en": "AI agents, Satellite development, Edge AI",
+    "interests_ja": "AIエージェント, 衛星開発, エッジAI",
+    "concurrent_possible": true,
+    "rocket_incubator": true,
+    "graphai_ai_podcaster": false,
+    "skills_en": [
+      "Full Stack"
+    ],
+    "skills_ja": [
+      "フルスタック"
+    ],
+    "hobbies_en": [
+      "AI agents",
+      "Satellite development",
+      "Edge AI"
+    ],
+    "hobbies_ja": [
+      "AIエージェント",
+      "衛星開発",
+      "エッジAI"
+    ],
+    "recentActivity_en": "Satellite orbit calculation and mission planning with embedded agents",
+    "recentActivity_ja": "エージェントを組み込んだ衛星の軌道計算やミッションプランニング"
+  },
+  {
+    "id": 26,
+    "name_en": "Yoshiki Kanayama",
+    "name_ja": "金山佳毅",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "YK",
+    "avatar_color": "#FFB300",
+    "profile_url_en": "https://www.linkedin.com/in/yoshikikanayama/",
+    "profile_url_ja": "https://www.linkedin.com/in/yoshikikanayama/",
+    "github_account": "Yoshiki Kanayama",
+    "team_en": "TBD (or individual)",
+    "team_ja": "未定 (or 個人)",
+    "specialty_en": "Web development, iOS apps",
+    "specialty_ja": "Web開発, iOSアプリ",
+    "ideas_en": "Home life management app",
+    "ideas_ja": "家庭向け生活マネジメントアプリ",
+    "interests_en": "AI, Robots, IoT",
+    "interests_ja": "AI, ロボット, IoT",
+    "concurrent_possible": true,
+    "rocket_incubator": true,
+    "graphai_ai_podcaster": "Interested",
+    "skills_en": [
+      "Web development",
+      "iOS apps"
+    ],
+    "skills_ja": [
+      "Web開発",
+      "iOSアプリ"
+    ],
+    "hobbies_en": [
+      "AI",
+      "Robots",
+      "IoT"
+    ],
+    "hobbies_ja": [
+      "AI",
+      "ロボット",
+      "IoT"
+    ],
+    "recentActivity_en": "Home life management app",
+    "recentActivity_ja": "家庭向け生活マネジメントアプリ"
+  },
+  {
+    "id": 27,
+    "name_en": "Hiroyasu Tazawa",
+    "name_ja": "田澤 博康",
+    "role_en": "PM, Engineer",
+    "role_ja": "PM, Engineer",
+    "avatar_initials": "HT",
+    "avatar_color": "#039BE5",
+    "profile_url_en": "N/A",
+    "profile_url_ja": "N/A",
+    "github_account": "hiroyasu5",
+    "team_en": "Virtual AI Doctor (tentative)",
+    "team_ja": "Virtual AI Docter（仮）",
+    "specialty_en": "4th year medical student",
+    "specialty_ja": "医学生4年",
+    "ideas_en": "Personalized AI-Virtual Doctor: Smartphone→VR app with anime-style 3D avatar for real-time conversation, symptom checking, urgency assessment, and medication guidance",
+    "ideas_ja": "個人特化型 AI-Virtual Doctor：アニメ調3Dアバターとリアルタイム会話・症状チェック・緊急度判定・服薬指導を行うスマホ→VRアプリ",
+    "interests_en": "AI, Healthcare, Blockchain",
+    "interests_ja": "AI, Healthcare, Blockchain",
+    "concurrent_possible": false,
+    "rocket_incubator": true,
+    "graphai_ai_podcaster": true,
+    "skills_en": [
+      "4th year medical student"
+    ],
+    "skills_ja": [
+      "医学生4年"
+    ],
+    "hobbies_en": [
+      "AI",
+      "Healthcare",
+      "Blockchain"
+    ],
+    "hobbies_ja": [
+      "AI",
+      "Healthcare",
+      "Blockchain"
+    ],
+    "recentActivity_en": "Personalized AI-Virtual Doctor: Smartphone→VR app with anime-style 3D avatar for real-time conversation, symptom checking, urgency assessment, and medication guidance",
+    "recentActivity_ja": "個人特化型 AI-Virtual Doctor：アニメ調3Dアバターとリアルタイム会話・症状チェック・緊急度判定・服薬指導を行うスマホ→VRアプリ"
+  },
+  {
+    "id": 28,
+    "name_en": "Tomonori Murakami",
+    "name_ja": "村上 友規",
+    "role_en": "PM, Engineer",
+    "role_ja": "PM, Engineer",
+    "avatar_initials": "TM",
+    "avatar_color": "#D81B60",
+    "profile_url_en": "https://note.com/hashikarabota",
+    "profile_url_ja": "https://note.com/hashikarabota",
+    "github_account": "muchan23",
+    "team_en": "TBD",
+    "team_ja": "未定",
+    "specialty_en": "Construction automation/Space",
+    "specialty_ja": "建設自律化/宇宙",
+    "ideas_en": "Small excavation robotics",
+    "ideas_ja": "掘削用小型ロボティクス",
+    "interests_en": "Robotics",
+    "interests_ja": "ロボティクス",
+    "concurrent_possible": false,
+    "rocket_incubator": true,
+    "graphai_ai_podcaster": false,
+    "skills_en": [
+      "Construction automation/Space"
+    ],
+    "skills_ja": [
+      "建設自律化/宇宙"
+    ],
+    "hobbies_en": [
+      "Robotics"
+    ],
+    "hobbies_ja": [
+      "ロボティクス"
+    ],
+    "recentActivity_en": "Small excavation robotics",
+    "recentActivity_ja": "掘削用小型ロボティクス"
+  },
+  {
+    "id": 29,
+    "name_en": "Rinsei Shisa",
+    "name_ja": "志佐 凜生",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "RS",
+    "avatar_color": "#D81B60",
+    "profile_url_en": "N/A",
+    "profile_url_ja": "N/A",
+    "github_account": "rinseishisa",
+    "team_en": "TBD",
+    "team_ja": "未定",
+    "specialty_en": "3rd year Computer Science student/Raspberry Pi",
+    "specialty_ja": "情報工学科3年/Raspi",
+    "ideas_en": "Fully automatic cooking robot",
+    "ideas_ja": "全自動料理ロボット",
+    "interests_en": "Robotics",
+    "interests_ja": "ロボティクス",
+    "concurrent_possible": true,
+    "rocket_incubator": true,
+    "graphai_ai_podcaster": true,
+    "skills_en": [
+      "3rd year Computer Science student/Raspberry Pi"
+    ],
+    "skills_ja": [
+      "情報工学科3年/Raspi"
+    ],
+    "hobbies_en": [
+      "Robotics"
+    ],
+    "hobbies_ja": [
+      "ロボティクス"
+    ],
+    "recentActivity_en": "Fully automatic cooking robot",
+    "recentActivity_ja": "全自動料理ロボット"
+  },
+  {
+    "id": 30,
+    "name_en": "Tatsuro Kamoshida",
+    "name_ja": "鴨志田 達朗",
+    "role_en": "PM, Engineer",
+    "role_ja": "PM, Engineer",
+    "avatar_initials": "TK",
+    "avatar_color": "#E53935",
+    "profile_url_en": "https://www.linkedin.com/in/%E9%81%94%E6%9C%97-%E9%B4%A8%E5%BF%97%E7%94%B0-3039a9206",
+    "profile_url_ja": "https://www.linkedin.com/in/%E9%81%94%E6%9C%97-%E9%B4%A8%E5%BF%97%E7%94%B0-3039a9206",
+    "github_account": "shinnn-kamoshida",
+    "team_en": "Tascale",
+    "team_ja": "Tascale",
+    "specialty_en": "Full Stack/GraphDB/Cryptography",
+    "specialty_ja": "フルスタック/GraphDB/暗号",
+    "ideas_en": "Very simple AI schedule app",
+    "ideas_ja": "どシンプル AIスケジュール アプリ",
+    "interests_en": "Scheduling, Education, Space",
+    "interests_ja": "スケジュール, 教育, 宇宙",
+    "concurrent_possible": true,
+    "rocket_incubator": false,
+    "graphai_ai_podcaster": true,
+    "skills_en": [
+      "Full Stack/GraphDB/Cryptography"
+    ],
+    "skills_ja": [
+      "フルスタック/GraphDB/暗号"
+    ],
+    "hobbies_en": [
+      "Scheduling",
+      "Education",
+      "Space"
+    ],
+    "hobbies_ja": [
+      "スケジュール",
+      "教育",
+      "宇宙"
+    ],
+    "recentActivity_en": "Very simple AI schedule app",
+    "recentActivity_ja": "どシンプル AIスケジュール アプリ"
+  },
+  {
+    "id": 31,
+    "name_en": "Kohei Kawaguchi",
+    "name_ja": "川口 航平",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "KK",
+    "avatar_color": "#757575",
+    "profile_url_en": "N/A",
+    "profile_url_ja": "N/A",
+    "github_account": "k-kohey",
+    "team_en": "Individual",
+    "team_ja": "個人",
+    "specialty_en": "Frontend",
+    "specialty_ja": "フロントエンド",
+    "ideas_en": "LLM applications",
+    "ideas_ja": "LLMアプリケーション",
+    "interests_en": "AI",
+    "interests_ja": "AI",
+    "concurrent_possible": "If I have capacity",
+    "rocket_incubator": false,
+    "graphai_ai_podcaster": false,
+    "skills_en": [
+      "Frontend"
+    ],
+    "skills_ja": [
+      "フロントエンド"
+    ],
+    "hobbies_en": [
+      "AI"
+    ],
+    "hobbies_ja": [
+      "AI"
+    ],
+    "recentActivity_en": "LLM applications",
+    "recentActivity_ja": "LLMアプリケーション"
+  },
+  {
+    "id": 32,
+    "name_en": "Yoshimune Kaneko",
+    "name_ja": "金子志宗",
+    "role_en": "Planning & Development",
+    "role_ja": "企画兼開発",
+    "avatar_initials": "YK",
+    "avatar_color": "#1E88E5",
+    "profile_url_en": "https://www.linkedin.com/in/yoshimune-kaneko-1b17305/",
+    "profile_url_ja": "https://www.linkedin.com/in/yoshimune-kaneko-1b17305/",
+    "github_account": "kanekop",
+    "team_en": "Another Hour",
+    "team_ja": "Another Hour",
+    "specialty_en": "Web development, English communication",
+    "specialty_ja": "Web開発, 英語コミュニケーション",
+    "ideas_en": "Living community with time-shifted clocks, Tool development for engaging learning",
+    "ideas_ja": "時間軸のずれた時計での生活コミュニティ, 学習にハマるツール開発",
+    "interests_en": "Community, AI-enhanced personal capabilities, Learning support",
+    "interests_ja": "コミュニティ, AIによる個人の能力拡張, 学習支援",
+    "concurrent_possible": true,
+    "rocket_incubator": "Interested",
+    "graphai_ai_podcaster": true,
+    "skills_en": [
+      "Web development",
+      "English communication"
+    ],
+    "skills_ja": [
+      "Web開発",
+      "英語コミュニケーション"
+    ],
+    "hobbies_en": [
+      "Community",
+      "AI-enhanced personal capabilities",
+      "Learning support"
+    ],
+    "hobbies_ja": [
+      "コミュニティ",
+      "AIによる個人の能力拡張",
+      "学習支援"
+    ],
+    "recentActivity_en": "Living community with time-shifted clocks, Tool development for engaging learning",
+    "recentActivity_ja": "時間軸のずれた時計での生活コミュニティ, 学習にハマるツール開発"
+  },
+  {
+    "id": 33,
+    "name_en": "Daichi Sasaki",
+    "name_ja": "佐々木大地",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "DS",
+    "avatar_color": "#43A047",
+    "profile_url_en": "https://www.linkedin.com/in/sasakid/",
+    "profile_url_ja": "https://www.linkedin.com/in/sasakid/",
+    "github_account": "da1ssk",
+    "team_en": "Takao Umehara",
+    "team_ja": "梅原タカオ",
+    "specialty_en": "Mobile/Web dev",
+    "specialty_ja": "Mobile/Web dev",
+    "ideas_en": "Under consideration",
+    "ideas_ja": "検討中",
+    "interests_en": "Golf x AI",
+    "interests_ja": "ゴルフ x AI",
+    "concurrent_possible": false,
+    "rocket_incubator": "Interested",
+    "graphai_ai_podcaster": "Interested",
+    "skills_en": [
+      "Mobile/Web dev"
+    ],
+    "skills_ja": [
+      "Mobile/Web dev"
+    ],
+    "hobbies_en": [
+      "Golf x AI"
+    ],
+    "hobbies_ja": [
+      "ゴルフ x AI"
+    ],
+    "recentActivity_en": "Under consideration",
+    "recentActivity_ja": "検討中"
+  },
+  {
+    "id": 34,
+    "name_en": "Takao Umehara",
+    "name_ja": "梅原タカオ",
+    "role_en": "Designer",
+    "role_ja": "Designer",
+    "avatar_initials": "TU",
+    "avatar_color": "#F4511E",
+    "profile_url_en": "https://www.linkedin.com/in/takaoumehara/",
+    "profile_url_ja": "https://www.linkedin.com/in/takaoumehara/",
+    "github_account": "takaooumehara",
+    "team_en": "Daichi Sasaki",
+    "team_ja": "佐々木大地",
+    "specialty_en": "Mobile/Web dev",
+    "specialty_ja": "Mobile/Web dev",
+    "ideas_en": "Under consideration",
+    "ideas_ja": "検討中",
+    "interests_en": "AI organizational directory",
+    "interests_ja": "AIな組織ディレクトリ",
+    "concurrent_possible": false,
+    "rocket_incubator": "Interested",
+    "graphai_ai_podcaster": "Interested",
+    "skills_en": [
+      "Mobile/Web dev"
+    ],
+    "skills_ja": [
+      "Mobile/Web dev"
+    ],
+    "hobbies_en": [
+      "AI organizational directory"
+    ],
+    "hobbies_ja": [
+      "AIな組織ディレクトリ"
+    ],
+    "recentActivity_en": "Under consideration",
+    "recentActivity_ja": "検討中"
+  },
+  {
+    "id": 35,
+    "name_en": "Hiroki Tomiyasu",
+    "name_ja": "冨安寛樹",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "HT",
+    "avatar_color": "#D81B60",
+    "profile_url_en": "https://x.com/tomiyasu16",
+    "profile_url_ja": "https://x.com/tomiyasu16",
+    "github_account": "tomiyasu0428",
+    "team_en": "TBD",
+    "team_ja": "未定",
+    "specialty_en": "Agriculture",
+    "specialty_ja": "農業",
+    "ideas_en": "Agricultural AI app",
+    "ideas_ja": "農業AIアプリ",
+    "interests_en": "AI, Robots",
+    "interests_ja": "AI,ロボット",
+    "concurrent_possible": "△",
+    "rocket_incubator": "",
+    "graphai_ai_podcaster": true,
+    "skills_en": [
+      "Agriculture"
+    ],
+    "skills_ja": [
+      "農業"
+    ],
+    "hobbies_en": [
+      "AI",
+      "Robots"
+    ],
+    "hobbies_ja": [
+      "AI",
+      "ロボット"
+    ],
+    "recentActivity_en": "Agricultural AI app",
+    "recentActivity_ja": "農業AIアプリ"
+  },
+  {
+    "id": 36,
+    "name_en": "Kanta Nagashima",
+    "name_ja": "永島幹大",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "KN",
+    "avatar_color": "#D81B60",
+    "profile_url_en": "N/A",
+    "profile_url_ja": "N/A",
+    "github_account": "Kanta-Na",
+    "team_en": "TBD",
+    "team_ja": "未定",
+    "specialty_en": "Sales/LLM utilization (Fine-tuning etc.)",
+    "specialty_ja": "営業/ LLM 活用(FT等)",
+    "ideas_en": "Dialogue system using Moshi/Humanoid robot autonomous walking system",
+    "ideas_ja": "Moshiを活用した対話システム/ヒューマノイドロボットの自立歩行システム",
+    "interests_en": "Robotics/AI",
+    "interests_ja": "ロボティクス/AI",
+    "concurrent_possible": "△",
+    "rocket_incubator": "",
+    "graphai_ai_podcaster": "Interested",
+    "skills_en": [
+      "Sales/LLM utilization (Fine-tuning etc.)"
+    ],
+    "skills_ja": [
+      "営業/ LLM 活用(FT等)"
+    ],
+    "hobbies_en": [
+      "Robotics/AI"
+    ],
+    "hobbies_ja": [
+      "ロボティクス/AI"
+    ],
+    "recentActivity_en": "Dialogue system using Moshi/Humanoid robot autonomous walking system",
+    "recentActivity_ja": "Moshiを活用した対話システム/ヒューマノイドロボットの自立歩行システム"
+  },
+  {
+    "id": 37,
+    "name_en": "Takashi Sato",
+    "name_ja": "佐藤崇史",
+    "role_en": "Planning/Design",
+    "role_ja": "企画／デザイン",
+    "avatar_initials": "TS",
+    "avatar_color": "#E53935",
+    "profile_url_en": "https://x.com/sato_rollin",
+    "profile_url_ja": "https://x.com/sato_rollin",
+    "github_account": "s8000",
+    "team_en": "Tascale",
+    "team_ja": "Tascale",
+    "specialty_en": "Planning/Design",
+    "specialty_ja": "企画／デザイン",
+    "ideas_en": "Very simple AI schedule app",
+    "ideas_ja": "どシンプル AIスケジュール アプリ",
+    "interests_en": "Scheduling, AI utilization",
+    "interests_ja": "スケジュール, AI活用",
+    "concurrent_possible": true,
+    "rocket_incubator": "",
+    "graphai_ai_podcaster": "",
+    "skills_en": [
+      "Planning/Design"
+    ],
+    "skills_ja": [
+      "企画／デザイン"
+    ],
+    "hobbies_en": [
+      "Scheduling",
+      "AI utilization"
+    ],
+    "hobbies_ja": [
+      "スケジュール",
+      "AI活用"
+    ],
+    "recentActivity_en": "Very simple AI schedule app",
+    "recentActivity_ja": "どシンプル AIスケジュール アプリ"
+  },
+  {
+    "id": 38,
+    "name_en": "Takuma Miwa",
+    "name_ja": "三輪拓真",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "TM",
+    "avatar_color": "#7CB342",
+    "profile_url_en": "http://takuma-miwa.com/",
+    "profile_url_ja": "http://takuma-miwa.com/",
+    "github_account": "TakumaMiwa",
+    "team_en": "AI Patent Attorney @NexaScience",
+    "team_ja": "AI 弁理士 @NexaScience",
+    "specialty_en": "NLP, QML",
+    "specialty_ja": "NLP, QML",
+    "ideas_en": "AI patent attorney that engineers and researchers can easily consult",
+    "ideas_ja": "エンジニア・研究者が気軽に相談できるAI弁理士",
+    "interests_en": "Dialogue bots",
+    "interests_ja": "対話ボット",
+    "concurrent_possible": false,
+    "rocket_incubator": "Interested",
+    "graphai_ai_podcaster": "Interested",
+    "skills_en": [
+      "NLP",
+      "QML"
+    ],
+    "skills_ja": [
+      "NLP",
+      "QML"
+    ],
+    "hobbies_en": [
+      "Dialogue bots"
+    ],
+    "hobbies_ja": [
+      "対話ボット"
+    ],
+    "recentActivity_en": "AI patent attorney that engineers and researchers can easily consult",
+    "recentActivity_ja": "エンジニア・研究者が気軽に相談できるAI弁理士"
+  },
+  {
+    "id": 39,
+    "name_en": "Yudai Ushiro",
+    "name_ja": "後雄大",
+    "role_en": "Engineer",
+    "role_ja": "Engineer",
+    "avatar_initials": "YU",
+    "avatar_color": "#757575",
+    "profile_url_en": "https://www.linkedin.com/in/yudai-ushiro/",
+    "profile_url_ja": "https://www.linkedin.com/in/yudai-ushiro/",
+    "github_account": "yudaiushiro",
+    "team_en": "Individual",
+    "team_ja": "個人",
+    "specialty_en": "Full Stack",
+    "specialty_ja": "フルスタック",
+    "ideas_en": "QA AI agent",
+    "ideas_ja": "QA AIエージェント",
+    "interests_en": "AI Agent",
+    "interests_ja": "AI Agent",
+    "concurrent_possible": false,
+    "rocket_incubator": "Interested",
+    "graphai_ai_podcaster": "Interested",
+    "skills_en": [
+      "Full Stack"
+    ],
+    "skills_ja": [
+      "フルスタック"
+    ],
+    "hobbies_en": [
+      "AI Agent"
+    ],
+    "hobbies_ja": [
+      "AI Agent"
+    ],
+    "recentActivity_en": "QA AI agent",
+    "recentActivity_ja": "QA AIエージェント"
+  },
+  {
+    "id": 40,
+    "name_en": "Yoji Yamamoto",
+    "name_ja": "山本燿司",
+    "role_en": "PM, Engineer",
+    "role_ja": "PM, Engineer",
+    "avatar_initials": "YY",
+    "avatar_color": "#757575",
+    "profile_url_en": "https://singularitysociety.slack.com/docs/TCA1VGL7Q/F08Q89M1QVC",
+    "profile_url_ja": "https://singularitysociety.slack.com/docs/TCA1VGL7Q/F08Q89M1QVC",
+    "github_account": "yoji0806",
+    "team_en": "Individual",
+    "team_ja": "個人",
+    "specialty_en": "Full Stack/Economics/Game Theory/Data Science",
+    "specialty_ja": "フルスタック/経済学/ゲーム理論/データサイエンス",
+    "ideas_en": "AI native Toggl Track",
+    "ideas_ja": "AI nativeなToggl Track",
+    "interests_en": "AI, Education, Disaster prevention, Ocean, Rural areas, Social issues",
+    "interests_ja": "AI, 教育, 防災, 海, 地方, 社会課題",
+    "concurrent_possible": false,
+    "rocket_incubator": "Interested",
+    "graphai_ai_podcaster": "",
+    "skills_en": [
+      "Full Stack/Economics/Game Theory/Data Science"
+    ],
+    "skills_ja": [
+      "フルスタック/経済学/ゲーム理論/データサイエンス"
+    ],
+    "hobbies_en": [
+      "AI",
+      "Education",
+      "Disaster prevention",
+      "Ocean",
+      "Rural areas",
+      "Social issues"
+    ],
+    "hobbies_ja": [
+      "AI",
+      "教育",
+      "防災",
+      "海",
+      "地方",
+      "社会課題"
+    ],
+    "recentActivity_en": "AI native Toggl Track",
+    "recentActivity_ja": "AI nativeなToggl Track"
+  },
+  {
+    "id": 41,
+    "name_en": "Masaki Kubo",
+    "name_ja": "久保 正貴",
+    "role_en": "Bizdev",
+    "role_ja": "Bizdev",
+    "avatar_initials": "MK",
+    "avatar_color": "#757575",
+    "profile_url_en": "https://www.linkedin.com/in/masaki-kubo/",
+    "profile_url_ja": "https://www.linkedin.com/in/masaki-kubo/",
+    "github_account": "keeeeb",
+    "team_en": "Individual",
+    "team_ja": "個人",
+    "specialty_en": "Business development",
+    "specialty_ja": "事業開発",
+    "ideas_en": "Product that leaves recruitment application creation to AI/Remaking job hunting with AI base",
+    "ideas_ja": "採用における応募創出をAIに任せるプロダクト/転職活動をAIベースで作り替えること",
+    "interests_en": "",
+    "interests_ja": "",
+    "concurrent_possible": true,
+    "rocket_incubator": "Interested",
+    "graphai_ai_podcaster": "Interested",
+    "skills_en": [
+      "Business development"
+    ],
+    "skills_ja": [
+      "事業開発"
+    ],
+    "hobbies_en": [],
+    "hobbies_ja": [],
+    "recentActivity_en": "Product that leaves recruitment application creation to AI/Remaking job hunting with AI base",
+    "recentActivity_ja": "採用における応募創出をAIに任せるプロダクト/転職活動をAIベースで作り替えること"
+  },
+  {
+    "id": 42,
+    "name_en": "Kengo Iwata",
+    "name_ja": "岩田 健吾",
+    "role_en": "PM, Bizdev",
+    "role_ja": "PM, Bizdev",
+    "avatar_initials": "KI",
+    "avatar_color": "#757575",
+    "profile_url_en": "https://bento.me/kengoiwt",
+    "profile_url_ja": "https://bento.me/kengoiwt",
+    "github_account": "kengoiwt3112",
+    "team_en": "Individual",
+    "team_ja": "個人",
+    "specialty_en": "Planning, Business development, Marketing",
+    "specialty_ja": "企画, 事業開発, マーケティング",
+    "ideas_en": "Lovely empathetic AI robot",
+    "ideas_ja": "愛らしい共感AIロボット",
+    "interests_en": "AI, Robotics",
+    "interests_ja": "AI, ロボティクス",
+    "concurrent_possible": "△",
+    "rocket_incubator": true,
+    "graphai_ai_podcaster": "Interested",
+    "skills_en": [
+      "Planning",
+      "Business development",
+      "Marketing"
+    ],
+    "skills_ja": [
+      "企画",
+      "事業開発",
+      "マーケティング"
+    ],
+    "hobbies_en": [
+      "AI",
+      "Robotics"
+    ],
+    "hobbies_ja": [
+      "AI",
+      "ロボティクス"
+    ],
+    "recentActivity_en": "Lovely empathetic AI robot",
+    "recentActivity_ja": "愛らしい共感AIロボット"
+  },
+  {
+    "id": 43,
+    "name_en": "Taiki Yamaguchi",
+    "name_ja": "山口 泰輝",
+    "role_en": "PM, Engineer",
+    "role_ja": "PM, Engineer",
+    "avatar_initials": "TY",
+    "avatar_color": "#757575",
+    "profile_url_en": "https://bento.me/tyki",
+    "profile_url_ja": "https://bento.me/tyki",
+    "github_account": "tykid16",
+    "team_en": "Individual",
+    "team_ja": "個人",
+    "specialty_en": "Ad delivery server development engineer, Raycast Community Japan management",
+    "specialty_ja": "広告配信サーバーの開発するエンジニア, Raycast Community Japan運営",
+    "ideas_en": "AI Native event creation and management tool",
+    "ideas_ja": "AI Native なイベント作成・運営ツール",
+    "interests_en": "AI, Community management, Event management",
+    "interests_ja": "AI, Community運営, イベント運営",
+    "concurrent_possible": false,
+    "rocket_incubator": false,
+    "graphai_ai_podcaster": false,
+    "skills_en": [
+      "Ad delivery server development engineer",
+      "Raycast Community Japan management"
+    ],
+    "skills_ja": [
+      "広告配信サーバーの開発するエンジニア",
+      "Raycast Community Japan運営"
+    ],
+    "hobbies_en": [
+      "AI",
+      "Community management",
+      "Event management"
+    ],
+    "hobbies_ja": [
+      "AI",
+      "Community運営",
+      "イベント運営"
+    ],
+    "recentActivity_en": "AI Native event creation and management tool",
+    "recentActivity_ja": "AI Native なイベント作成・運営ツール"
+  },
+  {
+    "id": 44,
+    "name_en": "Motohiro Uesugi",
+    "name_ja": "上杉基宏",
+    "role_en": "Creator",
+    "role_ja": "Creator",
+    "avatar_initials": "MU",
+    "avatar_color": "#8E24AA",
+    "profile_url_en": "https://github.com/AIuesugi",
+    "profile_url_ja": "https://github.com/AIuesugi",
+    "github_account": "AIuesugi",
+    "team_en": "AiTime/AITs",
+    "team_ja": "AiTime/AITs",
+    "specialty_en": "EC marketing, Web designer, Video production, DTP, Japanese sake",
+    "specialty_ja": "ECマーケティング, Webデザイナー, 動画制作, DTP, 日本酒",
+    "ideas_en": "Letters that can be preserved for 100 years, Business card trading card communication tool",
+    "ideas_ja": "100年後にも残せる手紙, 名刺トレーディングカードのコミュニケーションツール",
+    "interests_en": "Five senses, Habit continuation, Dance, AI creative",
+    "interests_ja": "五感, 習慣継続, ダンス, AIクリエイティブ",
+    "concurrent_possible": "△",
+    "rocket_incubator": "△",
+    "graphai_ai_podcaster": true,
+    "skills_en": [
+      "EC marketing",
+      "Web designer",
+      "Video production",
+      "DTP",
+      "Japanese sake"
+    ],
+    "skills_ja": [
+      "ECマーケティング",
+      "Webデザイナー",
+      "動画制作",
+      "DTP",
+      "日本酒"
+    ],
+    "hobbies_en": [
+      "Five senses",
+      "Habit continuation",
+      "Dance",
+      "AI creative"
+    ],
+    "hobbies_ja": [
+      "五感",
+      "習慣継続",
+      "ダンス",
+      "AIクリエイティブ"
+    ],
+    "recentActivity_en": "Letters that can be preserved for 100 years, Business card trading card communication tool",
+    "recentActivity_ja": "100年後にも残せる手紙, 名刺トレーディングカードのコミュニケーションツール"
   }
 ]
