@@ -211,6 +211,38 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 overflow-auto">
+      {/* Left Navigation Arrow - Outside Modal */}
+      <button
+        onClick={onPrev}
+        disabled={!hasPrev}
+        className={`fixed left-8 top-1/2 -translate-y-1/2 p-4 rounded-full shadow-lg z-20 transition-all duration-200 ${
+          hasPrev 
+            ? 'bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900' 
+            : 'bg-gray-100 text-gray-300 cursor-not-allowed'
+        }`}
+        aria-label="Previous"
+      >
+        <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      {/* Right Navigation Arrow - Outside Modal */}
+      <button
+        onClick={onNext}
+        disabled={!hasNext}
+        className={`fixed right-8 top-1/2 -translate-y-1/2 p-4 rounded-full shadow-lg z-20 transition-all duration-200 ${
+          hasNext 
+            ? 'bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900' 
+            : 'bg-gray-100 text-gray-300 cursor-not-allowed'
+        }`}
+        aria-label="Next"
+      >
+        <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+
       <div ref={modalRef} className="relative bg-white rounded-3xl shadow-2xl w-full max-w-5xl mx-4 p-10 flex flex-col md:flex-row gap-10 animate-fade-in min-h-[60vh] max-h-[90vh] overflow-auto">
         {/* X Button */}
         <button
@@ -280,25 +312,6 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
             {person.concurrent_possible !== undefined && <div className="mb-2"><span className="font-semibold text-gray-800">Concurrent Possible:</span> <span className="text-gray-700">{String(person.concurrent_possible)}</span></div>}
             {person.rocket_incubator !== undefined && <div className="mb-2"><span className="font-semibold text-gray-800">Rocket Incubator:</span> <span className="text-gray-700">{String(person.rocket_incubator)}</span></div>}
             {person.graphai_ai_podcaster !== undefined && <div className="mb-2"><span className="font-semibold text-gray-800">GraphAI Podcaster:</span> <span className="text-gray-700">{String(person.graphai_ai_podcaster)}</span></div>}
-          </div>
-          {/* Navigation Arrows */}
-          <div className="flex justify-between items-center mt-8">
-            <button
-              onClick={onPrev}
-              disabled={!hasPrev}
-              className={`p-2 rounded-full ${hasPrev ? 'bg-gray-100 hover:bg-gray-200' : 'bg-gray-50 text-gray-300 cursor-not-allowed'}`}
-              aria-label="Previous"
-            >
-              <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 6 12 12 18 18"></polyline></svg>
-            </button>
-            <button
-              onClick={onNext}
-              disabled={!hasNext}
-              className={`p-2 rounded-full ${hasNext ? 'bg-gray-100 hover:bg-gray-200' : 'bg-gray-50 text-gray-300 cursor-not-allowed'}`}
-              aria-label="Next"
-            >
-              <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="10 6 16 12 10 18"></polyline></svg>
-            </button>
           </div>
         </div>
       </div>
