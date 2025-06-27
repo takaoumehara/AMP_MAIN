@@ -1,13 +1,19 @@
 import React from "react"
 import { ProfileCard } from "./ProfileCard"
-import peopleData from "../data/people.json"
 
-export const PeopleGrid = () => {
+interface PeopleGridProps {
+  onCardClick: (index: number) => void;
+  people: any[];
+  language?: 'en' | 'ja';
+}
 
+export const PeopleGrid = ({ onCardClick, people, language = 'en' }: PeopleGridProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {peopleData.map((person) => (
-        <ProfileCard key={person.id} {...person} />
+      {people.map((person, idx) => (
+        <div key={person.id} onClick={() => onCardClick(idx)} className="cursor-pointer">
+          <ProfileCard {...person} language={language} />
+        </div>
       ))}
     </div>
   )
