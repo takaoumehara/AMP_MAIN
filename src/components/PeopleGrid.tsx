@@ -1,4 +1,3 @@
-import React from "react"
 import { ProfileCard } from "./ProfileCard"
 
 interface PeopleGridProps {
@@ -18,3 +17,5 @@ export const PeopleGrid = ({ onCardClick, people, language = 'en' }: PeopleGridP
     </div>
   )
 }
+
+// this is takao
