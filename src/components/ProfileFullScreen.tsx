@@ -61,9 +61,16 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
   // Close on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
-      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-        onClose();
+      // If click is inside modal, do nothing
+      if (modalRef.current && modalRef.current.contains(e.target as Node)) {
+        return;
       }
+      // If click is on navigation arrows, do nothing
+      const target = e.target as HTMLElement;
+      if (target.closest('.profile-nav-arrow')) {
+        return;
+      }
+      onClose();
     }
     document.addEventListener('mousedown', handleClick);
     return () => document.removeEventListener('mousedown', handleClick);
@@ -215,7 +222,7 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
       <button
         onClick={onPrev}
         disabled={!hasPrev}
-        className={`fixed left-8 top-1/2 -translate-y-1/2 p-4 rounded-full shadow-lg z-20 transition-all duration-200 ${
+        className={`profile-nav-arrow fixed left-8 top-1/2 -translate-y-1/2 p-4 rounded-full shadow-lg z-20 transition-all duration-200 ${
           hasPrev 
             ? 'bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900' 
             : 'bg-gray-100 text-gray-300 cursor-not-allowed'
@@ -231,7 +238,7 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
       <button
         onClick={onNext}
         disabled={!hasNext}
-        className={`fixed right-8 top-1/2 -translate-y-1/2 p-4 rounded-full shadow-lg z-20 transition-all duration-200 ${
+        className={`profile-nav-arrow fixed right-8 top-1/2 -translate-y-1/2 p-4 rounded-full shadow-lg z-20 transition-all duration-200 ${
           hasNext 
             ? 'bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900' 
             : 'bg-gray-100 text-gray-300 cursor-not-allowed'
