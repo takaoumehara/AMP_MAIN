@@ -2,82 +2,97 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { Sidebar } from './components/Layout/Sidebar';
 import { SearchBar } from './components/SearchBar';
 import { PeopleGrid } from './components/PeopleGrid';
-import peopleData from './data/people.json';
+import peopleGemini from './data/people_gemini_fixed.json';
 import { ProfileFullScreen } from './components/ProfileFullScreen';
 
 function uniq(arr: string[]): string[] {
   return Array.from(new Set(arr.filter(Boolean)));
 }
 
+// Helper to flatten array of {ja, en} to string or array
+function flattenLangArray(arr: any[], lang: 'en' | 'ja', asArray = false) {
+  if (!Array.isArray(arr)) return asArray ? [] : '';
+  const vals = arr.map(item => item[lang]).filter(Boolean);
+  return asArray ? vals : vals.join(', ');
+}
+
+// Helper to flatten {ja, en} object
+function flattenLangObj(obj: any, lang: 'en' | 'ja') {
+  if (!obj) return '';
+  return obj[lang] || '';
+}
+
+// Helper to flatten boolean/option fields
+function flattenOptionField(obj: any) {
+  if (!obj) return undefined;
+  if (typeof obj.value !== 'undefined') return obj.value;
+  return undefined;
+}
+
+// Helper to get initials from name
+function getInitials(name: string) {
+  if (!name) return '';
+  const parts = name.split(/\s+/);
+  if (parts.length === 1) return parts[0][0] || '';
+  return parts[0][0] + (parts[1]?.[0] || '');
+}
+
 // Team color mapping
 const teamColors: { [key: string]: string } = {
-  'CommunityRadio EchoLab (tentative)': '#1E88E5',
-  'come come club (tentative)': '#43A047',
-  'altermis (tentative)': '#F4511E',
+  'CommunityRadio EchoLab (Provisional)': '#1E88E5',
+  'come come club (Provisional)': '#43A047',
+  'altermis (Provisional)': '#F4511E',
   'Jinarashi': '#8E24AA',
-  'EchoLab (tentative)': '#FDD835',
+  'EchoLab (Provisional)': '#FDD835',
   'Gabon': '#00ACC1',
-  'TBD': '#D81B60',
+  'Undecided': '#D81B60',
   'default': '#9E9E9E'
 };
 
-// Function to extract profile images from all links
-function extractProfileImage(person: any): string | null {
-  const links = [
-    person.profile_url,
-    person.github_account ? `https://github.com/${person.github_account}` : null,
-    // Add more potential image sources here
-  ].filter(Boolean);
-
-  for (const link of links) {
-    if (link && typeof link === 'string') {
-      // Check if it's already an image URL
-      if (link.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
-        return link;
-      }
-      
-      // For GitHub, try to get avatar
-      if (link.includes('github.com') && person.github_account) {
-        return `https://github.com/${person.github_account}.png`;
-      }
-      
-      // For LinkedIn, we can't easily get profile images due to restrictions
-      // But we could potentially use a service like Gravatar if email is available
-    }
-  }
-  
-  // Try to extract from various profile URLs
-  if (person.profile_url && person.profile_url !== 'N/A') {
-    const url = person.profile_url.toLowerCase();
-    
-    // Check for common image hosting services
-    if (url.includes('imgur.com') || url.includes('flickr.com') || url.includes('500px.com')) {
-      return person.profile_url;
-    }
-    
-    // Check for social media profile images (these are usually not accessible)
-    if (url.includes('linkedin.com') || url.includes('twitter.com') || url.includes('facebook.com')) {
-      // For these, we'll rely on GitHub avatars instead
-      if (person.github_account) {
-        return `https://github.com/${person.github_account}.png`;
-      }
-    }
-  }
-  
-  return null;
+// Process people data from people_gemini_fixed.json
+function processPeopleData(lang: 'en' | 'ja') {
+  return peopleGemini.participants.map((person: any) => {
+    const name = flattenLangObj(person.name, lang) || '';
+    const team = flattenLangObj(person.team, lang) || '';
+    const role = flattenLangArray(person.role, lang) || '';
+    const specialty = flattenLangArray(person.specialty, lang) || '';
+    const ideas = flattenLangArray(person.ideas, lang) || '';
+    const interests = flattenLangArray(person.interests, lang) || '';
+    const skills = flattenLangArray(person.specialty, lang, true) || [];
+    const hobbies = flattenLangArray(person.interests, lang, true) || [];
+    const recentActivity = flattenLangArray(person.ideas, lang) || '';
+    const profile_url = person.profile_url;
+    const github_account = person.github_account;
+    const avatar_initials = getInitials(name);
+    const teamColor = teamColors[team] || teamColors.default;
+    const avatar_color = teamColor;
+    const profileImage = person.profileImage ? person.profileImage : (github_account ? `https://github.com/${github_account}.png` : null);
+    return {
+      id: person.id,
+      name: String(name),
+      role: String(role),
+      avatar_initials: String(avatar_initials),
+      avatar_color: String(avatar_color),
+      profileImage,
+      skills: Array.isArray(skills) ? skills.map(String) : [],
+      hobbies: Array.isArray(hobbies) ? hobbies.map(String) : [],
+      recentActivity: String(recentActivity),
+      profile_url: profile_url || '',
+      github_account: github_account || '',
+      team: String(team),
+      specialty: String(specialty),
+      ideas: String(ideas),
+      interests: String(interests),
+      concurrent_possible: flattenOptionField(person.concurrent_possible),
+      rocket_incubator: flattenOptionField(person.rocket_incubator),
+      graphai_ai_podcaster: flattenOptionField(person.graphai_ai_podcaster),
+      summary: person.summary ? flattenLangObj(person.summary, lang) : undefined,
+      project_details: person.project_details ? flattenLangObj(person.project_details, lang) : undefined,
+      contributions: person.contributions ? flattenLangObj(person.contributions, lang) : undefined,
+      support_activities: person.support_activities ? flattenLangObj(person.support_activities, lang) : undefined,
+    };
+  });
 }
-
-// Process people data to add profile images and team-based colors
-const processedPeopleData = peopleData.map(person => {
-  const profileImage = extractProfileImage(person);
-  const teamColor = person.team ? teamColors[person.team] || teamColors.default : teamColors.default;
-  
-  return {
-    ...person,
-    profileImage,
-    avatar_color: teamColor, // Override with team-based color
-  };
-});
 
 interface Filters {
   roles: string[];
@@ -86,13 +101,13 @@ interface Filters {
   interests: string[];
 }
 
-function extractFilters(people: any[]): Filters {
-  // Use English fields for filter extraction
+// Filters extraction for new structure
+function extractFilters(people: any[], lang: 'en' | 'ja'): Filters {
   return {
-    roles: uniq(people.map((p: any) => p.role_en).flatMap((r: string) => r ? r.split(/[、,，/]/).map((s: string) => s.trim()) : [])),
-    teams: uniq(people.map((p: any) => p.team_en).flatMap((t: string) => t ? t.split(/[、,，/]/).map((s: string) => s.trim()) : [])),
-    specialties: uniq(people.map((p: any) => p.specialty_en).flatMap((s: string) => s ? s.split(/[、,，/]/).map((x: string) => x.trim()) : [])),
-    interests: uniq(people.map((p: any) => p.interests_en).flatMap((i: string) => i ? i.split(/[、,，/]/).map((x: string) => x.trim()) : [])),
+    roles: uniq(people.flatMap((p: any) => (Array.isArray(p.role) ? p.role : p.role?.split(',') || []).map((s: string) => s.trim()))),
+    teams: uniq(people.map((p: any) => p.team).filter(Boolean)),
+    specialties: uniq(people.flatMap((p: any) => (Array.isArray(p.specialty) ? p.specialty : p.specialty?.split(',') || []).map((s: string) => s.trim()))),
+    interests: uniq(people.flatMap((p: any) => (Array.isArray(p.interests) ? p.interests : p.interests?.split(',') || []).map((s: string) => s.trim()))),
   };
 }
 
@@ -111,7 +126,9 @@ export function App() {
   });
   const [language, setLanguage] = useState<'en' | 'ja'>('en');
 
-  const filters = useMemo(() => extractFilters(processedPeopleData), []);
+  // Processed people data for current language
+  const processedPeopleData = useMemo(() => processPeopleData(language), [language]);
+  const filters = useMemo(() => extractFilters(processedPeopleData, language), [processedPeopleData, language]);
 
   const handleCardClick = useCallback((index: number) => {
     setSelectedIndex(index);
@@ -155,34 +172,22 @@ export function App() {
     const q = search.toLowerCase();
     // Use language-specific fields for search
     const matchesSearch =
-      (person[`name_${language}`] && person[`name_${language}`].toLowerCase().includes(q)) ||
-      (person[`role_${language}`] && person[`role_${language}`].toLowerCase().includes(q)) ||
-      (person[`team_${language}`] && person[`team_${language}`].toLowerCase().includes(q)) ||
-      (person[`specialty_${language}`] && person[`specialty_${language}`].toLowerCase().includes(q)) ||
-      (person[`ideas_${language}`] && person[`ideas_${language}`].toLowerCase().includes(q)) ||
-      (person[`interests_${language}`] && person[`interests_${language}`].toLowerCase().includes(q)) ||
-      (person[`skills_${language}`] && person[`skills_${language}`].join(' ').toLowerCase().includes(q)) ||
-      (person[`hobbies_${language}`] && person[`hobbies_${language}`].join(' ').toLowerCase().includes(q));
+      (typeof person.name === 'string' && person.name.toLowerCase().includes(q)) ||
+      (typeof person.role === 'string' && person.role.toLowerCase().includes(q)) ||
+      (typeof person.team === 'string' && person.team.toLowerCase().includes(q)) ||
+      (typeof person.specialty === 'string' && person.specialty.toLowerCase().includes(q)) ||
+      (typeof person.ideas === 'string' && person.ideas.toLowerCase().includes(q)) ||
+      (typeof person.interests === 'string' && person.interests.toLowerCase().includes(q)) ||
+      (Array.isArray(person.skills) && person.skills.join(' ').toLowerCase().includes(q)) ||
+      (Array.isArray(person.hobbies) && person.hobbies.join(' ').toLowerCase().includes(q));
     // Filter by selected filters (language-specific)
     const matchesFilters =
-      (selectedFilters.roles.length === 0 || selectedFilters.roles.some(r => person[`role_${language}`] && person[`role_${language}`].includes(r))) &&
-      (selectedFilters.teams.length === 0 || selectedFilters.teams.some(t => person[`team_${language}`] && person[`team_${language}`].includes(t))) &&
-      (selectedFilters.specialties.length === 0 || selectedFilters.specialties.some(s => person[`specialty_${language}`] && person[`specialty_${language}`].includes(s))) &&
-      (selectedFilters.interests.length === 0 || selectedFilters.interests.some(i => person[`interests_${language}`] && person[`interests_${language}`].includes(i)));
+      (selectedFilters.roles.length === 0 || selectedFilters.roles.some(r => typeof person.role === 'string' && person.role.includes(r))) &&
+      (selectedFilters.teams.length === 0 || selectedFilters.teams.some(t => typeof person.team === 'string' && person.team.includes(t))) &&
+      (selectedFilters.specialties.length === 0 || selectedFilters.specialties.some(s => typeof person.specialty === 'string' && person.specialty.includes(s))) &&
+      (selectedFilters.interests.length === 0 || selectedFilters.interests.some(i => typeof person.interests === 'string' && person.interests.includes(i)));
     return matchesSearch && matchesFilters;
-  }).map(person => ({
-    ...person,
-    name: person[`name_${language}`] || person[`name_en`] || person[`name_ja`],
-    role: person[`role_${language}`] || person[`role_en`] || person[`role_ja`],
-    team: person[`team_${language}`] || person[`team_en`] || person[`team_ja`],
-    specialty: person[`specialty_${language}`] || person[`specialty_en`] || person[`specialty_ja`],
-    ideas: person[`ideas_${language}`] || person[`ideas_en`] || person[`ideas_ja`],
-    interests: person[`interests_${language}`] || person[`interests_en`] || person[`interests_ja`],
-    skills: person[`skills_${language}`] || person[`skills_en`] || person[`skills_ja`] || [],
-    hobbies: person[`hobbies_${language}`] || person[`hobbies_en`] || person[`hobbies_ja`] || [],
-    recentActivity: person[`recentActivity_${language}`] || person[`recentActivity_en`] || person[`recentActivity_ja`],
-    profile_url: person[`profile_url_${language}`] || person[`profile_url_en`] || person[`profile_url_ja`],
-  }));
+  });
 
   return (
     <div className="flex h-screen bg-gray-50">

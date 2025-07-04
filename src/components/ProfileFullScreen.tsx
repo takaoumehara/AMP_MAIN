@@ -25,6 +25,10 @@ interface ProfileFullScreenProps {
     concurrent_possible?: boolean | string;
     rocket_incubator?: string | boolean;
     graphai_ai_podcaster?: string | boolean;
+    summary?: string;
+    project_details?: string;
+    contributions?: string;
+    support_activities?: string;
   };
   onClose: () => void;
   onPrev: () => void;
@@ -206,6 +210,38 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
                   )}
                 </div>
               </div>
+
+              {/* Summary */}
+              {person.summary && (
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Summary</h3>
+                  <p className="text-lg text-gray-700 leading-relaxed">{person.summary}</p>
+                </div>
+              )}
+
+              {/* Project Details */}
+              {person.project_details && (
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Project Details</h3>
+                  <p className="text-lg text-gray-700 leading-relaxed">{person.project_details}</p>
+                </div>
+              )}
+
+              {/* Contributions */}
+              {person.contributions && (
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Contributions</h3>
+                  <p className="text-lg text-gray-700 leading-relaxed">{person.contributions}</p>
+                </div>
+              )}
+
+              {/* Support Activities */}
+              {person.support_activities && (
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Support Activities</h3>
+                  <p className="text-lg text-gray-700 leading-relaxed">{person.support_activities}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
