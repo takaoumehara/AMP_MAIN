@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { SearchBar } from './components/SearchBar';
 import { PeopleGrid } from './components/PeopleGrid';
@@ -323,6 +324,28 @@ const PanelTopIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-panel-top-icon lucide-panel-top" {...props}><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/></svg>
 );
 
+// AI search function using OpenAI API
+async function aiSearch(query: string): Promise<string> {
+  const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+  if (!apiKey) {
+    return 'No API key found. Please add VITE_OPENAI_API_KEY to your .env file.';
+  }
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model: 'gpt-3.5-turbo',
+      messages: [{ role: 'user', content: query }],
+      max_tokens: 256,
+    }),
+  });
+  const data = await response.json();
+  return data.choices?.[0]?.message?.content || 'No answer';
+}
+
 export function App() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [search, setSearch] = useState('');
@@ -337,6 +360,8 @@ export function App() {
   const [filterLayout, setFilterLayout] = useState<'sidebar' | 'top'>('top');
   const [showFilterMenu, setShowFilterMenu] = useState(false);
   const settingsBtnRef = useRef<HTMLButtonElement>(null);
+  const [aiResult, setAiResult] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   // Processed people data for current language
   const processedPeopleData = useMemo(() => processPeopleData(language), [language]);
@@ -431,6 +456,18 @@ export function App() {
     return () => document.removeEventListener('mousedown', handleClick);
   }, [showFilterMenu]);
 
+  async function handleAISearch() {
+    setLoading(true);
+    setAiResult(null);
+    try {
+      const result = await aiSearch(search);
+      setAiResult(result);
+    } catch (e) {
+      setAiResult('Error fetching AI response');
+    }
+    setLoading(false);
+  }
+
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar filter layout */}
@@ -484,8 +521,12 @@ export function App() {
                     value={search}
                     onChange={e => setSearch(e.target.value)}
                   />
-                  <button className="px-8 h-14 bg-blue-900 hover:bg-blue-800 text-white font-semibold text-lg rounded-xl transition-colors">
-                    Search
+                  <button
+                    className="px-8 h-14 bg-blue-900 hover:bg-blue-800 text-white font-semibold text-lg rounded-xl transition-colors"
+                    onClick={handleAISearch}
+                    disabled={loading}
+                  >
+                    {loading ? 'Searching...' : 'AI Search'}
                   </button>
                 </div>
                 {/* View switcher placeholder */}
@@ -495,6 +536,11 @@ export function App() {
                   <button className="px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">Canvas</button>
                 </div>
               </div>
+              {aiResult && (
+                <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg text-blue-900">
+                  <strong>AI Answer:</strong> {aiResult}
+                </div>
+              )}
               <div className="flex gap-2 mb-4">
                 <FilterDropdownGrid label="Role" options={filters.roles} selected={selectedFilters.roles} onChange={(v: string) => handleFilterChange('roles', v)} searchPlaceholder="Search role..." />
                 <FilterDropdownGrid label="Team" options={filters.locations} selected={selectedFilters.locations} onChange={(v: string) => handleFilterChange('locations', v)} searchPlaceholder="Search team..." />
