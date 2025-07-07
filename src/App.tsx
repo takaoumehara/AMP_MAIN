@@ -6,6 +6,7 @@ import peopleGemini from './data/people_gemini_fixed.json';
 import { ProfileFullScreen } from './components/ProfileFullScreen';
 import { Sidebar } from './components/Layout/Sidebar';
 import { Settings } from 'lucide-react';
+import { searchUsersWithAI } from './utils/aiSearch';
 
 function uniq(arr: string[]): string[] {
   return Array.from(new Set(arr.filter(Boolean)));
@@ -310,9 +311,9 @@ const FilterBar: React.FC<{
   onFilterChange: (type: FilterKey, value: string) => void;
 }> = ({ filters, selected, onFilterChange }) => (
   <div className="flex flex-wrap gap-4 mb-4 w-full">
-    <DropdownFilter label="Role" options={filters.roles} selected={selected.roles} onChange={v => onFilterChange('roles', v)} />
-    <DropdownFilter label="Team" options={filters.locations} selected={selected.locations} onChange={v => onFilterChange('locations', v)} />
-    <DropdownFilter label="Skills" options={filters.skills} selected={selected.skills} onChange={v => onFilterChange('skills', v)} />
+    <FilterDropdownGrid label="Role" options={filters.roles} selected={selected.roles} onChange={(v: string) => onFilterChange('roles', v)} searchPlaceholder="Search role..." />
+    <FilterDropdownGrid label="Team" options={filters.locations} selected={selected.locations} onChange={(v: string) => onFilterChange('locations', v)} searchPlaceholder="Search team..." />
+    <FilterDropdownGrid label="Skills" options={filters.skills} selected={selected.skills} onChange={(v: string) => onFilterChange('skills', v)} searchPlaceholder="Search skills..." />
   </div>
 );
 
@@ -323,28 +324,6 @@ const PanelLeftIcon = (props: React.SVGProps<SVGSVGElement>) => (
 const PanelTopIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-panel-top-icon lucide-panel-top" {...props}><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/></svg>
 );
-
-// AI search function using OpenAI API
-async function aiSearch(query: string): Promise<string> {
-  const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-  if (!apiKey) {
-    return 'No API key found. Please add VITE_OPENAI_API_KEY to your .env file.';
-  }
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: query }],
-      max_tokens: 256,
-    }),
-  });
-  const data = await response.json();
-  return data.choices?.[0]?.message?.content || 'No answer';
-}
 
 export function App() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -359,13 +338,61 @@ export function App() {
   const [language, setLanguage] = useState<'en' | 'ja'>('en');
   const [filterLayout, setFilterLayout] = useState<'sidebar' | 'top'>('top');
   const [showFilterMenu, setShowFilterMenu] = useState(false);
-  const settingsBtnRef = useRef<HTMLButtonElement>(null);
-  const [aiResult, setAiResult] = useState<string | null>(null);
+  const [aiResult, setAiResult] = useState<string>('');
+  const [aiLoading, setAiLoading] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [aiSearchResults, setAiSearchResults] = useState<string[]>([]);
+  const settingsBtnRef = useRef<HTMLButtonElement>(null);
 
   // Processed people data for current language
   const processedPeopleData = useMemo(() => processPeopleData(language), [language]);
   const filters = useMemo(() => extractFilters(processedPeopleData, language), [processedPeopleData, language]);
+
+  // AI search function using OpenAI API
+  const handleAISearch = async (query: string) => {
+    if (!query.trim()) {
+      setAiResult('');
+      setAiLoading(false);
+      setAiSearchResults([]);
+      return;
+    }
+
+    setAiLoading(true);
+    setAiResult('');
+    setAiSearchResults([]);
+
+    try {
+      const result = await searchUsersWithAI(query);
+      
+      if (result.error) {
+        setAiResult(`Error: ${result.error}`);
+        setAiLoading(false);
+        return;
+      }
+
+      if (result.matchingIds.length === 0) {
+        setAiResult('No matching users found.');
+        setAiLoading(false);
+        return;
+      }
+
+      // Store the matching IDs for filtering
+      setAiSearchResults(result.matchingIds);
+      
+      // Clear regular search and filters when showing AI results
+      setSearch('');
+      setSelectedFilters({ roles: [], locations: [], skills: [] });
+      
+      // Set a success message
+      setAiResult(`Found ${result.matchingIds.length} matching users`);
+      setAiLoading(false);
+      
+    } catch (error) {
+      console.error('AI search failed:', error);
+      setAiResult('AI search failed. Please try again.');
+      setAiLoading(false);
+    }
+  };
 
   const handleCardClick = useCallback((index: number) => {
     setSelectedIndex(index);
@@ -404,34 +431,68 @@ export function App() {
   // Language switcher handler
   const handleLanguageSwitch = (lang: 'en' | 'ja') => setLanguage(lang);
 
-  // Filter people by search and selected filters, and map fields by language
-  const filteredPeople = processedPeopleData.filter(person => {
-    const q = search.toLowerCase();
-    // Use language-specific fields for search
-    const matchesSearch =
-      (typeof person.name === 'string' && person.name.toLowerCase().includes(q)) ||
-      (typeof person.role === 'string' && person.role.toLowerCase().includes(q)) ||
-      (typeof person.team === 'string' && person.team.toLowerCase().includes(q)) ||
-      (typeof person.specialty === 'string' && person.specialty.toLowerCase().includes(q)) ||
-      (typeof person.ideas === 'string' && person.ideas.toLowerCase().includes(q)) ||
-      (typeof person.interests === 'string' && person.interests.toLowerCase().includes(q)) ||
-      (Array.isArray(person.skills) && person.skills.join(' ').toLowerCase().includes(q)) ||
-      (Array.isArray(person.hobbies) && person.hobbies.join(' ').toLowerCase().includes(q));
-    // Filter by selected filters (language-specific)
-    const matchesFilters =
-      (selectedFilters.roles.length === 0 || selectedFilters.roles.some(r => Array.isArray(person.roles) && person.roles.includes(r))) &&
-      (selectedFilters.locations.length === 0 || selectedFilters.locations.some(l => typeof person.team === 'string' && person.team.includes(l))) &&
-      (selectedFilters.skills.length === 0 || selectedFilters.skills.some(s => {
-        if (s === 'Misc') {
-          // Match if person has any skill not in topSkills
-          const personSkills = Array.isArray(person.skills) ? person.skills : [];
-          return personSkills.some(skill => !filters.skills.includes(skill));
-        } else {
-          return Array.isArray(person.skills) && person.skills.includes(s);
-        }
-      }));
-    return matchesSearch && matchesFilters;
-  });
+  // Update filteredPeople to handle AI search results
+  const filteredPeople = useMemo(() => {
+    let filtered = processedPeopleData;
+
+    // If we have AI search results, show only those
+    if (aiSearchResults.length > 0) {
+      filtered = filtered.filter(person =>
+        aiSearchResults.includes(String(person.id))
+      );
+      return filtered;
+    }
+
+    // Otherwise, apply regular filters
+    if (search) {
+      filtered = filtered.filter(person =>
+        person.name.toLowerCase().includes(search.toLowerCase()) ||
+        person.role.toLowerCase().includes(search.toLowerCase()) ||
+        person.skills.some(skill => skill.toLowerCase().includes(search.toLowerCase())) ||
+        person.hobbies.some(hobby => hobby.toLowerCase().includes(search.toLowerCase()))
+      );
+    }
+
+    // Apply role filter
+    if (selectedFilters.roles.length > 0) {
+      filtered = filtered.filter(person =>
+        selectedFilters.roles.some(r => Array.isArray(person.roles) && person.roles.includes(r))
+      );
+    }
+
+    // Apply location filter
+    if (selectedFilters.locations.length > 0) {
+      filtered = filtered.filter(person =>
+        selectedFilters.locations.some(l => person.team && person.team.toLowerCase().includes(l.toLowerCase()))
+      );
+    }
+
+    // Apply skills filter
+    if (selectedFilters.skills.length > 0) {
+      filtered = filtered.filter(person =>
+        selectedFilters.skills.some(s => person.skills.some(skill => skill.toLowerCase().includes(s.toLowerCase())))
+      );
+    }
+
+    return filtered;
+  }, [processedPeopleData, search, selectedFilters, aiSearchResults]);
+
+  // Clear AI search results when regular search/filters are used
+  const handleSearchChange = (newSearch: string) => {
+    setSearch(newSearch);
+    if (aiSearchResults.length > 0) {
+      setAiSearchResults([]);
+      setAiResult('');
+    }
+  };
+
+  const handleFilterChangeWithClear = (type: FilterKey, value: string) => {
+    handleFilterChange(type, value);
+    if (aiSearchResults.length > 0) {
+      setAiSearchResults([]);
+      setAiResult('');
+    }
+  };
 
   // New: Remove pill handler
   const handleRemovePill = (pill: FilterPill | { key: string }) => {
@@ -455,18 +516,6 @@ export function App() {
     if (showFilterMenu) document.addEventListener('mousedown', handleClick);
     return () => document.removeEventListener('mousedown', handleClick);
   }, [showFilterMenu]);
-
-  async function handleAISearch() {
-    setLoading(true);
-    setAiResult(null);
-    try {
-      const result = await aiSearch(search);
-      setAiResult(result);
-    } catch (e) {
-      setAiResult('Error fetching AI response');
-    }
-    setLoading(false);
-  }
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -519,14 +568,14 @@ export function App() {
                     placeholder="Ask AI about people, skill"
                     className="w-full h-14 pl-14 pr-6 text-xl font-semibold text-gray-900 placeholder-gray-400 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all outline-none"
                     value={search}
-                    onChange={e => setSearch(e.target.value)}
+                    onChange={e => handleSearchChange(e.target.value)}
                   />
                   <button
                     className="px-8 h-14 bg-blue-900 hover:bg-blue-800 text-white font-semibold text-lg rounded-xl transition-colors"
-                    onClick={handleAISearch}
-                    disabled={loading}
+                    onClick={() => handleAISearch(search)}
+                    disabled={aiLoading}
                   >
-                    {loading ? 'Searching...' : 'AI Search'}
+                    {aiLoading ? 'Searching...' : 'AI Search'}
                   </button>
                 </div>
                 {/* View switcher placeholder */}
@@ -536,16 +585,18 @@ export function App() {
                   <button className="px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">Canvas</button>
                 </div>
               </div>
+              {/* AI Search Result */}
               {aiResult && (
-                <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg text-blue-900">
-                  <strong>AI Answer:</strong> {aiResult}
+                <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                  <h3 className="font-semibold text-blue-900 mb-2">AI Search Result</h3>
+                  <p className="text-blue-800">{aiResult}</p>
                 </div>
               )}
               <div className="flex gap-2 mb-4">
-                <FilterDropdownGrid label="Role" options={filters.roles} selected={selectedFilters.roles} onChange={(v: string) => handleFilterChange('roles', v)} searchPlaceholder="Search role..." />
-                <FilterDropdownGrid label="Team" options={filters.locations} selected={selectedFilters.locations} onChange={(v: string) => handleFilterChange('locations', v)} searchPlaceholder="Search team..." />
-                <FilterDropdownGrid label="Skill" options={filters.skills} selected={selectedFilters.skills} onChange={(v: string) => handleFilterChange('skills', v)} searchPlaceholder="Search skill..." />
-                <FilterDropdownGrid label="Interest" options={filters.skills} selected={selectedFilters.skills} onChange={(v: string) => handleFilterChange('skills', v)} searchPlaceholder="Search interest..." />
+                <FilterDropdownGrid label="Role" options={filters.roles} selected={selectedFilters.roles} onChange={(v: string) => handleFilterChangeWithClear('roles', v)} searchPlaceholder="Search role..." />
+                <FilterDropdownGrid label="Team" options={filters.locations} selected={selectedFilters.locations} onChange={(v: string) => handleFilterChangeWithClear('locations', v)} searchPlaceholder="Search team..." />
+                <FilterDropdownGrid label="Skill" options={filters.skills} selected={selectedFilters.skills} onChange={(v: string) => handleFilterChangeWithClear('skills', v)} searchPlaceholder="Search skill..." />
+                <FilterDropdownGrid label="Interest" options={filters.skills} selected={selectedFilters.skills} onChange={(v: string) => handleFilterChangeWithClear('skills', v)} searchPlaceholder="Search interest..." />
               </div>
               <FilterPillsBar search={search} selectedFilters={selectedFilters} onRemove={handleRemovePill} />
             </>
@@ -553,7 +604,7 @@ export function App() {
           {/* Pills bar for sidebar layout */}
           {filterLayout === 'sidebar' && (
             <>
-              <SearchBar value={search} onChange={setSearch} />
+              <SearchBar value={search} onChange={handleSearchChange} />
               <FilterPillsBar search={search} selectedFilters={selectedFilters} onRemove={handleRemovePill} />
             </>
           )}
