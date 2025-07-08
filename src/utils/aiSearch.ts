@@ -4,54 +4,123 @@ export interface AISearchResponse {
   error?: string;
 }
 
-// Load and compress CSV data for system prompt
-async function loadCompressedCSVData(): Promise<string> {
+// Load and compress JSON data for system prompt with GitHub data
+async function loadCompressedJSONData(): Promise<string> {
   try {
-    const response = await fetch('/people_gemini_fixed.csv');
-    const csvText = await response.text();
+    const response = await fetch('/src/data/people_with_github.json');
+    const jsonData = await response.json();
     
-    // Parse CSV and extract only essential fields for search
-    const lines = csvText.split('\n');
-    const headers = lines[0].split(',');
+    // Extract participants array
+    const participants = jsonData.participants || jsonData;
     
-    // Find indices of essential fields
-    const idIndex = headers.findIndex(h => h.includes('id'));
-    const nameJaIndex = headers.findIndex(h => h.includes('name_ja'));
-    const nameEnIndex = headers.findIndex(h => h.includes('name_en'));
-    const rolesJaIndex = headers.findIndex(h => h.includes('roles_ja'));
-    const rolesEnIndex = headers.findIndex(h => h.includes('roles_en'));
-    const teamJaIndex = headers.findIndex(h => h.includes('team_ja'));
-    const teamEnIndex = headers.findIndex(h => h.includes('team_en'));
-    const specialtiesJaIndex = headers.findIndex(h => h.includes('specialties_ja'));
-    const specialtiesEnIndex = headers.findIndex(h => h.includes('specialties_en'));
-    const interestsJaIndex = headers.findIndex(h => h.includes('interests_ja'));
-    const interestsEnIndex = headers.findIndex(h => h.includes('interests_en'));
-    const ideasJaIndex = headers.findIndex(h => h.includes('ideas_ja'));
-    const ideasEnIndex = headers.findIndex(h => h.includes('ideas_en'));
-    
-    // Create compressed CSV with only essential fields
-    const compressedLines = ['id,name,roles,team,skills,interests,ideas'];
-    
-    for (let i = 1; i < lines.length; i++) {
-      const line = lines[i];
-      if (!line.trim()) continue;
+    // Create compressed data with essential fields including GitHub data
+    const compressedData = participants.map((person: any) => {
+      const nameJa = person.name?.ja || '';
+      const nameEn = person.name?.en || '';
+      const rolesJa = person.role?.map((r: any) => r.ja).join(', ') || '';
+      const rolesEn = person.role?.map((r: any) => r.en).join(', ') || '';
+      const teamJa = person.team?.ja || '';
+      const teamEn = person.team?.en || '';
+      const specialtiesJa = person.specialty?.map((s: any) => s.ja).join(', ') || '';
+      const specialtiesEn = person.specialty?.map((s: any) => s.en).join(', ') || '';
+      const interestsJa = person.interests?.map((i: any) => i.ja).join(', ') || '';
+      const interestsEn = person.interests?.map((i: any) => i.en).join(', ') || '';
+      const ideasJa = person.ideas?.map((i: any) => i.ja).join(', ') || '';
+      const ideasEn = person.ideas?.map((i: any) => i.en).join(', ') || '';
       
-      const fields = line.split(',');
-      const id = fields[idIndex] || '';
-      const name = `${fields[nameJaIndex] || ''} ${fields[nameEnIndex] || ''}`.trim();
-      const roles = `${fields[rolesJaIndex] || ''} ${fields[rolesEnIndex] || ''}`.trim();
-      const team = `${fields[teamJaIndex] || ''} ${fields[teamEnIndex] || ''}`.trim();
-      const skills = `${fields[specialtiesJaIndex] || ''} ${fields[specialtiesEnIndex] || ''}`.trim();
-      const interests = `${fields[interestsJaIndex] || ''} ${fields[interestsEnIndex] || ''}`.trim();
-      const ideas = `${fields[ideasJaIndex] || ''} ${fields[ideasEnIndex] || ''}`.trim();
+      // GitHub enhanced data
+      const githubBio = person.github_enhanced?.profile.bio || '';
+      const githubCompany = person.github_enhanced?.profile.company || '';
+      const githubLanguages = person.github_enhanced?.languages.topLanguages?.join(', ') || '';
+      const githubRepos = person.github_enhanced?.topRepos?.map((repo: any) => 
+        `${repo.name} (${repo.description || 'No description'})`
+      ).join(', ') || '';
       
-      compressedLines.push(`${id},"${name}","${roles}","${team}","${skills}","${interests}","${ideas}"`);
-    }
+      return {
+        id: person.id,
+        name: `${nameJa} ${nameEn}`.trim(),
+        roles: `${rolesJa} ${rolesEn}`.trim(),
+        team: `${teamJa} ${teamEn}`.trim(),
+        skills: `${specialtiesJa} ${specialtiesEn}`.trim(),
+        interests: `${interestsJa} ${interestsEn}`.trim(),
+        ideas: `${ideasJa} ${ideasEn}`.trim(),
+        github_bio: githubBio,
+        github_company: githubCompany,
+        github_languages: githubLanguages,
+        github_repos: githubRepos
+      };
+    });
     
-    return compressedLines.join('\n');
+    // Convert to CSV format for AI processing
+    const csvLines = ['id,name,roles,team,skills,interests,ideas,github_bio,github_company,github_languages,github_repos'];
+    
+    compressedData.forEach(person => {
+      csvLines.push([
+        person.id,
+        `"${person.name}"`,
+        `"${person.roles}"`,
+        `"${person.team}"`,
+        `"${person.skills}"`,
+        `"${person.interests}"`,
+        `"${person.ideas}"`,
+        `"${person.github_bio}"`,
+        `"${person.github_company}"`,
+        `"${person.github_languages}"`,
+        `"${person.github_repos}"`
+      ].join(','));
+    });
+    
+    return csvLines.join('\n');
   } catch (error) {
-    console.error('Failed to load CSV data:', error);
-    throw new Error('Failed to load user data');
+    console.error('Failed to load JSON data:', error);
+    // Fallback to CSV if JSON fails
+    try {
+      const response = await fetch('/people_gemini_fixed.csv');
+      const csvText = await response.text();
+      
+      // Parse CSV and extract only essential fields for search
+      const lines = csvText.split('\n');
+      const headers = lines[0].split(',');
+      
+      // Find indices of essential fields
+      const idIndex = headers.findIndex(h => h.includes('id'));
+      const nameJaIndex = headers.findIndex(h => h.includes('name_ja'));
+      const nameEnIndex = headers.findIndex(h => h.includes('name_en'));
+      const rolesJaIndex = headers.findIndex(h => h.includes('roles_ja'));
+      const rolesEnIndex = headers.findIndex(h => h.includes('roles_en'));
+      const teamJaIndex = headers.findIndex(h => h.includes('team_ja'));
+      const teamEnIndex = headers.findIndex(h => h.includes('team_en'));
+      const specialtiesJaIndex = headers.findIndex(h => h.includes('specialties_ja'));
+      const specialtiesEnIndex = headers.findIndex(h => h.includes('specialties_en'));
+      const interestsJaIndex = headers.findIndex(h => h.includes('interests_ja'));
+      const interestsEnIndex = headers.findIndex(h => h.includes('interests_en'));
+      const ideasJaIndex = headers.findIndex(h => h.includes('ideas_ja'));
+      const ideasEnIndex = headers.findIndex(h => h.includes('ideas_en'));
+      
+      // Create compressed CSV with only essential fields
+      const compressedLines = ['id,name,roles,team,skills,interests,ideas,github_bio,github_company,github_languages,github_repos'];
+      
+      for (let i = 1; i < lines.length; i++) {
+        const line = lines[i];
+        if (!line.trim()) continue;
+        
+        const fields = line.split(',');
+        const id = fields[idIndex] || '';
+        const name = `${fields[nameJaIndex] || ''} ${fields[nameEnIndex] || ''}`.trim();
+        const roles = `${fields[rolesJaIndex] || ''} ${fields[rolesEnIndex] || ''}`.trim();
+        const team = `${fields[teamJaIndex] || ''} ${fields[teamEnIndex] || ''}`.trim();
+        const skills = `${fields[specialtiesJaIndex] || ''} ${fields[specialtiesEnIndex] || ''}`.trim();
+        const interests = `${fields[interestsJaIndex] || ''} ${fields[interestsEnIndex] || ''}`.trim();
+        const ideas = `${fields[ideasJaIndex] || ''} ${fields[ideasEnIndex] || ''}`.trim();
+        
+        compressedLines.push(`${id},"${name}","${roles}","${team}","${skills}","${interests}","${ideas}","","","",""`);
+      }
+      
+      return compressedLines.join('\n');
+    } catch (csvError) {
+      console.error('Failed to load CSV data as fallback:', csvError);
+      throw new Error('Failed to load user data');
+    }
   }
 }
 
@@ -74,23 +143,33 @@ export async function searchUsersWithAI(query: string): Promise<AISearchResponse
   }
 
   try {
-    // Load compressed CSV data for system prompt
-    const csvData = await loadCompressedCSVData();
+    // Load compressed JSON data for system prompt
+    const csvData = await loadCompressedJSONData();
     
     console.log('Compressed CSV size:', csvData.length, 'characters');
     
-    const systemPrompt = `You are a search assistant. Below is CSV data with user information:
+    const systemPrompt = `You are a search assistant. Below is CSV data with user information including GitHub data:
 
 ${csvData}
 
-Search through this data based on the user's query. Look for matches in names, roles, teams, skills, interests, and ideas.
+Search through this data based on the user's query. Look for matches in:
+- Names (Japanese and English)
+- Roles and specialties
+- Teams and organizations
+- Skills and interests
+- Ideas and projects
+- GitHub bio and company
+- GitHub programming languages
+- GitHub repository names and descriptions
 
 Return ONLY a JSON array of matching user IDs. Examples:
 - Query: "designer" → ["1", "5", "12"]
-- Query: "robotics" → ["3", "8"]
+- Query: "Python developer" → ["3", "8"]
+- Query: "React" → ["2", "7", "15"]
+- Query: "machine learning" → ["4", "9"]
 - No matches → []
 
-Be flexible with matching - include partial matches and related terms.`;
+Be flexible with matching - include partial matches, related terms, and synonyms. Consider GitHub data as valuable technical information.`;
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',

@@ -1,5 +1,43 @@
 import React, { useState } from 'react';
-import { MapPin, Sparkles, Calendar } from 'lucide-react';
+import { MapPin, Sparkles, Calendar, Github, Star, Code } from 'lucide-react';
+
+interface GitHubEnhanced {
+  profile: {
+    name: string | null;
+    bio: string | null;
+    company: string | null;
+    location: string | null;
+    blog: string | null;
+    twitter_username: string | null;
+    public_repos: number;
+    followers: number;
+    following: number;
+    created_at: string;
+    updated_at: string;
+    avatar_url: string;
+    html_url: string;
+  };
+  stats: {
+    totalStars: number;
+    totalRepos: number;
+    isActive: boolean;
+    lastActive: string | null;
+  };
+  languages: {
+    topLanguages: string[];
+    languageStats: { [key: string]: number };
+  };
+  topRepos: Array<{
+    name: string;
+    description: string | null;
+    language: string | null;
+    stargazers_count: number;
+    forks_count: number;
+    html_url: string;
+    topics: string[];
+    updated_at: string;
+  }>;
+}
 
 interface ProfileCardProps {
   name: string;
@@ -11,7 +49,11 @@ interface ProfileCardProps {
   hobbies: string[];
   team: string;
   recentActivity: string;
+  github_enhanced?: GitHubEnhanced;
   onClick: () => void;
+  onTeamClick?: (teamName: string) => void;
+  onSkillClick?: (skill: string) => void;
+  onInterestClick?: (interest: string) => void;
 }
 
 // Updated color palette for skill tags - more vibrant and professional
@@ -35,13 +77,40 @@ const getSkillColor = (skill: string) => {
   return skillColors[Math.abs(hash) % skillColors.length];
 };
 
-// Generate AI-like highlights based on available data
-const generateHighlight = (person: { skills: string[], hobbies: string[], recentActivity: string, role: string }) => {
+// Generate AI-like highlights based on available data including GitHub
+const generateHighlight = (person: { skills: string[], hobbies: string[], recentActivity: string, role: string, github_enhanced?: GitHubEnhanced }) => {
+  // Priority 1: GitHub bio if available
+  if (person.github_enhanced?.profile.bio) {
+    return person.github_enhanced.profile.bio.length > 80 ? 
+      person.github_enhanced.profile.bio.substring(0, 80) + '...' : 
+      person.github_enhanced.profile.bio;
+  }
+  
+  // Priority 2: Recent activity
   if (person.recentActivity && person.recentActivity.trim()) {
     return person.recentActivity.length > 60 ? person.recentActivity.substring(0, 60) + '...' : person.recentActivity;
   }
   
-  // Generate highlights based on skills and hobbies
+  // Priority 3: GitHub activity-based highlights
+  if (person.github_enhanced) {
+    const gh = person.github_enhanced;
+    const topLang = gh.languages.topLanguages[0];
+    const topRepo = gh.topRepos[0];
+    
+    if (topRepo && topLang) {
+      return `Building ${topRepo.name} with ${topLang}`;
+    }
+    
+    if (topLang) {
+      return `Active ${topLang} developer`;
+    }
+    
+    if (gh.stats.isActive) {
+      return `Active on GitHub with ${gh.stats.totalRepos} repositories`;
+    }
+  }
+  
+  // Priority 4: Generate highlights based on skills and hobbies
   const allInterests = [...person.skills, ...person.hobbies];
   if (allInterests.length > 0) {
     const topInterest = allInterests[0];
@@ -68,7 +137,11 @@ export const ProfileCard: React.FC<ProfileCardProps> = React.memo(({
   hobbies,
   team,
   recentActivity,
+  github_enhanced,
   onClick,
+  onTeamClick,
+  onSkillClick,
+  onInterestClick,
 }) => {
   const [imageError, setImageError] = useState(false);
 
@@ -81,7 +154,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = React.memo(({
   const displayTags = allTags.slice(0, 3);
   
   // Generate highlight
-  const highlight = generateHighlight({ skills, hobbies, recentActivity, role });
+  const highlight = generateHighlight({ skills, hobbies, recentActivity, role, github_enhanced });
 
   return (
     <div 
@@ -125,24 +198,52 @@ export const ProfileCard: React.FC<ProfileCardProps> = React.memo(({
           </p>
         </div>
 
-        {/* Team label - Subtle */}
-        {team && (
-          <div className="flex items-center justify-center mb-4">
-            <div className="flex items-center gap-1 px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium text-gray-600 dark:text-gray-400 group-hover:bg-gray-200 dark:group-hover:bg-gray-600 transition-colors duration-300">
+        {/* Team label and GitHub stats */}
+        <div className="flex items-center justify-center gap-2 mb-4">
+          {team && (
+            <div 
+              className="flex items-center gap-1 px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 cursor-pointer border border-transparent hover:border-blue-300 dark:hover:border-blue-600"
+              onClick={(e) => {
+                e.stopPropagation();
+                onTeamClick?.(team);
+              }}
+            >
               <MapPin className="w-3 h-3" />
               <span className="truncate max-w-[120px]">{team}</span>
             </div>
-          </div>
-        )}
+          )}
+          
+          {/* GitHub activity indicator */}
+          {github_enhanced && (
+            <div className="flex items-center gap-1 px-2 py-1 bg-gray-900 dark:bg-gray-600 rounded-full text-xs font-medium text-white transition-colors duration-300">
+              <Github className="w-3 h-3" />
+              {github_enhanced.stats.isActive && (
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+              )}
+              <span className="text-xs">{github_enhanced.stats.totalRepos}</span>
+            </div>
+          )}
+        </div>
 
         {/* Color-coded skill tags */}
         <div className="flex flex-wrap gap-2 justify-center mb-4 min-h-[32px]">
           {displayTags.map((tag, index) => {
             const colors = getSkillColor(tag);
+            const isSkill = skills.includes(tag);
+            const isHobby = hobbies.includes(tag);
+            
             return (
               <span 
                 key={`${tag}-${index}`}
-                className={`px-3 py-1 rounded-full text-xs font-semibold border transition-all duration-300 group-hover:scale-105 group-hover:shadow-sm ${colors.bg} ${colors.text} ${colors.border}`}
+                className={`px-3 py-1 rounded-full text-xs font-semibold border transition-all duration-300 hover:scale-110 hover:shadow-md flex items-center justify-center cursor-pointer ${colors.bg} ${colors.text} ${colors.border} hover:brightness-110`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (isSkill) {
+                    onSkillClick?.(tag);
+                  } else if (isHobby) {
+                    onInterestClick?.(tag);
+                  }
+                }}
               >
                 {tag.length > 12 ? tag.substring(0, 12) + '...' : tag}
               </span>

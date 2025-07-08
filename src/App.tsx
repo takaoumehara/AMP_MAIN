@@ -10,13 +10,56 @@ import { SettingsDropdown } from './components/SettingsDropdown';
 import { TopFilter } from './components/TopFilter';
 import { BlurFade, Sparkles } from './components/ui';
 import { Sparkles as SparklesIcon } from 'lucide-react';
-import peopleGemini from './data/people_gemini_fixed.json';
+import peopleGemini from './data/people_with_github.json';
 
 function uniq(arr: string[]): string[] {
   return Array.from(new Set(arr.filter(Boolean)));
 }
 
 export type FilterKey = 'roles' | 'locations' | 'skills' | 'projects' | 'interests';
+
+// GitHub enhanced data types
+interface GitHubProfile {
+  name: string | null;
+  bio: string | null;
+  company: string | null;
+  location: string | null;
+  blog: string | null;
+  twitter_username: string | null;
+  public_repos: number;
+  followers: number;
+  following: number;
+  created_at: string;
+  updated_at: string;
+  avatar_url: string;
+  html_url: string;
+}
+
+interface GitHubRepo {
+  name: string;
+  description: string | null;
+  language: string | null;
+  stargazers_count: number;
+  forks_count: number;
+  html_url: string;
+  topics: string[];
+  updated_at: string;
+}
+
+interface GitHubEnhanced {
+  profile: GitHubProfile;
+  stats: {
+    totalStars: number;
+    totalRepos: number;
+    isActive: boolean;
+    lastActive: string | null;
+  };
+  languages: {
+    topLanguages: string[];
+    languageStats: { [key: string]: number };
+  };
+  topRepos: GitHubRepo[];
+}
 
 // Helper to flatten array of {ja, en} to string or array
 function flattenLangArray(arr: any[], lang: 'en' | 'ja', asArray = false) {
@@ -322,7 +365,16 @@ function processPeopleData(lang: 'en' | 'ja') {
     const avatar_color = teamColor;
     const profileImage = person.profileImage ? person.profileImage : (github_account ? `https://github.com/${github_account}.png` : null);
     
-    return {
+    // Process GitHub enhanced data
+    const githubEnhanced = person.github_enhanced as GitHubEnhanced | undefined;
+    
+    // Merge GitHub languages with existing skills
+    const githubLanguages = githubEnhanced?.languages.topLanguages || [];
+    const mergedSkills = [...skills, ...githubLanguages].map(skill => normalizeSkill(String(skill), lang));
+    const uniqueSkills = Array.from(new Set(mergedSkills));
+    
+    // Create enhanced profile with GitHub data
+    const enhancedProfile = {
       id: person.id,
       name: String(name),
       role: String(role),
@@ -330,7 +382,7 @@ function processPeopleData(lang: 'en' | 'ja') {
       avatar_initials: String(avatar_initials),
       avatar_color: String(avatar_color),
       profileImage,
-      skills: Array.isArray(skills) ? skills.map(skill => normalizeSkill(String(skill), lang)) : [],
+      skills: uniqueSkills,
       hobbies: Array.isArray(hobbies) ? hobbies.map(hobby => normalizeSkill(String(hobby), lang)) : [],
       recentActivity: String(recentActivity),
       profile_url: profile_url || '',
@@ -345,8 +397,13 @@ function processPeopleData(lang: 'en' | 'ja') {
       summary: person.summary ? flattenLangObj(person.summary, lang) : undefined,
       project_details: person.project_details ? flattenLangObj(person.project_details, lang) : undefined,
       contributions: person.contributions ? flattenLangObj(person.contributions, lang) : undefined,
-      support_activities: person.support_activities ? flattenLangObj(person.support_activities, lang) : undefined
+      support_activities: person.support_activities ? flattenLangObj(person.support_activities, lang) : undefined,
+      
+      // GitHub enhanced data
+      github_enhanced: githubEnhanced
     };
+    
+    return enhancedProfile;
   });
   // Debug: Log roles for each person
   console.log('People roles:', people.map(p => ({ id: p.id, name: p.name, roles: p.roles })));
@@ -506,7 +563,7 @@ const FilterPillsBar: React.FC<FilterPillsBarProps> = ({
     <div className="mb-6">
       <div className="flex flex-wrap gap-2 mb-2">
         {pills.map(pill => (
-          <span key={pill.key} className="inline-flex items-center gap-2 px-3 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-lg text-sm border border-blue-200 dark:border-blue-700">
+          <span key={pill.key} className="inline-flex items-center justify-center gap-2 px-3 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-lg text-sm border border-blue-200 dark:border-blue-700">
             <span className="font-medium">{getCategoryName(pill.category)}:</span>
             <span className="max-w-32 truncate">{pill.value}</span>
             <button 
@@ -521,7 +578,7 @@ const FilterPillsBar: React.FC<FilterPillsBarProps> = ({
         {pills.length > 1 && (
           <button 
             onClick={() => onRemove({ key: 'clearAll' })} 
-            className="px-3 py-2 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-lg text-sm hover:bg-gray-200 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-600 transition-colors"
+            className="flex items-center justify-center px-3 py-2 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-lg text-sm hover:bg-gray-200 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-600 transition-colors"
           >
             Clear All
           </button>
@@ -549,7 +606,7 @@ const FilterPillsBar: React.FC<FilterPillsBarProps> = ({
                 <button
                   key={skill}
                   onClick={() => onMiscSkillToggle?.(skill)}
-                  className="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-xs hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                  className="inline-flex items-center justify-center gap-1 px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-xs hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                 >
                   <span className="max-w-24 truncate">{skill}</span>
                   <span className="text-gray-500 dark:text-gray-400">×</span>
@@ -625,6 +682,33 @@ function AppContent() {
       setAiSearchResults([]);
       setIsAISearchActive(false);
     }
+  };
+
+  // Handler for team name clicks
+  const handleTeamClick = (teamName: string) => {
+    handleFilterChange('locations', teamName);
+  };
+
+  // Handler for skill/interest pill clicks
+  const handleSkillClick = (skill: string) => {
+    handleFilterChange('skills', skill);
+  };
+
+  const handleInterestClick = (interest: string) => {
+    handleFilterChange('interests', interest);
+  };
+
+  // Function to find related people by skill or interest
+  const findRelatedPeople = (skill: string, currentPersonId: number, type: 'skill' | 'interest') => {
+    return processedPeopleData.filter(person => {
+      if (person.id === currentPersonId) return false; // Exclude current person
+      
+      if (type === 'skill') {
+        return person.skills.some(s => s.toLowerCase() === skill.toLowerCase());
+      } else {
+        return person.hobbies.some(h => h.toLowerCase() === skill.toLowerCase());
+      }
+    }).slice(0, 4); // Limit to 4 people
   };
   
   const handleMiscSkillToggle = (skill: string) => {
@@ -868,6 +952,9 @@ function AppContent() {
                   <PeopleGrid 
                     people={filteredPeople} 
                     onCardClick={handleCardClick}
+                    onTeamClick={handleTeamClick}
+                    onSkillClick={handleSkillClick}
+                    onInterestClick={handleInterestClick}
                   />
                 </BlurFade>
               </div>
@@ -940,6 +1027,9 @@ function AppContent() {
                 <PeopleGrid 
                   people={filteredPeople} 
                   onCardClick={handleCardClick}
+                  onTeamClick={handleTeamClick}
+                  onSkillClick={handleSkillClick}
+                  onInterestClick={handleInterestClick}
                 />
               </BlurFade>
             </div>
@@ -968,7 +1058,10 @@ function AppContent() {
             hasNext={selectedIndex < filteredPeople.length - 1}
             onFullPage={handleFullPage}
             showFullPage={showFullPage}
-
+            onTeamClick={handleTeamClick}
+            onSkillClick={handleSkillClick}
+            onInterestClick={handleInterestClick}
+            findRelatedPeople={findRelatedPeople}
           />
         )}
       </div>
