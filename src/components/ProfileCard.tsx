@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { MessageCircleIcon, UserPlusIcon } from 'lucide-react';
+import { Sparkles } from './ui/sparkles';
 
 interface ProfileCardProps {
   name: string;
@@ -69,38 +70,49 @@ export const ProfileCard = ({
   return (
     <div 
       ref={cardRef} 
-      className={`relative bg-white rounded-xl border border-gray-200 p-4 transition-all duration-300 transform-gpu shadow-md hover:shadow-xl`}
+      className={`relative bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-gray-600 p-4 transition-all duration-300 transform-gpu shadow-md hover:shadow-xl hover:scale-105 group`}
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="flex flex-col items-center justify-center mb-2">
+      {/* Sparkles effect on hover */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <Sparkles
+          className="absolute inset-0 pointer-events-none"
+          color="#3B82F6"
+          count={15}
+          speed="fast"
+          size="small"
+        />
+      </div>
+      
+      <div className="flex flex-col items-center justify-center mb-2 relative z-10">
         <div className="relative mb-2">
           {profileImage ? (
             <img 
               src={profileImage} 
               alt={name} 
-              className="w-20 h-20 rounded-full object-cover border-2 border-gray-200 shadow-sm" 
+              className="w-20 h-20 rounded-full object-cover border-2 border-gray-200 dark:border-gray-500 shadow-sm transition-transform duration-300 group-hover:scale-110" 
             />
           ) : (
             <div 
-              className="w-20 h-20 rounded-full flex items-center justify-center bg-gray-300"
+              className="w-20 h-20 rounded-full flex items-center justify-center bg-gray-300 transition-transform duration-300 group-hover:scale-110"
               style={{ background: avatar_color }}
             >
               <span className="text-white text-2xl font-bold select-none">{avatar_initials}</span>
             </div>
           )}
         </div>
-        <h3 className="font-bold text-lg text-gray-900 text-center leading-tight">{name}</h3>
-        <p className="text-base font-semibold text-blue-700 text-center leading-tight mb-1">{role}</p>
-        {team && <p className="text-xs text-gray-500 text-center truncate max-w-[120px]">{team}</p>}
+        <h3 className="font-bold text-lg text-gray-900 dark:text-gray-100 text-center leading-tight">{name}</h3>
+        <p className="text-base font-semibold text-blue-700 dark:text-blue-400 text-center leading-tight mb-1">{role}</p>
+        {team && <p className="text-xs text-gray-500 dark:text-gray-400 text-center truncate max-w-[120px]">{team}</p>}
       </div>
-      <div className="flex flex-wrap gap-2 justify-center mt-2">
+      <div className="flex flex-wrap gap-2 justify-center mt-2 relative z-10">
         {skills && skills.slice(0, 2).map(skill => (
           <span 
             key={skill} 
-            className="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-md font-medium"
+            className="px-2 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs rounded-md font-medium transition-colors duration-200 group-hover:bg-blue-100 dark:group-hover:bg-blue-800/50"
           >
             {skill}
           </span>

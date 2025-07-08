@@ -7,6 +7,9 @@ import { ProfileFullScreen } from './components/ProfileFullScreen';
 import { Sidebar } from './components/Layout/Sidebar';
 import { Settings } from 'lucide-react';
 import { searchUsersWithAI } from './utils/aiSearch';
+import { ThemeProvider } from './components/theme-provider';
+import { ModeToggle } from './components/mode-toggle';
+import { BlurFade, ShimmerButton, Sparkles } from './components/ui';
 
 function uniq(arr: string[]): string[] {
   return Array.from(new Set(arr.filter(Boolean)));
@@ -52,6 +55,42 @@ const teamColors: { [key: string]: string } = {
   'default': '#9E9E9E'
 };
 
+// Helper to normalize skill names for consistency
+function normalizeSkill(skill: string): string {
+  if (!skill) return skill;
+  
+  const normalized = skill.trim();
+  
+  // Common skill normalizations
+  const skillMap: { [key: string]: string } = {
+    'JS': 'JavaScript',
+    'TS': 'TypeScript',
+    'ML': 'Machine Learning',
+    'NLP': 'Natural Language Processing',
+    'DS': 'Data Science',
+    'AI': 'Artificial Intelligence',
+    'UI': 'User Interface',
+    'UX': 'User Experience',
+    'API': 'API Development',
+    'DB': 'Database',
+    'DevOps': 'DevOps',
+    'QA': 'Quality Assurance',
+    'PM': 'Product Management',
+    'PR': 'Public Relations',
+    'sns Marketing': 'Social Media Marketing',
+    'SNS Marketing': 'Social Media Marketing',
+    'フロントエンド': 'Frontend',
+    'バックエンド': 'Backend',
+    'フルスタック': 'Full Stack',
+    'ゲーム開発': 'Game Development',
+    'ロボティクス': 'Robotics',
+    'データサイエンス': 'Data Science',
+    'エンジニア': 'Engineering'
+  };
+  
+  return skillMap[normalized] || normalized;
+}
+
 // Helper to normalize and split roles
 function normalizeRoles(rawRoles: any[], lang: 'en' | 'ja'): string[] {
   const roleSet = new Set<string>();
@@ -59,20 +98,66 @@ function normalizeRoles(rawRoles: any[], lang: 'en' | 'ja'): string[] {
     if (!role) return;
     const val = typeof role === 'string' ? role : role[lang];
     if (!val) return;
-    // Split by slash or comma
-    val.split(/[/,&]/).forEach((part: string) => {
+    // Split by slash, comma, or ampersand
+    val.split(/[/,&，／]/).forEach((part: string) => {
       let r = part.trim();
-      // Merge Developer into Engineer
-      if (/developer/i.test(r)) r = 'Engineer';
-      // Normalize PM/Engineer, etc.
-      if (/^pm$/i.test(r)) r = 'PM';
-      if (/^pr(\s*\/\s*public relations)?$/i.test(r)) r = 'PR';
-      if (/^bizdev$/i.test(r)) r = 'Bizdev';
-      if (/^planning(\s*\/\s*design)?$/i.test(r)) r = 'Planning/Design';
+      
+      // Normalize common role variations
+      if (/^developer$/i.test(r)) r = 'Engineer';
+      if (/^dev$/i.test(r)) r = 'Engineer';
+      if (/engineer\/developer/i.test(r)) r = 'Engineer';
+      if (/developer\/engineer/i.test(r)) r = 'Engineer';
+      
+      // Normalize PM variations
+      if (/^pm$/i.test(r)) r = 'Product Manager';
+      if (/^product\s*manager$/i.test(r)) r = 'Product Manager';
+      
+      // Normalize PdM to Product Manager
+      if (/^pdm$/i.test(r)) r = 'Product Manager';
+      if (/^product\s*data\s*management$/i.test(r)) r = 'Product Manager';
+      
+      // Normalize PR variations
+      if (/^pr$/i.test(r)) r = 'Public Relations';
+      if (/^pr\s*\/\s*public\s*relations$/i.test(r)) r = 'Public Relations';
+      if (/^広報$/i.test(r)) r = 'Public Relations';
+      
+      // Normalize Business Development
+      if (/^bizdev$/i.test(r)) r = 'Business Development';
+      if (/^biz\s*dev$/i.test(r)) r = 'Business Development';
+      
+      // Handle Design/Designer consistency
+      if (/^design$/i.test(r)) r = 'Designer';
+      if (/^designer$/i.test(r)) r = 'Designer';
+      
+      // Split Planning/Design into separate roles
+      if (/^planning\s*\/\s*design$/i.test(r)) {
+        roleSet.add('Planning');
+        roleSet.add('Designer');
+        return;
+      }
+      if (/^planning(\s*\/\s*design)?$/i.test(r)) r = 'Planning';
+      if (/^企画\s*\/\s*デザイン$/i.test(r)) {
+        roleSet.add('Planning');
+        roleSet.add('Designer');
+        return;
+      }
+      if (/^企画兼開発$/i.test(r)) {
+        roleSet.add('Planning');
+        roleSet.add('Engineer');
+        return;
+      }
+      if (/^企画$/i.test(r)) r = 'Planning';
+      
+      // Normalize other roles
+      if (/^founder$/i.test(r)) r = 'Founder';
+      if (/^creator$/i.test(r)) r = 'Creator';
+      if (/^営業$/i.test(r)) r = 'Sales';
+      if (/^フルスタック$/i.test(r)) r = 'Full Stack Engineer';
+      
       if (r) roleSet.add(r);
     });
   });
-  return Array.from(roleSet);
+  return Array.from(roleSet).sort();
 }
 
 // Helper to truncate team names
@@ -103,6 +188,7 @@ function processPeopleData(lang: 'en' | 'ja') {
     const teamColor = teamColors[team] || teamColors.default;
     const avatar_color = teamColor;
     const profileImage = person.profileImage ? person.profileImage : (github_account ? `https://github.com/${github_account}.png` : null);
+    
     return {
       id: person.id,
       name: String(name),
@@ -111,8 +197,8 @@ function processPeopleData(lang: 'en' | 'ja') {
       avatar_initials: String(avatar_initials),
       avatar_color: String(avatar_color),
       profileImage,
-      skills: Array.isArray(skills) ? skills.map(String) : [],
-      hobbies: Array.isArray(hobbies) ? hobbies.map(String) : [],
+      skills: Array.isArray(skills) ? skills.map(skill => normalizeSkill(String(skill))) : [],
+      hobbies: Array.isArray(hobbies) ? hobbies.map(hobby => normalizeSkill(String(hobby))) : [],
       recentActivity: String(recentActivity),
       profile_url: profile_url || '',
       github_account: github_account || '',
@@ -161,23 +247,34 @@ function extractFilters(people: any[], lang: 'en' | 'ja'): Filters {
   const skillCounts: Record<string, number> = {};
   allSkills.forEach(skill => {
     if (!skill) return;
-    skillCounts[skill] = (skillCounts[skill] || 0) + 1;
+    const normalizedSkill = normalizeSkill(skill);
+    skillCounts[normalizedSkill] = (skillCounts[normalizedSkill] || 0) + 1;
   });
+  
   // Sort skills by frequency, descending
   const sortedSkills = Object.entries(skillCounts)
     .sort((a, b) => b[1] - a[1])
     .map(([skill]) => skill);
-  // Take top 12-15
-  const TOP_N = 14;
+  
+  // Take top skills and create Misc category for the rest
+  const TOP_N = 12;
   const topSkills = sortedSkills.slice(0, TOP_N);
   const miscSkills = sortedSkills.slice(TOP_N);
-  const skills = topSkills.length < sortedSkills.length ? [...topSkills, 'Misc'] : topSkills;
+  
+  // Store misc skills globally for filtering
+  (window as any).miscSkills = miscSkills;
+  
+  // Add Misc category if there are remaining skills
+  const skills = miscSkills.length > 0 ? [...topSkills, 'Misc'] : topSkills;
 
   // Normalize and deduplicate roles
   const allRawRoles = peopleGemini.participants.flatMap((p: any) => Array.isArray(p.role) ? p.role : (p.role ? [p.role] : []));
   const roles = normalizeRoles(allRawRoles, lang);
-  // Debug: Log filter roles
+  
+  // Debug: Log filter information
   console.log('Filter dropdown roles:', roles);
+  console.log('Top skills:', topSkills);
+  console.log('Misc skills count:', miscSkills.length);
 
   return {
     roles,
@@ -199,133 +296,76 @@ interface FilterPillsBarProps {
 }
 const FilterPillsBar: React.FC<FilterPillsBarProps> = ({ search, selectedFilters, onRemove }) => {
   const pills: FilterPill[] = [];
-  if (search) pills.push({ category: 'Search', value: search, key: 'search' });
-  (Object.entries(selectedFilters) as [keyof Filters, string[]][]).forEach(([cat, arr]) => {
-    arr.forEach((val: string) => {
-      pills.push({ category: cat.charAt(0).toUpperCase() + cat.slice(1), value: val, key: `${cat}:${val}` });
+  
+  // Add search pill
+  if (search) {
+    pills.push({ category: 'Search', value: search, key: 'search' });
+  }
+  
+  // Add filter pills
+  Object.entries(selectedFilters).forEach(([category, values]: [string, string[]]) => {
+    values.forEach((value: string) => {
+      pills.push({ category, value, key: `${category}:${value}` });
     });
   });
+  
   if (pills.length === 0) return null;
+  
   return (
-    <div className="flex flex-wrap gap-2 mb-4 items-center">
+    <div className="flex flex-wrap gap-2 mb-6">
       {pills.map(pill => (
-        <span key={pill.key} className="flex items-center bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold animate-fade-in">
-          <span className="mr-2">{pill.category}: {pill.value}</span>
-          <button
-            className="ml-1 rounded-full hover:bg-blue-200 transition-colors p-1"
-            onClick={() => onRemove(pill)}
-            aria-label="Remove filter"
+        <span key={pill.key} className="inline-flex items-center gap-2 px-3 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-lg text-sm border border-blue-200 dark:border-blue-700">
+          <span className="font-medium capitalize">{pill.category}:</span>
+          <span className="max-w-32 truncate">{pill.value}</span>
+          <button 
+            onClick={() => onRemove(pill)} 
+            className="ml-1 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100 hover:bg-blue-200 dark:hover:bg-blue-800 rounded-full p-1 transition-colors"
+            aria-label={`Remove ${pill.category} filter`}
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            ×
           </button>
         </span>
       ))}
-      <button
-        className="ml-2 text-xs text-blue-600 hover:underline"
-        onClick={() => onRemove({ key: 'clearAll' })}
-      >
-        Clear All
-      </button>
-    </div>
-  );
-};
-
-// Add new FilterDropdownGrid component for modern UX
-const FilterDropdownGrid = ({
-  label,
-  options,
-  selected,
-  onChange,
-  searchPlaceholder
-}: {
-  label: string;
-  options: string[];
-  selected: string[];
-  onChange: (value: string) => void;
-  searchPlaceholder: string;
-}) => {
-  const [open, setOpen] = useState(false);
-  const [search, setSearch] = useState('');
-  const btnRef = useRef<HTMLButtonElement>(null);
-  const filteredOptions = options.filter(opt => opt.toLowerCase().includes(search.toLowerCase()));
-  // Close dropdown on outside click
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (btnRef.current && !btnRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    if (open) document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, [open]);
-  return (
-    <div className="relative">
-      <button
-        ref={btnRef}
-        className={`flex items-center gap-2 px-5 py-2 rounded-lg border text-base font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-200 min-w-[140px] ${open || selected.length > 0 ? 'bg-blue-900 text-white border-blue-900' : 'bg-white border-gray-300 text-gray-700 hover:bg-blue-50'}`}
-        onClick={() => setOpen(o => !o)}
-        type="button"
-        aria-haspopup="listbox"
-        aria-expanded={open}
-      >
-        {label}
-        {selected.length > 0 && (
-          <span className="ml-2 bg-white/20 rounded px-2 py-0.5 text-xs font-semibold">{selected.length}</span>
-        )}
-        <svg className={`w-4 h-4 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
-      </button>
-      {open && (
-        <div className="absolute left-0 mt-2 z-30 bg-white border border-gray-200 rounded-xl shadow-lg min-w-[320px] max-w-[420px] w-max animate-fade-in p-4">
-          <input
-            type="text"
-            placeholder={searchPlaceholder}
-            className="w-full mb-3 px-4 py-2 border border-gray-200 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-100"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-          />
-          <div className="grid grid-cols-3 gap-2">
-            {filteredOptions.map(option => (
-              <button
-                key={option}
-                className={`flex items-center justify-between px-4 py-2 rounded-lg border text-base font-medium transition-colors ${selected.includes(option) ? 'bg-blue-50 border-blue-500 text-blue-700' : 'bg-white border-gray-200 text-gray-800 hover:bg-blue-50'}`}
-                onClick={() => onChange(option)}
-                type="button"
-              >
-                {option}
-                {selected.includes(option) && (
-                  <svg className="w-4 h-4 ml-2 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
+      {pills.length > 1 && (
+        <button 
+          onClick={() => onRemove({ key: 'clearAll' })} 
+          className="px-3 py-2 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-lg text-sm hover:bg-gray-200 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-600 transition-colors"
+        >
+          Clear All
+        </button>
       )}
     </div>
   );
 };
 
-// Replace FilterBar in top layout with new modern filter bar
 const FilterBar: React.FC<{
   filters: Filters;
   selected: Filters;
   onFilterChange: (type: FilterKey, value: string) => void;
 }> = ({ filters, selected, onFilterChange }) => (
-  <div className="flex flex-wrap gap-4 mb-4 w-full">
-    <FilterDropdownGrid label="Role" options={filters.roles} selected={selected.roles} onChange={(v: string) => onFilterChange('roles', v)} searchPlaceholder="Search role..." />
-    <FilterDropdownGrid label="Team" options={filters.locations} selected={selected.locations} onChange={(v: string) => onFilterChange('locations', v)} searchPlaceholder="Search team..." />
-    <FilterDropdownGrid label="Skills" options={filters.skills} selected={selected.skills} onChange={(v: string) => onFilterChange('skills', v)} searchPlaceholder="Search skills..." />
+  <div className="flex gap-4 mb-4">
+    {Object.entries(filters).map(([key, options]: [string, string[]]) => (
+      <div key={key} className="flex flex-wrap gap-2">
+        <span className="font-semibold text-gray-700 capitalize">{key}:</span>
+        {options.map((option: string) => (
+          <button
+            key={option}
+            onClick={() => onFilterChange(key as FilterKey, option)}
+            className={`px-3 py-1 rounded-full text-sm transition-colors ${
+              (selected as any)[key].includes(option)
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-blue-100'
+            }`}
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+    ))}
   </div>
 );
 
-// SVG icon components for filter layout
-const PanelLeftIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-panel-left-icon lucide-panel-left" {...props}><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>
-);
-const PanelTopIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-panel-top-icon lucide-panel-top" {...props}><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/></svg>
-);
-
-export function App() {
+function AppContent() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [search, setSearch] = useState('');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -336,13 +376,10 @@ export function App() {
     skills: [],
   });
   const [language, setLanguage] = useState<'en' | 'ja'>('en');
-  const [filterLayout, setFilterLayout] = useState<'sidebar' | 'top'>('top');
-  const [showFilterMenu, setShowFilterMenu] = useState(false);
   const [aiResult, setAiResult] = useState<string>('');
   const [aiLoading, setAiLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [aiSearchResults, setAiSearchResults] = useState<string[]>([]);
-  const settingsBtnRef = useRef<HTMLButtonElement>(null);
 
   // Processed people data for current language
   const processedPeopleData = useMemo(() => processPeopleData(language), [language]);
@@ -445,12 +482,37 @@ export function App() {
 
     // Otherwise, apply regular filters
     if (search) {
-      filtered = filtered.filter(person =>
-        person.name.toLowerCase().includes(search.toLowerCase()) ||
-        person.role.toLowerCase().includes(search.toLowerCase()) ||
-        person.skills.some(skill => skill.toLowerCase().includes(search.toLowerCase())) ||
-        person.hobbies.some(hobby => hobby.toLowerCase().includes(search.toLowerCase()))
-      );
+      const searchLower = search.toLowerCase();
+      filtered = filtered.filter(person => {
+        // Search in name
+        const nameMatch = person.name.toLowerCase().includes(searchLower);
+        
+        // Search in role (display role)
+        const roleMatch = person.role.toLowerCase().includes(searchLower);
+        
+        // Search in normalized roles array
+        const rolesMatch = Array.isArray(person.roles) && 
+          person.roles.some(role => role.toLowerCase().includes(searchLower));
+        
+        // Search in skills
+        const skillsMatch = person.skills.some(skill => 
+          skill.toLowerCase().includes(searchLower));
+        
+        // Search in hobbies
+        const hobbiesMatch = person.hobbies.some(hobby => 
+          hobby.toLowerCase().includes(searchLower));
+        
+        // Search in team
+        const teamMatch = person.team.toLowerCase().includes(searchLower);
+        
+        // Search in specialty, ideas, interests
+        const specialtyMatch = person.specialty.toLowerCase().includes(searchLower);
+        const ideasMatch = person.ideas.toLowerCase().includes(searchLower);
+        const interestsMatch = person.interests.toLowerCase().includes(searchLower);
+        
+        return nameMatch || roleMatch || rolesMatch || skillsMatch || hobbiesMatch || 
+               teamMatch || specialtyMatch || ideasMatch || interestsMatch;
+      });
     }
 
     // Apply role filter
@@ -469,9 +531,20 @@ export function App() {
 
     // Apply skills filter
     if (selectedFilters.skills.length > 0) {
-      filtered = filtered.filter(person =>
-        selectedFilters.skills.some(s => person.skills.some(skill => skill.toLowerCase().includes(s.toLowerCase())))
-      );
+      filtered = filtered.filter(person => {
+        return selectedFilters.skills.some(selectedSkill => {
+          if (selectedSkill === 'Misc') {
+            // For Misc, check if person has any skills that are in the misc skills list
+            const miscSkills = (window as any).miscSkills || [];
+            return person.skills.some(skill => miscSkills.includes(skill)) ||
+                   person.hobbies.some(hobby => miscSkills.includes(hobby));
+          } else {
+            // For regular skills, check if person has this skill
+            return person.skills.some(skill => skill.toLowerCase().includes(selectedSkill.toLowerCase())) ||
+                   person.hobbies.some(hobby => hobby.toLowerCase().includes(selectedSkill.toLowerCase()));
+          }
+        });
+      });
     }
 
     return filtered;
@@ -480,14 +553,6 @@ export function App() {
   // Clear AI search results when regular search/filters are used
   const handleSearchChange = (newSearch: string) => {
     setSearch(newSearch);
-    if (aiSearchResults.length > 0) {
-      setAiSearchResults([]);
-      setAiResult('');
-    }
-  };
-
-  const handleFilterChangeWithClear = (type: FilterKey, value: string) => {
-    handleFilterChange(type, value);
     if (aiSearchResults.length > 0) {
       setAiSearchResults([]);
       setAiResult('');
@@ -506,127 +571,83 @@ export function App() {
     }
   };
 
-  // Close dropdown on outside click
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (settingsBtnRef.current && !settingsBtnRef.current.contains(e.target as Node)) {
-        setShowFilterMenu(false);
-      }
-    }
-    if (showFilterMenu) document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, [showFilterMenu]);
-
   return (
-    <div className="flex h-screen bg-gray-50">
-      {/* Sidebar filter layout */}
-      {filterLayout === 'sidebar' && (
-        <Sidebar
-          collapsed={sidebarCollapsed}
-          onToggle={handleSidebarToggle}
-          filters={filters}
-          selected={selectedFilters}
-          onFilterChange={handleFilterChange}
-        />
-      )}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="p-6 pb-0">
-          <div className="flex items-center justify-between mb-4">
-            <h1 className="text-3xl font-bold text-gray-900">Discover</h1>
-            {/* Filter layout toggle and language switcher */}
-            <div className="flex gap-4 items-center relative">
-              <div className="flex items-center gap-2">
-                <span className="text-base font-medium text-gray-700">Filter:</span>
-                <button
-                  onClick={() => setFilterLayout('top')}
-                  className={`p-2 rounded-full border transition-colors ${filterLayout === 'top' ? 'bg-blue-100 border-blue-500 text-blue-700' : 'bg-white border-gray-300 text-gray-700 hover:bg-blue-50'}`}
-                  title="Filters above the results"
-                  aria-label="Show filters at the top"
-                >
-                  <PanelTopIcon />
-                </button>
-                <button
-                  onClick={() => setFilterLayout('sidebar')}
-                  className={`p-2 rounded-full border transition-colors ${filterLayout === 'sidebar' ? 'bg-blue-100 border-blue-500 text-blue-700' : 'bg-white border-gray-300 text-gray-700 hover:bg-blue-50'}`}
-                  title="Filters in the left panel"
-                  aria-label="Show filters in the sidebar"
-                >
-                  <PanelLeftIcon />
-                </button>
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-foreground relative">
+        {/* Simple gradient background */}
+        <div className="fixed inset-0 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-950 dark:to-slate-950 z-0"></div>
+        
+        <div className="flex h-screen relative z-10">
+          {/* Sidebar filter layout */}
+          <Sidebar
+            collapsed={sidebarCollapsed}
+            onToggle={handleSidebarToggle}
+            filters={filters}
+            selected={selectedFilters}
+            onFilterChange={handleFilterChange}
+            peopleData={processedPeopleData}
+          />
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <div className="p-6 pb-4">
+              <div className="flex items-center justify-between mb-4">
+                <BlurFade delay={0.1}>
+                  <Sparkles className="inline-block">
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+                      Discover Amazing People
+                    </h1>
+                  </Sparkles>
+                </BlurFade>
+                {/* Language switcher and theme toggle */}
+                <BlurFade delay={0.2}>
+                  <div className="flex gap-4 items-center">
+                    <div className="relative">
+                      <select 
+                        value={language}
+                        onChange={(e) => handleLanguageSwitch(e.target.value as 'en' | 'ja')}
+                        className="px-3 py-2 text-sm bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/50 transition-all outline-none cursor-pointer"
+                      >
+                        <option value="en">English</option>
+                        <option value="ja">日本語</option>
+                      </select>
+                    </div>
+                    <ModeToggle />
+                  </div>
+                </BlurFade>
               </div>
-              <button onClick={() => handleLanguageSwitch('en')} className={`px-3 py-1 rounded ${language === 'en' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'}`}>EN</button>
-              <button onClick={() => handleLanguageSwitch('ja')} className={`px-3 py-1 rounded ${language === 'ja' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'}`}>JA</button>
+              {/* Search bar and filter pills */}
+              <BlurFade delay={0.3}>
+                <SearchBar value={search} onChange={handleSearchChange} />
+              </BlurFade>
+              <BlurFade delay={0.4}>
+                <FilterPillsBar search={search} selectedFilters={selectedFilters} onRemove={handleRemovePill} />
+              </BlurFade>
+            </div>
+            <div className="flex-1 overflow-y-auto px-6 pb-6 pt-2">
+              <BlurFade delay={0.5}>
+                <PeopleGrid onCardClick={handleCardClick} people={filteredPeople} language={language} />
+              </BlurFade>
             </div>
           </div>
-          {/* Top filter layout */}
-          {filterLayout === 'top' && (
-            <>
-              <div className="flex gap-4 mb-6">
-                <div className="flex-1 flex items-center gap-2">
-                  <input
-                    type="text"
-                    placeholder="Ask AI about people, skill"
-                    className="w-full h-14 pl-14 pr-6 text-xl font-semibold text-gray-900 placeholder-gray-400 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all outline-none"
-                    value={search}
-                    onChange={e => handleSearchChange(e.target.value)}
-                  />
-                  <button
-                    className="px-8 h-14 bg-blue-900 hover:bg-blue-800 text-white font-semibold text-lg rounded-xl transition-colors"
-                    onClick={() => handleAISearch(search)}
-                    disabled={aiLoading}
-                  >
-                    {aiLoading ? 'Searching...' : 'AI Search'}
-                  </button>
-                </div>
-                {/* View switcher placeholder */}
-                <div className="flex gap-2 items-center bg-white border border-gray-200 rounded-xl px-2 h-14">
-                  <button className="px-3 py-2 rounded-lg font-semibold text-blue-900 bg-blue-100">Grid</button>
-                  <button className="px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">List</button>
-                  <button className="px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">Canvas</button>
-                </div>
-              </div>
-              {/* AI Search Result */}
-              {aiResult && (
-                <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                  <h3 className="font-semibold text-blue-900 mb-2">AI Search Result</h3>
-                  <p className="text-blue-800">{aiResult}</p>
-                </div>
-              )}
-              <div className="flex gap-2 mb-4">
-                <FilterDropdownGrid label="Role" options={filters.roles} selected={selectedFilters.roles} onChange={(v: string) => handleFilterChangeWithClear('roles', v)} searchPlaceholder="Search role..." />
-                <FilterDropdownGrid label="Team" options={filters.locations} selected={selectedFilters.locations} onChange={(v: string) => handleFilterChangeWithClear('locations', v)} searchPlaceholder="Search team..." />
-                <FilterDropdownGrid label="Skill" options={filters.skills} selected={selectedFilters.skills} onChange={(v: string) => handleFilterChangeWithClear('skills', v)} searchPlaceholder="Search skill..." />
-                <FilterDropdownGrid label="Interest" options={filters.skills} selected={selectedFilters.skills} onChange={(v: string) => handleFilterChangeWithClear('skills', v)} searchPlaceholder="Search interest..." />
-              </div>
-              <FilterPillsBar search={search} selectedFilters={selectedFilters} onRemove={handleRemovePill} />
-            </>
+          {/* Profile modal/fullscreen logic unchanged */}
+          {selectedIndex !== null && (
+            <ProfileFullScreen
+              person={filteredPeople[selectedIndex]}
+              onClose={handleClose}
+              onPrev={handlePrev}
+              onNext={handleNext}
+              hasPrev={selectedIndex > 0}
+              hasNext={selectedIndex < filteredPeople.length - 1}
+              onFullPage={handleFullPage}
+              showFullPage={showFullPage}
+              language={language}
+            />
           )}
-          {/* Pills bar for sidebar layout */}
-          {filterLayout === 'sidebar' && (
-            <>
-              <SearchBar value={search} onChange={handleSearchChange} />
-              <FilterPillsBar search={search} selectedFilters={selectedFilters} onRemove={handleRemovePill} />
-            </>
-          )}
-        </div>
-        <div className="flex-1 overflow-y-auto p-6 pt-0">
-          <PeopleGrid onCardClick={handleCardClick} people={filteredPeople} language={language} />
         </div>
       </div>
-      {/* Profile modal/fullscreen logic unchanged */}
-      {selectedIndex !== null && (
-        <ProfileFullScreen
-          person={filteredPeople[selectedIndex]}
-          onClose={handleClose}
-          onPrev={handlePrev}
-          onNext={handleNext}
-          hasPrev={selectedIndex > 0}
-          hasNext={selectedIndex < filteredPeople.length - 1}
-          onFullPage={handleFullPage}
-          showFullPage={showFullPage}
-          language={language}
-        />
-      )}
-    </div>
+    </ThemeProvider>
   );
+}
+
+export function App() {
+  return <AppContent />;
 }
