@@ -1,43 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 
-function getProfileImage(profileImage: string | null, profile_url: string | undefined, fallback: string) {
-  if (profileImage) return profileImage;
-  if (profile_url && profile_url.match(/\.(jpg|jpeg|png|gif|webp)$/i)) return profile_url;
-  return fallback;
-}
+
 
 interface ProfileFullScreenProps {
-  person: {
-    name: string;
-    role: string;
-    avatar_initials: string;
-    avatar_color: string;
-    profileImage?: string | null;
-    skills: string[];
-    hobbies: string[];
-    recentActivity: string;
-    profile_url?: string;
-    github_account?: string;
-    team?: string;
-    specialty?: string;
-    ideas?: string;
-    interests?: string;
-    concurrent_possible?: boolean | string;
-    rocket_incubator?: string | boolean;
-    graphai_ai_podcaster?: string | boolean;
-    summary?: string;
-    project_details?: string;
-    contributions?: string;
-    support_activities?: string;
-  };
+  person: any;
   onClose: () => void;
   onPrev: () => void;
   onNext: () => void;
+  onFullPage: () => void;
+  showFullPage: boolean;
   hasPrev: boolean;
   hasNext: boolean;
-  onFullPage?: () => void;
-  showFullPage?: boolean;
-  language?: 'en' | 'ja';
 }
 
 export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
@@ -49,7 +22,7 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
   hasNext,
   onFullPage,
   showFullPage = false,
-  language = 'en',
+
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -77,7 +50,7 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
     return () => document.removeEventListener('mousedown', handleClick);
   }, [onClose]);
 
-  const imageUrl = getProfileImage(person.profileImage || null, person.profile_url, person.avatar_initials);
+
 
   if (showFullPage) {
     return (
@@ -299,12 +272,12 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
           <p className="text-2xl text-blue-700 dark:text-blue-400 mb-1">{person.role}</p>
           {person.team && <p className="text-lg text-gray-500 dark:text-gray-400 mb-1">Team: {person.team}</p>}
           <div className="flex flex-wrap gap-2 mb-2">
-            {person.skills && person.skills.map(skill => (
+            {person.skills && person.skills.map((skill: string) => (
               <span key={skill} className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-semibold">{skill}</span>
             ))}
           </div>
           <div className="flex flex-wrap gap-2 mb-2">
-            {person.hobbies && person.hobbies.map(hobby => (
+            {person.hobbies && person.hobbies.map((hobby: string) => (
               <span key={hobby} className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-3 py-1 rounded-full text-xs">{hobby}</span>
             ))}
           </div>

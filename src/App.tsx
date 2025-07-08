@@ -1,19 +1,22 @@
 /// <reference types="vite/client" />
-import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
+import { Sidebar } from './components/Layout/Sidebar';
 import { SearchBar } from './components/SearchBar';
 import { PeopleGrid } from './components/PeopleGrid';
-import peopleGemini from './data/people_gemini_fixed.json';
 import { ProfileFullScreen } from './components/ProfileFullScreen';
-import { Sidebar } from './components/Layout/Sidebar';
-import { Settings } from 'lucide-react';
-import { searchUsersWithAI } from './utils/aiSearch';
 import { ThemeProvider } from './components/theme-provider';
 import { ModeToggle } from './components/mode-toggle';
-import { BlurFade, ShimmerButton, Sparkles } from './components/ui';
+import { SettingsDropdown } from './components/SettingsDropdown';
+import { TopFilter } from './components/TopFilter';
+import { BlurFade, Sparkles } from './components/ui';
+import { Sparkles as SparklesIcon } from 'lucide-react';
+import peopleGemini from './data/people_gemini_fixed.json';
 
 function uniq(arr: string[]): string[] {
   return Array.from(new Set(arr.filter(Boolean)));
 }
+
+export type FilterKey = 'roles' | 'locations' | 'skills' | 'projects' | 'interests';
 
 // Helper to flatten array of {ja, en} to string or array
 function flattenLangArray(arr: any[], lang: 'en' | 'ja', asArray = false) {
@@ -56,39 +59,108 @@ const teamColors: { [key: string]: string } = {
 };
 
 // Helper to normalize skill names for consistency
-function normalizeSkill(skill: string): string {
+function normalizeSkill(skill: string, lang: 'en' | 'ja' = 'en'): string {
   if (!skill) return skill;
   
   const normalized = skill.trim();
   
-  // Common skill normalizations
-  const skillMap: { [key: string]: string } = {
-    'JS': 'JavaScript',
-    'TS': 'TypeScript',
-    'ML': 'Machine Learning',
-    'NLP': 'Natural Language Processing',
-    'DS': 'Data Science',
-    'AI': 'Artificial Intelligence',
-    'UI': 'User Interface',
-    'UX': 'User Experience',
-    'API': 'API Development',
-    'DB': 'Database',
-    'DevOps': 'DevOps',
-    'QA': 'Quality Assurance',
-    'PM': 'Product Management',
-    'PR': 'Public Relations',
-    'sns Marketing': 'Social Media Marketing',
-    'SNS Marketing': 'Social Media Marketing',
-    'フロントエンド': 'Frontend',
-    'バックエンド': 'Backend',
-    'フルスタック': 'Full Stack',
-    'ゲーム開発': 'Game Development',
-    'ロボティクス': 'Robotics',
-    'データサイエンス': 'Data Science',
-    'エンジニア': 'Engineering'
-  };
+  // Create a comprehensive skill mapping with pattern matching
+  const skillPatterns: { pattern: RegExp; en: string; ja: string }[] = [
+    // Programming Languages
+    { pattern: /^(JS|JavaScript)$/i, en: 'JavaScript', ja: 'JavaScript' },
+    { pattern: /^(TS|TypeScript)$/i, en: 'TypeScript', ja: 'TypeScript' },
+    { pattern: /^(Python|python)$/i, en: 'Python', ja: 'Python' },
+    { pattern: /^(Java|java)$/i, en: 'Java', ja: 'Java' },
+    { pattern: /^(C\+\+|cpp|c\+\+)$/i, en: 'C++', ja: 'C++' },
+    { pattern: /^(C#|csharp)$/i, en: 'C#', ja: 'C#' },
+    { pattern: /^(Go|golang)$/i, en: 'Go', ja: 'Go' },
+    { pattern: /^(Rust|rust)$/i, en: 'Rust', ja: 'Rust' },
+    { pattern: /^(Swift|swift)$/i, en: 'Swift', ja: 'Swift' },
+    { pattern: /^(Kotlin|kotlin)$/i, en: 'Kotlin', ja: 'Kotlin' },
+    
+    // AI/ML
+    { pattern: /^(ML|Machine Learning|機械学習|マシンラーニング)$/i, en: 'Machine Learning', ja: '機械学習' },
+    { pattern: /^(AI|Artificial Intelligence|人工知能|AI技術)$/i, en: 'Artificial Intelligence', ja: '人工知能' },
+    { pattern: /^(AI Agent|AI エージェント|AIエージェント)$/i, en: 'AI Agent', ja: 'AIエージェント' },
+    { pattern: /^(NLP|Natural Language Processing|自然言語処理)$/i, en: 'Natural Language Processing', ja: '自然言語処理' },
+    { pattern: /^(Deep Learning|ディープラーニング|深層学習)$/i, en: 'Deep Learning', ja: 'ディープラーニング' },
+    { pattern: /^(Computer Vision|コンピュータビジョン|画像認識)$/i, en: 'Computer Vision', ja: 'コンピュータビジョン' },
+    
+    // Data Science
+    { pattern: /^(DS|Data Science|データサイエンス)$/i, en: 'Data Science', ja: 'データサイエンス' },
+    { pattern: /^(Data Analysis|データ分析|データアナリティクス)$/i, en: 'Data Analysis', ja: 'データ分析' },
+    { pattern: /^(Big Data|ビッグデータ)$/i, en: 'Big Data', ja: 'ビッグデータ' },
+    
+    // Web Development
+    { pattern: /^(Web Development|Web開発|ウェブ開発|Web Dev|ウェブ開発)$/i, en: 'Web Development', ja: 'Web開発' },
+    { pattern: /^(Mobile\/Web Dev|Mobile\/Web Development|モバイル\/Web開発)$/i, en: 'Web Development', ja: 'Web開発' },
+    { pattern: /^(Frontend|フロントエンド|Front-end|フロント開発)$/i, en: 'Frontend', ja: 'フロントエンド' },
+    { pattern: /^(Backend|バックエンド|Back-end|バック開発)$/i, en: 'Backend', ja: 'バックエンド' },
+    { pattern: /^(Full Stack|フルスタック|Fullstack)$/i, en: 'Full Stack', ja: 'フルスタック' },
+    
+    // Mobile Development
+    { pattern: /^(Mobile Development|モバイル開発|アプリ開発)$/i, en: 'Mobile Development', ja: 'モバイル開発' },
+    { pattern: /^(iOS Development|iOS開発)$/i, en: 'iOS Development', ja: 'iOS開発' },
+    { pattern: /^(Android Development|Android開発)$/i, en: 'Android Development', ja: 'Android開発' },
+    
+    // Design
+    { pattern: /^(UI|User Interface|ユーザーインターフェース|UI設計)$/i, en: 'UI Design', ja: 'UIデザイン' },
+    { pattern: /^(UX|User Experience|ユーザーエクスペリエンス|UX設計)$/i, en: 'UX Design', ja: 'UXデザイン' },
+    { pattern: /^(UI\/UX|UX\/UI|UIUXデザイン)$/i, en: 'UI/UX Design', ja: 'UI/UXデザイン' },
+    { pattern: /^(Graphic Design|グラフィックデザイン)$/i, en: 'Graphic Design', ja: 'グラフィックデザイン' },
+    
+    // Infrastructure & DevOps
+    { pattern: /^(DevOps|デブオプス)$/i, en: 'DevOps', ja: 'DevOps' },
+    { pattern: /^(Cloud|クラウド)$/i, en: 'Cloud Computing', ja: 'クラウドコンピューティング' },
+    { pattern: /^(AWS|Amazon Web Services)$/i, en: 'AWS', ja: 'AWS' },
+    { pattern: /^(GCP|Google Cloud Platform)$/i, en: 'GCP', ja: 'GCP' },
+    { pattern: /^(Azure|Microsoft Azure)$/i, en: 'Azure', ja: 'Azure' },
+    { pattern: /^(Docker|ドッカー)$/i, en: 'Docker', ja: 'Docker' },
+    { pattern: /^(Kubernetes|k8s|クバネティス)$/i, en: 'Kubernetes', ja: 'Kubernetes' },
+    
+    // Database
+    { pattern: /^(DB|Database|データベース)$/i, en: 'Database', ja: 'データベース' },
+    { pattern: /^(SQL|エスキューエル)$/i, en: 'SQL', ja: 'SQL' },
+    { pattern: /^(NoSQL|NoSQLデータベース)$/i, en: 'NoSQL', ja: 'NoSQL' },
+    
+    // Business & Management
+    { pattern: /^(PM|Product Management|プロダクトマネジメント|プロダクトマネージャー)$/i, en: 'Product Management', ja: 'プロダクトマネジメント' },
+    { pattern: /^(Project Management|プロジェクトマネジメント)$/i, en: 'Project Management', ja: 'プロジェクトマネジメント' },
+    { pattern: /^(Business Development|事業開発|ビジネス開発)$/i, en: 'Business Development', ja: '事業開発' },
+    { pattern: /^(Marketing|マーケティング)$/i, en: 'Marketing', ja: 'マーケティング' },
+    { pattern: /^(Sales|営業|セールス)$/i, en: 'Sales', ja: '営業' },
+    
+    // Quality & Testing
+    { pattern: /^(QA|Quality Assurance|品質保証)$/i, en: 'Quality Assurance', ja: '品質保証' },
+    { pattern: /^(Testing|テスト|テスティング)$/i, en: 'Testing', ja: 'テスト' },
+    
+    // Other Technical
+    { pattern: /^(API|API Development|API開発)$/i, en: 'API Development', ja: 'API開発' },
+    { pattern: /^(Security|セキュリティ)$/i, en: 'Security', ja: 'セキュリティ' },
+    { pattern: /^(Blockchain|ブロックチェーン)$/i, en: 'Blockchain', ja: 'ブロックチェーン' },
+    { pattern: /^(IoT|Internet of Things|モノのインターネット)$/i, en: 'IoT', ja: 'IoT' },
+    { pattern: /^(Robotics|ロボティクス|ロボット工学)$/i, en: 'Robotics', ja: 'ロボティクス' },
+    { pattern: /^(Game Development|ゲーム開発)$/i, en: 'Game Development', ja: 'ゲーム開発' },
+    
+    // Soft Skills
+    { pattern: /^(Leadership|リーダーシップ)$/i, en: 'Leadership', ja: 'リーダーシップ' },
+    { pattern: /^(Communication|コミュニケーション)$/i, en: 'Communication', ja: 'コミュニケーション' },
+    { pattern: /^(Teamwork|チームワーク)$/i, en: 'Teamwork', ja: 'チームワーク' },
+    { pattern: /^(Problem Solving|問題解決)$/i, en: 'Problem Solving', ja: '問題解決' },
+    
+    // Social Media & PR
+    { pattern: /^(PR|Public Relations|広報)$/i, en: 'Public Relations', ja: '広報' },
+    { pattern: /^(SNS Marketing|Social Media Marketing|SNSマーケティング|ソーシャルメディアマーケティング)$/i, en: 'Social Media Marketing', ja: 'SNSマーケティング' }
+  ];
   
-  return skillMap[normalized] || normalized;
+  // Find matching pattern
+  for (const { pattern, en, ja } of skillPatterns) {
+    if (pattern.test(normalized)) {
+      return lang === 'ja' ? ja : en;
+    }
+  }
+  
+  return normalized;
 }
 
 // Helper to normalize and split roles
@@ -98,66 +170,126 @@ function normalizeRoles(rawRoles: any[], lang: 'en' | 'ja'): string[] {
     if (!role) return;
     const val = typeof role === 'string' ? role : role[lang];
     if (!val) return;
+    
     // Split by slash, comma, or ampersand
     val.split(/[/,&，／]/).forEach((part: string) => {
       let r = part.trim();
+      if (!r) return;
       
-      // Normalize common role variations
-      if (/^developer$/i.test(r)) r = 'Engineer';
-      if (/^dev$/i.test(r)) r = 'Engineer';
-      if (/engineer\/developer/i.test(r)) r = 'Engineer';
-      if (/developer\/engineer/i.test(r)) r = 'Engineer';
+      // Normalize Engineer variations
+      if (/^(developer|dev|engineer|developer\/engineer|engineer\/developer|エンジニア|開発者|フルスタック)$/i.test(r)) {
+        r = lang === 'ja' ? 'エンジニア' : 'Engineer';
+      }
+      
+      // Normalize Designer variations (including Creator)
+      if (/^(design|designer|creator|デザイン|デザイナー|クリエイター|クリエーター)$/i.test(r)) {
+        r = lang === 'ja' ? 'デザイナー' : 'Designer';
+      }
       
       // Normalize PM variations
-      if (/^pm$/i.test(r)) r = 'Product Manager';
-      if (/^product\s*manager$/i.test(r)) r = 'Product Manager';
+      if (/^(pm|product\s*manager|pdm|product\s*data\s*management|プロダクトマネージャー|PM)$/i.test(r)) {
+        r = lang === 'ja' ? 'プロダクトマネージャー' : 'Product Manager';
+      }
       
-      // Normalize PdM to Product Manager
-      if (/^pdm$/i.test(r)) r = 'Product Manager';
-      if (/^product\s*data\s*management$/i.test(r)) r = 'Product Manager';
+      // Normalize AI Agent variations
+      if (/^(ai\s*agent|ai\s*エージェント|aiエージェント)$/i.test(r)) {
+        r = lang === 'ja' ? 'AIエージェント' : 'AI Agent';
+      }
       
       // Normalize PR variations
-      if (/^pr$/i.test(r)) r = 'Public Relations';
-      if (/^pr\s*\/\s*public\s*relations$/i.test(r)) r = 'Public Relations';
-      if (/^広報$/i.test(r)) r = 'Public Relations';
+      if (/^(pr|public\s*relations|広報)$/i.test(r)) {
+        r = lang === 'ja' ? '広報' : 'Public Relations';
+      }
       
       // Normalize Business Development
-      if (/^bizdev$/i.test(r)) r = 'Business Development';
-      if (/^biz\s*dev$/i.test(r)) r = 'Business Development';
-      
-      // Handle Design/Designer consistency
-      if (/^design$/i.test(r)) r = 'Designer';
-      if (/^designer$/i.test(r)) r = 'Designer';
-      
-      // Split Planning/Design into separate roles
-      if (/^planning\s*\/\s*design$/i.test(r)) {
-        roleSet.add('Planning');
-        roleSet.add('Designer');
-        return;
+      if (/^(bizdev|biz\s*dev|business\s*development|事業開発)$/i.test(r)) {
+        r = lang === 'ja' ? '事業開発' : 'Business Development';
       }
-      if (/^planning(\s*\/\s*design)?$/i.test(r)) r = 'Planning';
-      if (/^企画\s*\/\s*デザイン$/i.test(r)) {
-        roleSet.add('Planning');
-        roleSet.add('Designer');
+      
+      // Normalize Sales
+      if (/^(sales|営業|セールス)$/i.test(r)) {
+        r = lang === 'ja' ? '営業' : 'Sales';
+      }
+      
+      // Normalize Planning
+      if (/^(planning|企画|プランニング)$/i.test(r)) {
+        r = lang === 'ja' ? '企画' : 'Planning';
+      }
+      
+      // Handle combined roles
+      if (/^(planning\s*\/\s*design|企画\s*\/\s*デザイン)$/i.test(r)) {
+        roleSet.add(lang === 'ja' ? '企画' : 'Planning');
+        roleSet.add(lang === 'ja' ? 'デザイナー' : 'Designer');
         return;
       }
       if (/^企画兼開発$/i.test(r)) {
-        roleSet.add('Planning');
-        roleSet.add('Engineer');
+        roleSet.add(lang === 'ja' ? '企画' : 'Planning');
+        roleSet.add(lang === 'ja' ? 'エンジニア' : 'Engineer');
         return;
       }
-      if (/^企画$/i.test(r)) r = 'Planning';
       
-      // Normalize other roles
-      if (/^founder$/i.test(r)) r = 'Founder';
-      if (/^creator$/i.test(r)) r = 'Creator';
-      if (/^営業$/i.test(r)) r = 'Sales';
-      if (/^フルスタック$/i.test(r)) r = 'Full Stack Engineer';
+      // Normalize other common roles
+      if (/^(founder|ファウンダー|創業者)$/i.test(r)) {
+        r = lang === 'ja' ? 'ファウンダー' : 'Founder';
+      }
+      if (/^(researcher|研究者|リサーチャー)$/i.test(r)) {
+        r = lang === 'ja' ? '研究者' : 'Researcher';
+      }
+      if (/^(consultant|コンサルタント)$/i.test(r)) {
+        r = lang === 'ja' ? 'コンサルタント' : 'Consultant';
+      }
+      if (/^(analyst|アナリスト)$/i.test(r)) {
+        r = lang === 'ja' ? 'アナリスト' : 'Analyst';
+      }
+      if (/^(student|学生)$/i.test(r)) {
+        r = lang === 'ja' ? '学生' : 'Student';
+      }
       
       if (r) roleSet.add(r);
     });
   });
   return Array.from(roleSet).sort();
+}
+
+// Helper to normalize team names
+function normalizeTeam(team: string, lang: 'en' | 'ja'): string {
+  if (!team) return '';
+  
+  // Normalize "未定" variations
+  if (/^(未定|未定\(個人\?\)|未定\(個人？\)|未定\s*\(or\s*個人\)|未定\s*\(\s*or\s*個人\s*\)|TBD|To Be Determined|Undecided)$/i.test(team)) {
+    return lang === 'ja' ? '未定' : 'TBD';
+  }
+  
+  // Normalize team name variations
+  if (/^(プナホウ|punahou)$/i.test(team)) {
+    return lang === 'ja' ? 'プナホウ' : 'punahou';
+  }
+  
+  if (/^(altermis|アルテミス)$/i.test(team)) {
+    return lang === 'ja' ? 'altermis' : 'altermis';
+  }
+  
+  if (/^(come\s*come\s*club|カムカムクラブ)$/i.test(team)) {
+    return lang === 'ja' ? 'come come club' : 'come come club';
+  }
+  
+  if (/^(CommunityRadio\s*EchoLab|コミュニティラジオエコーラボ)$/i.test(team)) {
+    return lang === 'ja' ? 'CommunityRadio EchoLab' : 'CommunityRadio EchoLab';
+  }
+  
+  if (/^(EchoLab|エコーラボ)$/i.test(team)) {
+    return lang === 'ja' ? 'EchoLab' : 'EchoLab';
+  }
+  
+  if (/^(Jinarashi|ジナラシ)$/i.test(team)) {
+    return lang === 'ja' ? 'Jinarashi' : 'Jinarashi';
+  }
+  
+  if (/^(Gabon|ガボン)$/i.test(team)) {
+    return lang === 'ja' ? 'Gabon' : 'Gabon';
+  }
+  
+  return team;
 }
 
 // Helper to truncate team names
@@ -171,6 +303,7 @@ function processPeopleData(lang: 'en' | 'ja') {
   const people = peopleGemini.participants.map((person: any) => {
     const name = flattenLangObj(person.name, lang) || '';
     let team = flattenLangObj(person.team, lang) || '';
+    team = normalizeTeam(team, lang);
     team = truncateTeam(team, 20);
     // Normalize roles
     const roleArr = Array.isArray(person.role) ? person.role : (person.role ? [person.role] : []);
@@ -197,8 +330,8 @@ function processPeopleData(lang: 'en' | 'ja') {
       avatar_initials: String(avatar_initials),
       avatar_color: String(avatar_color),
       profileImage,
-      skills: Array.isArray(skills) ? skills.map(skill => normalizeSkill(String(skill))) : [],
-      hobbies: Array.isArray(hobbies) ? hobbies.map(hobby => normalizeSkill(String(hobby))) : [],
+      skills: Array.isArray(skills) ? skills.map(skill => normalizeSkill(String(skill), lang)) : [],
+      hobbies: Array.isArray(hobbies) ? hobbies.map(hobby => normalizeSkill(String(hobby), lang)) : [],
       recentActivity: String(recentActivity),
       profile_url: profile_url || '',
       github_account: github_account || '',
@@ -224,9 +357,9 @@ interface Filters {
   roles: string[];
   locations: string[];
   skills: string[];
+  projects: string[];
+  interests: string[];
 }
-
-type FilterKey = keyof Filters;
 
 // Filters extraction for new structure
 function extractFilters(people: any[], lang: 'en' | 'ja'): Filters {
@@ -236,7 +369,14 @@ function extractFilters(people: any[], lang: 'en' | 'ja'): Filters {
       .map((p: any) => p.location ? flattenLangObj(p.location, lang) : undefined)
       .filter(Boolean)
   );
-  const fallbackLocations = uniq(people.map((p: any) => p.team).filter(Boolean));
+  const fallbackLocations = uniq(
+    peopleGemini.participants
+      .map((p: any) => {
+        const team = flattenLangObj(p.team, lang);
+        return team ? normalizeTeam(team, lang) : undefined;
+      })
+      .filter((team): team is string => Boolean(team))
+  );
   const allLocations = locations.length > 0 ? locations : fallbackLocations;
 
   // Count skill frequencies
@@ -247,7 +387,7 @@ function extractFilters(people: any[], lang: 'en' | 'ja'): Filters {
   const skillCounts: Record<string, number> = {};
   allSkills.forEach(skill => {
     if (!skill) return;
-    const normalizedSkill = normalizeSkill(skill);
+    const normalizedSkill = normalizeSkill(skill, lang);
     skillCounts[normalizedSkill] = (skillCounts[normalizedSkill] || 0) + 1;
   });
   
@@ -276,10 +416,33 @@ function extractFilters(people: any[], lang: 'en' | 'ja'): Filters {
   console.log('Top skills:', topSkills);
   console.log('Misc skills count:', miscSkills.length);
 
+  // Extract projects and interests from hobbies
+  const projects: string[] = [];
+  const interests: string[] = [];
+  
+  people.forEach(person => {
+    if (person.hobbies && Array.isArray(person.hobbies)) {
+      person.hobbies.forEach((hobby: string) => {
+        if (hobby) {
+          // Categorize hobbies into projects or interests
+          if (hobby.includes('プロジェクト') || hobby.includes('Project') || 
+              hobby.includes('開発') || hobby.includes('Development') ||
+              hobby.includes('作成') || hobby.includes('制作')) {
+            projects.push(hobby);
+          } else {
+            interests.push(hobby);
+          }
+        }
+      });
+    }
+  });
+
   return {
     roles,
     locations: allLocations,
     skills,
+    projects: uniq(projects),
+    interests: uniq(interests)
   };
 }
 
@@ -293,8 +456,19 @@ interface FilterPillsBarProps {
   search: string;
   selectedFilters: Filters;
   onRemove: (pill: FilterPill | { key: string }) => void;
+  onMiscSkillToggle?: (skill: string) => void;
+  selectedMiscSkills?: string[];
+  language?: 'en' | 'ja';
 }
-const FilterPillsBar: React.FC<FilterPillsBarProps> = ({ search, selectedFilters, onRemove }) => {
+const FilterPillsBar: React.FC<FilterPillsBarProps> = ({ 
+  search, 
+  selectedFilters, 
+  onRemove, 
+  onMiscSkillToggle,
+  selectedMiscSkills = [],
+  language = 'en'
+}) => {
+  const [miscExpanded, setMiscExpanded] = useState(false);
   const pills: FilterPill[] = [];
   
   // Add search pill
@@ -309,127 +483,89 @@ const FilterPillsBar: React.FC<FilterPillsBarProps> = ({ search, selectedFilters
     });
   });
   
-  if (pills.length === 0) return null;
+  if (pills.length === 0 && selectedMiscSkills.length === 0) return null;
+  
+  const miscLabel = language === 'ja' ? 'その他' : 'Misc';
+  const expandLabel = language === 'ja' ? '展開' : 'Expand';
+  const collapseLabel = language === 'ja' ? '折りたたみ' : 'Collapse';
   
   return (
-    <div className="flex flex-wrap gap-2 mb-6">
-      {pills.map(pill => (
-        <span key={pill.key} className="inline-flex items-center gap-2 px-3 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-lg text-sm border border-blue-200 dark:border-blue-700">
-          <span className="font-medium capitalize">{pill.category}:</span>
-          <span className="max-w-32 truncate">{pill.value}</span>
+    <div className="mb-6">
+      <div className="flex flex-wrap gap-2 mb-2">
+        {pills.map(pill => (
+          <span key={pill.key} className="inline-flex items-center gap-2 px-3 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-lg text-sm border border-blue-200 dark:border-blue-700">
+            <span className="font-medium capitalize">{pill.category}:</span>
+            <span className="max-w-32 truncate">{pill.value}</span>
+            <button 
+              onClick={() => onRemove(pill)} 
+              className="ml-1 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100 hover:bg-blue-200 dark:hover:bg-blue-800 rounded-full p-1 transition-colors"
+              aria-label={`Remove ${pill.category} filter`}
+            >
+              ×
+            </button>
+          </span>
+        ))}
+        {pills.length > 1 && (
           <button 
-            onClick={() => onRemove(pill)} 
-            className="ml-1 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100 hover:bg-blue-200 dark:hover:bg-blue-800 rounded-full p-1 transition-colors"
-            aria-label={`Remove ${pill.category} filter`}
+            onClick={() => onRemove({ key: 'clearAll' })} 
+            className="px-3 py-2 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-lg text-sm hover:bg-gray-200 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-600 transition-colors"
           >
-            ×
+            Clear All
           </button>
-        </span>
-      ))}
-      {pills.length > 1 && (
-        <button 
-          onClick={() => onRemove({ key: 'clearAll' })} 
-          className="px-3 py-2 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-lg text-sm hover:bg-gray-200 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-600 transition-colors"
-        >
-          Clear All
-        </button>
+        )}
+      </div>
+      
+      {/* Misc Skills Section */}
+      {selectedMiscSkills.length > 0 && (
+        <div className="mt-3">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              {miscLabel} ({selectedMiscSkills.length})
+            </span>
+            <button
+              onClick={() => setMiscExpanded(!miscExpanded)}
+              className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+            >
+              {miscExpanded ? collapseLabel : expandLabel}
+            </button>
+          </div>
+          
+          {miscExpanded && (
+            <div className="flex flex-wrap gap-1">
+              {selectedMiscSkills.map(skill => (
+                <button
+                  key={skill}
+                  onClick={() => onMiscSkillToggle?.(skill)}
+                  className="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-xs hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                >
+                  <span className="max-w-24 truncate">{skill}</span>
+                  <span className="text-gray-500 dark:text-gray-400">×</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
 };
 
-const FilterBar: React.FC<{
-  filters: Filters;
-  selected: Filters;
-  onFilterChange: (type: FilterKey, value: string) => void;
-}> = ({ filters, selected, onFilterChange }) => (
-  <div className="flex gap-4 mb-4">
-    {Object.entries(filters).map(([key, options]: [string, string[]]) => (
-      <div key={key} className="flex flex-wrap gap-2">
-        <span className="font-semibold text-gray-700 capitalize">{key}:</span>
-        {options.map((option: string) => (
-          <button
-            key={option}
-            onClick={() => onFilterChange(key as FilterKey, option)}
-            className={`px-3 py-1 rounded-full text-sm transition-colors ${
-              (selected as any)[key].includes(option)
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-blue-100'
-            }`}
-          >
-            {option}
-          </button>
-        ))}
-      </div>
-    ))}
-  </div>
-);
+
 
 function AppContent() {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const [search, setSearch] = useState('');
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [showFullPage, setShowFullPage] = useState(false);
-  const [selectedFilters, setSelectedFilters] = useState<Filters>({
-    roles: [],
-    locations: [],
-    skills: [],
-  });
   const [language, setLanguage] = useState<'en' | 'ja'>('en');
-  const [aiResult, setAiResult] = useState<string>('');
-  const [aiLoading, setAiLoading] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState('');
+  const [selectedFilters, setSelectedFilters] = useState<Filters>({ roles: [], locations: [], skills: [], projects: [], interests: [] });
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [showFullPage, setShowFullPage] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [aiSearchResults, setAiSearchResults] = useState<string[]>([]);
+  const [filterView, setFilterView] = useState<'sidebar' | 'top'>('sidebar');
+  const [isAISearchActive, setIsAISearchActive] = useState(false);
+  const [selectedMiscSkills, setSelectedMiscSkills] = useState<string[]>([]);
 
-  // Processed people data for current language
   const processedPeopleData = useMemo(() => processPeopleData(language), [language]);
   const filters = useMemo(() => extractFilters(processedPeopleData, language), [processedPeopleData, language]);
-
-  // AI search function using OpenAI API
-  const handleAISearch = async (query: string) => {
-    if (!query.trim()) {
-      setAiResult('');
-      setAiLoading(false);
-      setAiSearchResults([]);
-      return;
-    }
-
-    setAiLoading(true);
-    setAiResult('');
-    setAiSearchResults([]);
-
-    try {
-      const result = await searchUsersWithAI(query);
-      
-      if (result.error) {
-        setAiResult(`Error: ${result.error}`);
-        setAiLoading(false);
-        return;
-      }
-
-      if (result.matchingIds.length === 0) {
-        setAiResult('No matching users found.');
-        setAiLoading(false);
-        return;
-      }
-
-      // Store the matching IDs for filtering
-      setAiSearchResults(result.matchingIds);
-      
-      // Clear regular search and filters when showing AI results
-      setSearch('');
-      setSelectedFilters({ roles: [], locations: [], skills: [] });
-      
-      // Set a success message
-      setAiResult(`Found ${result.matchingIds.length} matching users`);
-      setAiLoading(false);
-      
-    } catch (error) {
-      console.error('AI search failed:', error);
-      setAiResult('AI search failed. Please try again.');
-      setAiLoading(false);
-    }
-  };
 
   const handleCardClick = useCallback((index: number) => {
     setSelectedIndex(index);
@@ -456,13 +592,34 @@ function AppContent() {
   const handleSidebarToggle = () => setSidebarCollapsed(c => !c);
 
   const handleFilterChange = (type: FilterKey, value: string) => {
-    setSelectedFilters(prev => {
-      const arr = prev[type];
-      return {
-        ...prev,
-        [type]: arr.includes(value) ? arr.filter((v: string) => v !== value) : [...arr, value],
-      };
-    });
+    if (type === 'skills' && value === 'Misc') {
+      // Handle Misc category selection by showing all misc skills as individual filters
+      const miscSkills = (window as any).miscSkills || [];
+      setSelectedMiscSkills(prev => 
+        prev.length === miscSkills.length ? [] : [...miscSkills]
+      );
+    } else {
+      setSelectedFilters(prev => {
+        const arr = prev[type];
+        return {
+          ...prev,
+          [type]: arr.includes(value) ? arr.filter((v: string) => v !== value) : [...arr, value],
+        };
+      });
+    }
+    // Clear AI search results when regular filters are used
+    if (aiSearchResults.length > 0) {
+      setAiSearchResults([]);
+      setIsAISearchActive(false);
+    }
+  };
+  
+  const handleMiscSkillToggle = (skill: string) => {
+    setSelectedMiscSkills(prev => 
+      prev.includes(skill) 
+        ? prev.filter(s => s !== skill)
+        : [...prev, skill]
+    );
   };
 
   // Language switcher handler
@@ -546,25 +703,81 @@ function AppContent() {
         });
       });
     }
+    
+    // Apply projects filter
+    if (selectedFilters.projects.length > 0) {
+      filtered = filtered.filter(person => {
+        return selectedFilters.projects.some(selectedProject => {
+          return person.hobbies.some(hobby => 
+            hobby.toLowerCase().includes(selectedProject.toLowerCase()) &&
+            (hobby.includes('プロジェクト') || hobby.includes('Project') || 
+             hobby.includes('開発') || hobby.includes('Development') ||
+             hobby.includes('作成') || hobby.includes('制作'))
+          );
+        });
+      });
+    }
+
+    // Apply interests filter
+    if (selectedFilters.interests.length > 0) {
+      filtered = filtered.filter(person => {
+        return selectedFilters.interests.some(selectedInterest => {
+          return person.hobbies.some(hobby => 
+            hobby.toLowerCase().includes(selectedInterest.toLowerCase()) &&
+            !(hobby.includes('プロジェクト') || hobby.includes('Project') || 
+              hobby.includes('開発') || hobby.includes('Development') ||
+              hobby.includes('作成') || hobby.includes('制作'))
+          );
+        });
+      });
+    }
+    
+    // Apply misc skills filter
+    if (selectedMiscSkills.length > 0) {
+      filtered = filtered.filter(person => {
+        return selectedMiscSkills.some(selectedSkill => {
+          return person.skills.some(skill => skill.toLowerCase().includes(selectedSkill.toLowerCase())) ||
+                 person.hobbies.some(hobby => hobby.toLowerCase().includes(selectedSkill.toLowerCase()));
+        });
+      });
+    }
 
     return filtered;
-  }, [processedPeopleData, search, selectedFilters, aiSearchResults]);
+  }, [processedPeopleData, search, selectedFilters, aiSearchResults, selectedMiscSkills]);
+
+  // Handle AI search results
+  const handleAISearch = (results: string[]) => {
+    setAiSearchResults(results);
+    setIsAISearchActive(true);
+    // Clear regular filters when AI search is active
+    setSelectedFilters({ roles: [], locations: [], skills: [], projects: [], interests: [] });
+  };
 
   // Clear AI search results when regular search/filters are used
   const handleSearchChange = (newSearch: string) => {
     setSearch(newSearch);
     if (aiSearchResults.length > 0) {
       setAiSearchResults([]);
-      setAiResult('');
+      setIsAISearchActive(false);
     }
   };
 
   // New: Remove pill handler
   const handleRemovePill = (pill: FilterPill | { key: string }) => {
-    if (pill.key === 'search') setSearch('');
-    else if (pill.key === 'clearAll') {
+    if (pill.key === 'search') {
       setSearch('');
-      setSelectedFilters({ roles: [], locations: [], skills: [] });
+      if (aiSearchResults.length > 0) {
+        setAiSearchResults([]);
+        setIsAISearchActive(false);
+      }
+    } else if (pill.key === 'clearAll') {
+      setSearch('');
+      setSelectedFilters({ roles: [], locations: [], skills: [], projects: [], interests: [] });
+      setSelectedMiscSkills([]);
+      if (aiSearchResults.length > 0) {
+        setAiSearchResults([]);
+        setIsAISearchActive(false);
+      }
     } else {
       const [cat, val] = pill.key.split(':');
       setSelectedFilters(prev => ({ ...prev, [cat]: (prev as any)[cat].filter((v: string) => v !== val) }));
@@ -577,72 +790,174 @@ function AppContent() {
         {/* Simple gradient background */}
         <div className="fixed inset-0 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-950 dark:to-slate-950 z-0"></div>
         
-        <div className="flex h-screen relative z-10">
-          {/* Sidebar filter layout */}
-          <Sidebar
-            collapsed={sidebarCollapsed}
-            onToggle={handleSidebarToggle}
-            filters={filters}
-            selected={selectedFilters}
-            onFilterChange={handleFilterChange}
-            peopleData={processedPeopleData}
-          />
-          <div className="flex-1 flex flex-col overflow-hidden">
-            <div className="p-6 pb-4">
-              <div className="flex items-center justify-between mb-4">
-                <BlurFade delay={0.1}>
-                  <Sparkles className="inline-block">
+        {filterView === 'sidebar' ? (
+          // Sidebar Layout
+          <div className="flex h-screen relative z-10">
+            <Sidebar
+              collapsed={sidebarCollapsed}
+              onToggle={handleSidebarToggle}
+              filters={filters}
+              selected={selectedFilters}
+              onFilterChange={handleFilterChange}
+              peopleData={processedPeopleData}
+              language={language}
+            />
+            <div className="flex-1 flex flex-col overflow-hidden">
+              <div className="p-6 pb-4">
+                <div className="flex items-center justify-between mb-4">
+                  <BlurFade delay={0.1}>
                     <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-                      Discover Amazing People
+                      People Discovery
                     </h1>
-                  </Sparkles>
-                </BlurFade>
-                {/* Language switcher and theme toggle */}
-                <BlurFade delay={0.2}>
-                  <div className="flex gap-4 items-center">
-                    <div className="relative">
-                      <select 
-                        value={language}
-                        onChange={(e) => handleLanguageSwitch(e.target.value as 'en' | 'ja')}
-                        className="px-3 py-2 text-sm bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/50 transition-all outline-none cursor-pointer"
-                      >
-                        <option value="en">English</option>
-                        <option value="ja">日本語</option>
-                      </select>
-                    </div>
+                  </BlurFade>
+                  <div className="flex items-center gap-3">
+                    <SettingsDropdown
+                      language={language}
+                      onLanguageChange={handleLanguageSwitch}
+                      filterView={filterView}
+                      onFilterViewChange={setFilterView}
+                    />
                     <ModeToggle />
                   </div>
+                </div>
+                
+                <BlurFade delay={0.2}>
+                  <SearchBar
+                    value={search}
+                    onChange={handleSearchChange}
+                    onAISearch={handleAISearch}
+                  />
+                </BlurFade>
+                
+                <FilterPillsBar
+                  search={search}
+                  selectedFilters={selectedFilters}
+                  onRemove={handleRemovePill}
+                  onMiscSkillToggle={handleMiscSkillToggle}
+                  selectedMiscSkills={selectedMiscSkills}
+                  language={language}
+                />
+                
+                {isAISearchActive && (
+                  <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
+                    <div className="flex items-center gap-2 text-blue-800 dark:text-blue-200">
+                      <SparklesIcon className="h-4 w-4" />
+                      <span className="text-sm font-medium">
+                        AI Search Results: Found {filteredPeople.length} matching user{filteredPeople.length !== 1 ? 's' : ''}
+                      </span>
+                    </div>
+                  </div>
+                )}
+              </div>
+              
+              <div className="flex-1 overflow-auto pt-2">
+                <BlurFade delay={0.3}>
+                  <PeopleGrid 
+                    people={filteredPeople} 
+                    onCardClick={handleCardClick}
+                  />
                 </BlurFade>
               </div>
-              {/* Search bar and filter pills */}
-              <BlurFade delay={0.3}>
-                <SearchBar value={search} onChange={handleSearchChange} />
-              </BlurFade>
-              <BlurFade delay={0.4}>
-                <FilterPillsBar search={search} selectedFilters={selectedFilters} onRemove={handleRemovePill} />
-              </BlurFade>
             </div>
-            <div className="flex-1 overflow-y-auto px-6 pb-6 pt-2">
-              <BlurFade delay={0.5}>
-                <PeopleGrid onCardClick={handleCardClick} people={filteredPeople} language={language} />
+          </div>
+        ) : (
+          // Top Filter Layout
+          <div className="h-screen relative z-10 flex flex-col">
+            <div className="p-6 pb-4 relative z-50 bg-gray-50 dark:bg-gray-900">
+              <div className="flex items-center justify-between mb-4">
+                <BlurFade delay={0.1}>
+                  <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+                    People Discovery
+                  </h1>
+                </BlurFade>
+                <div className="flex items-center gap-3">
+                  <SettingsDropdown
+                    language={language}
+                    onLanguageChange={handleLanguageSwitch}
+                    filterView={filterView}
+                    onFilterViewChange={setFilterView}
+                  />
+                  <ModeToggle />
+                </div>
+              </div>
+              
+              <BlurFade delay={0.2}>
+                <SearchBar
+                  value={search}
+                  onChange={handleSearchChange}
+                  onAISearch={handleAISearch}
+                />
+              </BlurFade>
+              
+              <BlurFade delay={0.3}>
+                <div className="mt-4 relative z-[100]">
+                  <TopFilter
+                    filters={filters}
+                    selected={selectedFilters}
+                    onFilterChange={handleFilterChange}
+                    peopleData={processedPeopleData}
+                    language={language}
+                  />
+                </div>
+              </BlurFade>
+              
+              <FilterPillsBar
+                search={search}
+                selectedFilters={selectedFilters}
+                onRemove={handleRemovePill}
+                onMiscSkillToggle={handleMiscSkillToggle}
+                selectedMiscSkills={selectedMiscSkills}
+                language={language}
+              />
+              
+              {isAISearchActive && (
+                <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
+                  <div className="flex items-center gap-2 text-blue-800 dark:text-blue-200">
+                    <SparklesIcon className="h-4 w-4" />
+                    <span className="text-sm font-medium">
+                      AI Search Results: Found {filteredPeople.length} matching user{filteredPeople.length !== 1 ? 's' : ''}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+            
+            <div className="flex-1 overflow-auto px-6 relative z-10">
+              <BlurFade delay={0.4}>
+                <PeopleGrid 
+                  people={filteredPeople} 
+                  onCardClick={handleCardClick}
+                />
               </BlurFade>
             </div>
           </div>
-          {/* Profile modal/fullscreen logic unchanged */}
-          {selectedIndex !== null && (
-            <ProfileFullScreen
-              person={filteredPeople[selectedIndex]}
-              onClose={handleClose}
-              onPrev={handlePrev}
-              onNext={handleNext}
-              hasPrev={selectedIndex > 0}
-              hasNext={selectedIndex < filteredPeople.length - 1}
-              onFullPage={handleFullPage}
-              showFullPage={showFullPage}
-              language={language}
-            />
-          )}
+        )}
+        
+        {/* Sparkles background effect */}
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <Sparkles
+            className="absolute inset-0"
+            color="#3B82F6"
+            count={50}
+            speed="slow"
+            size="small"
+          />
         </div>
+        
+        {/* Profile Modal */}
+        {selectedIndex !== null && (
+          <ProfileFullScreen
+            person={filteredPeople[selectedIndex]}
+            onClose={handleClose}
+            onPrev={handlePrev}
+            onNext={handleNext}
+            hasPrev={selectedIndex > 0}
+            hasNext={selectedIndex < filteredPeople.length - 1}
+            onFullPage={handleFullPage}
+            showFullPage={showFullPage}
+
+          />
+        )}
       </div>
     </ThemeProvider>
   );

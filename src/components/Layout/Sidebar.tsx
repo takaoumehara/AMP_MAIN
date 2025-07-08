@@ -18,6 +18,7 @@ interface SidebarProps {
   };
   onFilterChange: (type: FilterKey, value: string) => void;
   peopleData?: any[]; // Added to calculate counts
+  language?: 'en' | 'ja'; // Added for language support
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ 
@@ -26,7 +27,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   filters, 
   selected, 
   onFilterChange, 
-  peopleData = [] 
+  peopleData = [],
+  language = 'en'
 }) => {
   const [open, setOpen] = useState<{ [key in FilterKey]: boolean }>({ 
     roles: true, 
@@ -35,6 +37,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
   });
   
   const toggleSection = (key: FilterKey) => setOpen(prev => ({ ...prev, [key]: !prev[key] }));
+  
+  // Get localized filter section titles
+  const getSectionTitle = (key: FilterKey): string => {
+    const titles = {
+      roles: language === 'ja' ? '役職' : 'Role',
+      locations: language === 'ja' ? 'チーム' : 'Team',
+      skills: language === 'ja' ? 'スキル・興味' : 'Skills & Interests'
+    };
+    return titles[key];
+  };
+  
+  const getFiltersTitle = (): string => {
+    return language === 'ja' ? 'フィルター' : 'Filters';
+  };
   
   // Calculate counts for each filter option
   const getFilterCount = (type: FilterKey, value: string): number => {
@@ -90,7 +106,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     <div className={`h-full bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 ${collapsed ? 'w-16' : 'w-72'}`}>
       <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-700">
         <h1 className={`text-xl font-semibold text-gray-900 dark:text-gray-100 transition-all duration-300 ${collapsed ? 'hidden' : 'block'}`}>
-          Filters
+          {getFiltersTitle()}
         </h1>
         <button onClick={onToggle} className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400">
           {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
@@ -102,7 +118,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {/* Role Section */}
           <div>
             <div className="flex items-center justify-between cursor-pointer mb-3" onClick={() => toggleSection('roles')}>
-              <span className="font-semibold text-gray-900 dark:text-gray-100">Role</span>
+              <span className="font-semibold text-gray-900 dark:text-gray-100">{getSectionTitle('roles')}</span>
               {open.roles ? <ChevronUpIcon className="w-4 h-4 text-gray-600 dark:text-gray-400" /> : <ChevronDownIcon className="w-4 h-4 text-gray-600 dark:text-gray-400" />}
             </div>
             {open.roles && (
@@ -115,7 +131,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {/* Location Section */}
           <div>
             <div className="flex items-center justify-between cursor-pointer mb-3" onClick={() => toggleSection('locations')}>
-              <span className="font-semibold text-gray-900 dark:text-gray-100">Team</span>
+              <span className="font-semibold text-gray-900 dark:text-gray-100">{getSectionTitle('locations')}</span>
               {open.locations ? <ChevronUpIcon className="w-4 h-4 text-gray-600 dark:text-gray-400" /> : <ChevronDownIcon className="w-4 h-4 text-gray-600 dark:text-gray-400" />}
             </div>
             {open.locations && (
@@ -128,7 +144,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {/* Skills Section */}
           <div>
             <div className="flex items-center justify-between cursor-pointer mb-3" onClick={() => toggleSection('skills')}>
-              <span className="font-semibold text-gray-900 dark:text-gray-100">Skills & Interests</span>
+              <span className="font-semibold text-gray-900 dark:text-gray-100">{getSectionTitle('skills')}</span>
               {open.skills ? <ChevronUpIcon className="w-4 h-4 text-gray-600 dark:text-gray-400" /> : <ChevronDownIcon className="w-4 h-4 text-gray-600 dark:text-gray-400" />}
             </div>
             {open.skills && (
