@@ -1,3 +1,4 @@
+import React from "react"
 import { ProfileCard } from "./ProfileCard"
 import BlurFade from "./ui/blur-fade"
 
@@ -6,21 +7,48 @@ interface PeopleGridProps {
   people: any[];
 }
 
+// Memoized card component to prevent unnecessary re-renders
+const MemoizedCardWrapper = React.memo(({ person, idx, onCardClick }: { person: any, idx: number, onCardClick: (idx: number) => void }) => {
+  // Calculate staggered delay based on row position, not absolute index
+  // This keeps delays short and consistent regardless of scroll position
+  const rowDelay = (idx % 4) * 0.02; // Max 0.06s delay within each row
+  
+  return (
+    <BlurFade 
+      key={person.id} 
+      delay={rowDelay}
+      duration={0.25}
+      inView
+      inViewMargin="-20px"
+      yOffset={3}
+      blur="3px"
+    >
+      <ProfileCard 
+        name={person.name}
+        role={person.role}
+        avatar_initials={person.avatar_initials}
+        avatar_color={person.avatar_color}
+        profileImage={person.profileImage}
+        skills={person.skills}
+        hobbies={person.hobbies}
+        team={person.team}
+        recentActivity={person.recentActivity}
+        onClick={() => onCardClick(idx)}
+      />
+    </BlurFade>
+  );
+});
+
 export const PeopleGrid = ({ onCardClick, people }: PeopleGridProps) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {people.map((person, idx) => (
-        <BlurFade key={person.id} delay={0.1 + idx * 0.05} inView>
-          <ProfileCard 
-            name={person.name}
-            role={person.role}
-            avatar_initials={person.avatar_initials}
-            avatar_color={person.avatar_color}
-            profileImage={person.profileImage}
-            skills={person.skills}
-            onClick={() => onCardClick(idx)}
-          />
-        </BlurFade>
+        <MemoizedCardWrapper 
+          key={person.id}
+          person={person}
+          idx={idx}
+          onCardClick={onCardClick}
+        />
       ))}
     </div>
   )

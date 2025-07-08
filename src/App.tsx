@@ -471,6 +471,19 @@ const FilterPillsBar: React.FC<FilterPillsBarProps> = ({
   const [miscExpanded, setMiscExpanded] = useState(false);
   const pills: FilterPill[] = [];
   
+  // Get localized category names
+  const getCategoryName = (key: string): string => {
+    const categoryNames = {
+      roles: language === 'ja' ? '役職' : 'Role',
+      locations: language === 'ja' ? 'チーム' : 'Team',
+      skills: language === 'ja' ? 'スキル・興味' : 'Expertise',
+      projects: language === 'ja' ? 'プロジェクト' : 'Projects',
+      interests: language === 'ja' ? '興味・趣味' : 'Interests',
+      search: language === 'ja' ? '検索' : 'Search'
+    };
+    return categoryNames[key as keyof typeof categoryNames] || key;
+  };
+  
   // Add search pill
   if (search) {
     pills.push({ category: 'Search', value: search, key: 'search' });
@@ -494,12 +507,12 @@ const FilterPillsBar: React.FC<FilterPillsBarProps> = ({
       <div className="flex flex-wrap gap-2 mb-2">
         {pills.map(pill => (
           <span key={pill.key} className="inline-flex items-center gap-2 px-3 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-lg text-sm border border-blue-200 dark:border-blue-700">
-            <span className="font-medium capitalize">{pill.category}:</span>
+            <span className="font-medium">{getCategoryName(pill.category)}:</span>
             <span className="max-w-32 truncate">{pill.value}</span>
             <button 
               onClick={() => onRemove(pill)} 
               className="ml-1 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100 hover:bg-blue-200 dark:hover:bg-blue-800 rounded-full p-1 transition-colors"
-              aria-label={`Remove ${pill.category} filter`}
+              aria-label={`Remove ${getCategoryName(pill.category)} filter`}
             >
               ×
             </button>
@@ -850,7 +863,7 @@ function AppContent() {
                 )}
               </div>
               
-              <div className="flex-1 overflow-auto pt-2">
+              <div className="flex-1 overflow-auto pt-2 px-6 pb-6">
                 <BlurFade delay={0.3}>
                   <PeopleGrid 
                     people={filteredPeople} 
@@ -922,7 +935,7 @@ function AppContent() {
               )}
             </div>
             
-            <div className="flex-1 overflow-auto px-6 relative z-10">
+            <div className="flex-1 overflow-auto px-6 pb-6 relative z-10">
               <BlurFade delay={0.4}>
                 <PeopleGrid 
                   people={filteredPeople} 
