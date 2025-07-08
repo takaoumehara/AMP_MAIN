@@ -35,7 +35,11 @@ export default function BlurFade({
   blur = "6px",
 }: BlurFadeProps) {
   const ref = useRef(null);
-  const inViewResult = useInView(ref, { once: true, margin: inViewMargin as any });
+  const inViewResult = useInView(ref, { 
+    once: true, 
+    margin: inViewMargin as any,
+    amount: 0.1 // Trigger when 10% of element is visible
+  });
   const isInView = !inView || inViewResult;
   const defaultVariantsWithProps = {
     hidden: { y: yOffset, opacity: 0, filter: `blur(${blur})` },
@@ -50,9 +54,12 @@ export default function BlurFade({
       exit="hidden"
       variants={combinedVariants}
       transition={{
-        delay: 0.04 + delay,
+        delay: delay,
         duration,
         ease: "easeOut",
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
       }}
       className={cn(className)}
     >

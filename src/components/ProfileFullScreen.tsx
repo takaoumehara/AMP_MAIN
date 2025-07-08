@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-
-
+import { MapPin, ExternalLink, Github, User, Briefcase, Lightbulb, Heart, FileText, Code, Users, Calendar } from 'lucide-react';
 
 interface ProfileFullScreenProps {
   person: any;
@@ -22,9 +21,9 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
   hasNext,
   onFullPage,
   showFullPage = false,
-
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft' && hasPrev) onPrev();
@@ -38,7 +37,6 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
   // Close on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
-      // Close if the click is outside the modal content, but not on the arrows
       if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
         const target = e.target as HTMLElement;
         if (!target.closest('[aria-label="Previous"]') && !target.closest('[aria-label="Next"]')) {
@@ -50,171 +48,250 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
     return () => document.removeEventListener('mousedown', handleClick);
   }, [onClose]);
 
+  // Helper function to render tag list
+  const renderTagList = (items: string[], colorType: 'roles' | 'skills' | 'interests') => {
+    if (!items || items.length === 0) return null;
+    
+    // Color schemes for different tag types
+    const colorSchemes = {
+      roles: 'bg-blue-600 dark:bg-blue-500 text-white border-blue-700 dark:border-blue-400',
+      skills: 'bg-emerald-600 dark:bg-emerald-500 text-white border-emerald-700 dark:border-emerald-400',
+      interests: 'bg-purple-600 dark:bg-purple-500 text-white border-purple-700 dark:border-purple-400'
+    };
+    
+    return (
+      <div className="flex flex-wrap gap-2">
+        {items.map((item, index) => (
+          <span
+            key={index}
+            className={`px-3 py-1 rounded-full text-sm font-medium border ${colorSchemes[colorType]}`}
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+    );
+  };
 
+  // Helper function to render link with icon
+  const renderLink = (url: string, label: string, icon: React.ReactNode) => {
+    if (!url || url === 'N/A') return null;
+    return (
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors"
+      >
+        {icon}
+        {label}
+      </a>
+    );
+  };
 
+  // Full Page Profile View
   if (showFullPage) {
     return (
       <div className="fixed inset-0 z-50 bg-white dark:bg-gray-900 overflow-auto">
-        <div className="max-w-6xl mx-auto p-8">
+        <div className="max-w-7xl mx-auto p-6 lg:p-8">
           {/* Header with back button */}
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center justify-between mb-8 pb-4 border-b border-gray-200 dark:border-gray-700">
             <button
               onClick={onClose}
-              className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold"
+              className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold transition-colors"
             >
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2">
                 <polyline points="15 18 9 12 15 6"></polyline>
               </svg>
               Back to Grid
             </button>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Full Profile</h1>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Profile Details</h1>
           </div>
 
-          {/* Full page content */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left column - Avatar and basic info */}
-            <div className="lg:col-span-1">
-              <div className="sticky top-8">
-                <div className="flex flex-col items-center text-center">
-                  {person.profileImage ? (
-                    <img src={person.profileImage} alt={person.name} className="w-48 h-48 rounded-full object-cover border-4 border-blue-200 dark:border-blue-700 mb-6" />
-                  ) : (
-                    <div className="flex items-center justify-center w-48 h-48 rounded-full mb-6" style={{ background: person.avatar_color }}>
-                      <span className="text-white text-6xl font-bold select-none">{person.avatar_initials}</span>
+          {/* Profile Header */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-8 mb-8">
+            <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">
+              {/* Avatar */}
+              <div className="flex-shrink-0">
+                {person.profileImage ? (
+                  <img 
+                    src={person.profileImage} 
+                    alt={person.name} 
+                    className="w-32 h-32 rounded-full object-cover border-4 border-white dark:border-gray-600 shadow-lg" 
+                  />
+                ) : (
+                  <div 
+                    className="flex items-center justify-center w-32 h-32 rounded-full border-4 border-white dark:border-gray-600 shadow-lg"
+                    style={{ background: person.avatar_color }}
+                  >
+                    <span className="text-white text-4xl font-bold select-none">
+                      {person.avatar_initials}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Basic Info */}
+              <div className="flex-1 text-center lg:text-left">
+                <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                  {person.name}
+                </h2>
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-4">
+                  <div className="flex items-center gap-2 text-xl text-blue-700 dark:text-blue-400">
+                    <Briefcase size={20} />
+                    {person.role}
+                  </div>
+                  {person.team && (
+                    <div className="flex items-center gap-2 text-lg text-gray-600 dark:text-gray-400">
+                      <MapPin size={18} />
+                      {person.team}
                     </div>
                   )}
-                  <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">{person.name}</h2>
-                  <p className="text-2xl text-blue-700 dark:text-blue-400 mb-2">{person.role}</p>
-                  {person.team && <p className="text-lg text-gray-500 dark:text-gray-400 mb-4">Team: {person.team}</p>}
-                  <div className="flex gap-4 mb-6">
-                    {person.profile_url && person.profile_url !== 'N/A' && (
-                      <a href={person.profile_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 underline text-sm">Profile</a>
-                    )}
-                    {person.github_account && (
-                      <a href={`https://github.com/${person.github_account}`} target="_blank" rel="noopener noreferrer" className="text-gray-700 dark:text-gray-300 underline text-sm flex items-center gap-1">
-                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.01.08-2.11 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.91.08 2.11.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-                        GitHub
-                      </a>
-                    )}
-                  </div>
                 </div>
+
+                {/* Links */}
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 mb-6">
+                  {renderLink(person.profile_url, 'Profile', <ExternalLink size={18} />)}
+                  {person.github_account && renderLink(
+                    `https://github.com/${person.github_account}`,
+                    'GitHub',
+                    <Github size={18} />
+                  )}
+                </div>
+
+                {/* Role Tags */}
+                {person.roles && person.roles.length > 0 && (
+                  <div className="mb-4">
+                    <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Roles</h4>
+                    {renderTagList(person.roles, 'roles')}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Left Column */}
+            <div className="space-y-8">
+              {/* Summary/About */}
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-3 mb-4">
+                  <User className="text-blue-600 dark:text-blue-400" size={24} />
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">About</h3>
+                </div>
+                {person.summary ? (
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    {person.summary}
+                  </p>
+                ) : (
+                  <p className="text-gray-500 dark:text-gray-400 italic">
+                    Profile summary will be generated by AI based on available information.
+                  </p>
+                )}
+              </div>
+
+              {/* Specialties */}
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-3 mb-4">
+                  <Code className="text-green-600 dark:text-green-400" size={24} />
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Specialties</h3>
+                </div>
+                {person.skills && person.skills.length > 0 ? (
+                  renderTagList(person.skills, 'skills')
+                ) : person.specialty ? (
+                  <p className="text-gray-700 dark:text-gray-300">{person.specialty}</p>
+                ) : (
+                  <p className="text-gray-500 dark:text-gray-400 italic">No specialties listed</p>
+                )}
+              </div>
+
+              {/* Interests */}
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-3 mb-4">
+                  <Heart className="text-red-600 dark:text-red-400" size={24} />
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Interests</h3>
+                </div>
+                {person.hobbies && person.hobbies.length > 0 ? (
+                  renderTagList(person.hobbies, 'interests')
+                ) : person.interests ? (
+                  <p className="text-gray-700 dark:text-gray-300">{person.interests}</p>
+                ) : (
+                  <p className="text-gray-500 dark:text-gray-400 italic">No interests listed</p>
+                )}
               </div>
             </div>
 
-            {/* Right column - Detailed information */}
-            <div className="lg:col-span-2 space-y-8">
-              {/* Skills */}
-              {person.skills && person.skills.length > 0 && (
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Skills</h3>
-                  <div className="flex flex-wrap gap-3">
-                    {person.skills.map((skill: string) => (
-                      <span key={skill} className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-4 py-2 rounded-full text-sm font-semibold">{skill}</span>
-                    ))}
+            {/* Right Column */}
+            <div className="space-y-8">
+              {/* Ideas & Projects */}
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-3 mb-4">
+                  <Lightbulb className="text-yellow-600 dark:text-yellow-400" size={24} />
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Ideas & Projects</h3>
+                </div>
+                {person.ideas ? (
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+                    {person.ideas}
+                  </p>
+                ) : (
+                  <p className="text-gray-500 dark:text-gray-400 italic mb-4">No ideas listed</p>
+                )}
+                
+                {person.recentActivity && (
+                  <div className="mt-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">Recent Activity</h4>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">{person.recentActivity}</p>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
 
-              {/* Hobbies */}
-              {person.hobbies && person.hobbies.length > 0 && (
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Hobbies & Interests</h3>
-                  <div className="flex flex-wrap gap-3">
-                    {person.hobbies.map((hobby: string) => (
-                      <span key={hobby} className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-4 py-2 rounded-full text-sm">{hobby}</span>
-                    ))}
+              {/* Detailed Project Stories */}
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-3 mb-4">
+                  <FileText className="text-purple-600 dark:text-purple-400" size={24} />
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Project Details</h3>
+                </div>
+                {person.project_details ? (
+                  <div className="prose dark:prose-invert max-w-none">
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
+                      {person.project_details}
+                    </p>
                   </div>
-                </div>
-              )}
-
-              {/* Specialty */}
-              {person.specialty && (
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Specialty</h3>
-                  <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{person.specialty}</p>
-                </div>
-              )}
-
-              {/* Ideas */}
-              {person.ideas && (
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Ideas & Projects</h3>
-                  <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{person.ideas}</p>
-                </div>
-              )}
-
-              {/* Recent Activity */}
-              {person.recentActivity && (
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Recent Activity</h3>
-                  <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{person.recentActivity}</p>
-                </div>
-              )}
-
-              {/* Additional Interests */}
-              {person.interests && (
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Additional Interests</h3>
-                  <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{person.interests}</p>
-                </div>
-              )}
+                ) : (
+                  <p className="text-gray-500 dark:text-gray-400 italic">
+                    Detailed project information will be added based on ongoing work and achievements.
+                  </p>
+                )}
+              </div>
 
               {/* Program Participation */}
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Program Participation</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-3 mb-4">
+                  <Calendar className="text-indigo-600 dark:text-indigo-400" size={24} />
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Program Participation</h3>
+                </div>
+                <div className="grid grid-cols-1 gap-3">
                   {person.concurrent_possible !== undefined && (
-                    <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                      <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">Concurrent Possible</h4>
-                      <p className="text-gray-700 dark:text-gray-300">{String(person.concurrent_possible)}</p>
+                    <div className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <span className="font-medium text-gray-800 dark:text-gray-200">Concurrent Possible</span>
+                      <span className="text-gray-600 dark:text-gray-300">{String(person.concurrent_possible)}</span>
                     </div>
                   )}
                   {person.rocket_incubator !== undefined && (
-                    <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                      <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">Rocket Incubator</h4>
-                      <p className="text-gray-700 dark:text-gray-300">{String(person.rocket_incubator)}</p>
+                    <div className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <span className="font-medium text-gray-800 dark:text-gray-200">Rocket Incubator</span>
+                      <span className="text-gray-600 dark:text-gray-300">{String(person.rocket_incubator)}</span>
                     </div>
                   )}
                   {person.graphai_ai_podcaster !== undefined && (
-                    <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                      <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">GraphAI Podcaster</h4>
-                      <p className="text-gray-700 dark:text-gray-300">{String(person.graphai_ai_podcaster)}</p>
+                    <div className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <span className="font-medium text-gray-800 dark:text-gray-200">GraphAI Podcaster</span>
+                      <span className="text-gray-600 dark:text-gray-300">{String(person.graphai_ai_podcaster)}</span>
                     </div>
                   )}
                 </div>
               </div>
-
-              {/* Summary */}
-              {person.summary && (
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Summary</h3>
-                  <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{person.summary}</p>
-                </div>
-              )}
-
-              {/* Project Details */}
-              {person.project_details && (
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Project Details</h3>
-                  <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{person.project_details}</p>
-                </div>
-              )}
-
-              {/* Contributions */}
-              {person.contributions && (
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Contributions</h3>
-                  <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{person.contributions}</p>
-                </div>
-              )}
-
-              {/* Support Activities */}
-              {person.support_activities && (
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Support Activities</h3>
-                  <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{person.support_activities}</p>
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -222,100 +299,217 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
     );
   }
 
+  // Modal Card View
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 dark:bg-black dark:bg-opacity-80 overflow-auto">
-      {/* Left Arrow */}
+      {/* Navigation Arrows */}
       <button
         onClick={onPrev}
         disabled={!hasPrev}
-        className={`absolute left-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-700 shadow-lg transition-all text-gray-900 dark:text-gray-100 ${hasPrev ? 'opacity-100' : 'opacity-50 cursor-not-allowed'}`}
+        className={`absolute left-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-700 shadow-lg transition-all text-gray-900 dark:text-gray-100 ${
+          hasPrev ? 'opacity-100' : 'opacity-50 cursor-not-allowed'
+        }`}
         aria-label="Previous"
       >
-        <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 6 10 16 18 26"></polyline></svg>
+        <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="18 6 10 16 18 26"></polyline>
+        </svg>
       </button>
 
-      <div ref={modalRef} className="relative bg-white dark:bg-gray-900 rounded-3xl shadow-2xl w-full max-w-5xl mx-4 p-10 flex flex-col md:flex-row gap-10 animate-fade-in min-h-[60vh] max-h-[90vh] overflow-auto">
-        {/* X Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full p-2 shadow z-10 text-gray-900 dark:text-gray-100"
-          aria-label="Close"
-        >
-          <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
-
-        {/* Full Page Button */}
-        {onFullPage && (
-          <button
-            onClick={onFullPage}
-            className="absolute top-4 right-16 bg-blue-100 dark:bg-blue-900/50 hover:bg-blue-200 dark:hover:bg-blue-800/50 rounded-full p-2 shadow z-10 text-blue-700 dark:text-blue-300"
-            aria-label="Full Page View"
-          >
-            <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M15 3h6v6"></path>
-              <path d="M10 14 21 3"></path>
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-            </svg>
-          </button>
-        )}
-
-        {/* Avatar and Basic Info */}
-        <div className="flex flex-col items-center md:items-start md:w-1/3 gap-4">
-          {person.profileImage ? (
-            <img src={person.profileImage} alt={person.name} className="w-40 h-40 rounded-full object-cover border-4 border-blue-200 dark:border-blue-700 mb-2" />
-          ) : (
-            <div className="flex items-center justify-center w-40 h-40 rounded-full mb-2" style={{ background: person.avatar_color }}>
-              <span className="text-white text-4xl font-bold select-none">{person.avatar_initials}</span>
-            </div>
-          )}
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-1">{person.name}</h2>
-          <p className="text-2xl text-blue-700 dark:text-blue-400 mb-1">{person.role}</p>
-          {person.team && <p className="text-lg text-gray-500 dark:text-gray-400 mb-1">Team: {person.team}</p>}
-          <div className="flex flex-wrap gap-2 mb-2">
-            {person.skills && person.skills.map((skill: string) => (
-              <span key={skill} className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-semibold">{skill}</span>
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-2 mb-2">
-            {person.hobbies && person.hobbies.map((hobby: string) => (
-              <span key={hobby} className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-3 py-1 rounded-full text-xs">{hobby}</span>
-            ))}
-          </div>
-          <div className="flex gap-4 mt-2">
-            {person.profile_url && person.profile_url !== 'N/A' && (
-              <a href={person.profile_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 underline text-sm">Profile</a>
-            )}
-            {person.github_account && (
-              <a href={`https://github.com/${person.github_account}`} target="_blank" rel="noopener noreferrer" className="text-gray-700 dark:text-gray-300 underline text-sm flex items-center gap-1">
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.01.08-2.11 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.91.08 2.11.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-                GitHub
-              </a>
-            )}
-          </div>
-        </div>
-        {/* Rich Content */}
-        <div className="flex-1 flex flex-col justify-between gap-4">
-          <div>
-            {person.specialty && <div className="mb-2"><span className="font-semibold text-gray-800 dark:text-gray-200">Specialty:</span> <span className="text-gray-700 dark:text-gray-300">{person.specialty}</span></div>}
-            {person.ideas && <div className="mb-2"><span className="font-semibold text-gray-800 dark:text-gray-200">Ideas:</span> <span className="text-gray-700 dark:text-gray-300">{person.ideas}</span></div>}
-            {person.recentActivity && <div className="mb-2"><span className="font-semibold text-gray-800 dark:text-gray-200">Recent Activity:</span> <span className="text-gray-700 dark:text-gray-300">{person.recentActivity}</span></div>}
-            {person.interests && <div className="mb-2"><span className="font-semibold text-gray-800 dark:text-gray-200">Interests:</span> <span className="text-gray-700 dark:text-gray-300">{person.interests}</span></div>}
-            {person.concurrent_possible !== undefined && <div className="mb-2"><span className="font-semibold text-gray-800 dark:text-gray-200">Concurrent Possible:</span> <span className="text-gray-700 dark:text-gray-300">{String(person.concurrent_possible)}</span></div>}
-            {person.rocket_incubator !== undefined && <div className="mb-2"><span className="font-semibold text-gray-800 dark:text-gray-200">Rocket Incubator:</span> <span className="text-gray-700 dark:text-gray-300">{String(person.rocket_incubator)}</span></div>}
-            {person.graphai_ai_podcaster !== undefined && <div className="mb-2"><span className="font-semibold text-gray-800 dark:text-gray-200">GraphAI Podcaster:</span> <span className="text-gray-700 dark:text-gray-300">{String(person.graphai_ai_podcaster)}</span></div>}
-          </div>
-        </div>
-      </div>
-
-      {/* Right Arrow */}
       <button
         onClick={onNext}
         disabled={!hasNext}
-        className={`absolute right-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-700 shadow-lg transition-all text-gray-900 dark:text-gray-100 ${hasNext ? 'opacity-100' : 'opacity-50 cursor-not-allowed'}`}
+        className={`absolute right-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-700 shadow-lg transition-all text-gray-900 dark:text-gray-100 ${
+          hasNext ? 'opacity-100' : 'opacity-50 cursor-not-allowed'
+        }`}
         aria-label="Next"
       >
-        <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="14 6 22 16 14 26"></polyline></svg>
+        <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="14 6 22 16 14 26"></polyline>
+        </svg>
       </button>
+
+      {/* Modal Content */}
+      <div 
+        ref={modalRef} 
+        className="relative bg-white dark:bg-gray-900 rounded-3xl shadow-2xl w-full max-w-4xl mx-4 max-h-[90vh] overflow-auto animate-fade-in"
+      >
+        {/* Header with close and expand buttons */}
+        <div className="sticky top-0 z-10 bg-white dark:bg-gray-900 rounded-t-3xl p-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Profile Details</h2>
+            <div className="flex items-center gap-2">
+              {onFullPage && (
+                <button
+                  onClick={onFullPage}
+                  className="p-2 bg-blue-100 dark:bg-blue-900/50 hover:bg-blue-200 dark:hover:bg-blue-800/50 rounded-full transition-colors text-blue-700 dark:text-blue-300"
+                  aria-label="Full Page View"
+                >
+                  <ExternalLink size={20} />
+                </button>
+              )}
+              <button
+                onClick={onClose}
+                className="p-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition-colors text-gray-900 dark:text-gray-100"
+                aria-label="Close"
+              >
+                <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Modal Body */}
+        <div className="p-6">
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Left Column - Avatar and Basic Info */}
+            <div className="lg:w-1/3 flex flex-col items-center lg:items-start">
+              {/* Avatar */}
+              <div className="mb-6">
+                {person.profileImage ? (
+                  <img 
+                    src={person.profileImage} 
+                    alt={person.name} 
+                    className="w-32 h-32 rounded-full object-cover border-4 border-blue-200 dark:border-blue-700 shadow-lg" 
+                  />
+                ) : (
+                  <div 
+                    className="flex items-center justify-center w-32 h-32 rounded-full border-4 border-blue-200 dark:border-blue-700 shadow-lg"
+                    style={{ background: person.avatar_color }}
+                  >
+                    <span className="text-white text-4xl font-bold select-none">
+                      {person.avatar_initials}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Basic Info */}
+              <div className="text-center lg:text-left mb-6">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                  {person.name}
+                </h3>
+                <div className="flex items-center justify-center lg:justify-start gap-2 text-lg text-blue-700 dark:text-blue-400 mb-2">
+                  <Briefcase size={18} />
+                  {person.role}
+                </div>
+                {person.team && (
+                  <div className="flex items-center justify-center lg:justify-start gap-2 text-gray-600 dark:text-gray-400">
+                    <MapPin size={16} />
+                    {person.team}
+                  </div>
+                )}
+              </div>
+
+              {/* Links */}
+              <div className="flex flex-col gap-3 mb-6 w-full">
+                {renderLink(person.profile_url, 'View Profile', <ExternalLink size={18} />)}
+                {person.github_account && renderLink(
+                  `https://github.com/${person.github_account}`,
+                  'GitHub Profile',
+                  <Github size={18} />
+                )}
+              </div>
+
+              {/* Summary */}
+              {person.summary && (
+                <div className="w-full">
+                  <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">About</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {person.summary.length > 200 ? `${person.summary.substring(0, 200)}...` : person.summary}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Right Column - Detailed Information */}
+            <div className="lg:w-2/3 space-y-6">
+              {/* Specialties */}
+              <div>
+                <h4 className="flex items-center gap-2 font-semibold text-gray-800 dark:text-gray-200 mb-3">
+                  <Code size={18} className="text-green-600 dark:text-green-400" />
+                  Specialties
+                </h4>
+                {person.skills && person.skills.length > 0 ? (
+                  renderTagList(person.skills, 'skills')
+                ) : person.specialty ? (
+                  <p className="text-gray-700 dark:text-gray-300">{person.specialty}</p>
+                ) : (
+                  <p className="text-gray-500 dark:text-gray-400 italic">No specialties listed</p>
+                )}
+              </div>
+
+              {/* Interests */}
+              <div>
+                <h4 className="flex items-center gap-2 font-semibold text-gray-800 dark:text-gray-200 mb-3">
+                  <Heart size={18} className="text-red-600 dark:text-red-400" />
+                  Interests
+                </h4>
+                {person.hobbies && person.hobbies.length > 0 ? (
+                  renderTagList(person.hobbies, 'interests')
+                ) : person.interests ? (
+                  <p className="text-gray-700 dark:text-gray-300">{person.interests}</p>
+                ) : (
+                  <p className="text-gray-500 dark:text-gray-400 italic">No interests listed</p>
+                )}
+              </div>
+
+              {/* Ideas & Projects */}
+              <div>
+                <h4 className="flex items-center gap-2 font-semibold text-gray-800 dark:text-gray-200 mb-3">
+                  <Lightbulb size={18} className="text-yellow-600 dark:text-yellow-400" />
+                  Ideas & Projects
+                </h4>
+                {person.ideas ? (
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    {person.ideas}
+                  </p>
+                ) : (
+                  <p className="text-gray-500 dark:text-gray-400 italic">No ideas listed</p>
+                )}
+                
+                {person.recentActivity && person.recentActivity !== person.ideas && (
+                  <div className="mt-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <h5 className="font-medium text-gray-800 dark:text-gray-200 mb-1">Recent Activity</h5>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">{person.recentActivity}</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Program Participation */}
+              <div>
+                <h4 className="flex items-center gap-2 font-semibold text-gray-800 dark:text-gray-200 mb-3">
+                  <Users size={18} className="text-indigo-600 dark:text-indigo-400" />
+                  Program Participation
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {person.concurrent_possible !== undefined && (
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-700 rounded text-sm">
+                      <span className="font-medium text-gray-800 dark:text-gray-200">Concurrent</span>
+                      <span className="text-gray-600 dark:text-gray-300">{String(person.concurrent_possible)}</span>
+                    </div>
+                  )}
+                  {person.rocket_incubator !== undefined && (
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-700 rounded text-sm">
+                      <span className="font-medium text-gray-800 dark:text-gray-200">Rocket</span>
+                      <span className="text-gray-600 dark:text-gray-300">{String(person.rocket_incubator)}</span>
+                    </div>
+                  )}
+                  {person.graphai_ai_podcaster !== undefined && (
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-700 rounded text-sm">
+                      <span className="font-medium text-gray-800 dark:text-gray-200">GraphAI</span>
+                      <span className="text-gray-600 dark:text-gray-300">{String(person.graphai_ai_podcaster)}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }; 
