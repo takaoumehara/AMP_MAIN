@@ -7,7 +7,7 @@ export interface AISearchResponse {
 // Load and compress JSON data for system prompt with GitHub data
 async function loadCompressedJSONData(): Promise<string> {
   try {
-    const response = await fetch('/src/data/people_with_github.json');
+    const response = await fetch('/people_with_github.json');
     const jsonData = await response.json();
     
     // Extract participants array
@@ -54,7 +54,7 @@ async function loadCompressedJSONData(): Promise<string> {
     // Convert to CSV format for AI processing
     const csvLines = ['id,name,roles,team,skills,interests,ideas,github_bio,github_company,github_languages,github_repos'];
     
-    compressedData.forEach(person => {
+    compressedData.forEach((person: any) => {
       csvLines.push([
         person.id,
         `"${person.name}"`,
