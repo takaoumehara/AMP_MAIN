@@ -297,7 +297,7 @@ export const AdvancedSearchBar = ({ value, onChange, onSearchResults, onAISearch
     <div className="relative">
       {/* Search Input */}
       <div className="flex gap-3 mb-4">
-        <div className="relative flex-1">
+        <div className="relative max-w-lg">
           <input
             ref={inputRef}
             type="text"

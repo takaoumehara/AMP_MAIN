@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { MapPin, ExternalLink, Github, User, Briefcase, Lightbulb, Heart, FileText, Code, Users, Calendar, Star, GitFork, Activity, Linkedin, Zap, Target, Sparkles, TrendingUp, Clock, X } from 'lucide-react';
+import { getPillClasses } from '../lib/pillColors';
 
 interface ProfileFullScreenProps {
   person: any;
@@ -10,6 +11,7 @@ interface ProfileFullScreenProps {
   showFullPage: boolean;
   hasPrev: boolean;
   hasNext: boolean;
+  onRoleClick?: (role: string) => void;
   onTeamClick?: (teamName: string) => void;
   onSkillClick?: (skill: string) => void;
   onInterestClick?: (interest: string) => void;
@@ -25,6 +27,7 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
   hasNext,
   onFullPage,
   showFullPage = false,
+  onRoleClick,
   onTeamClick,
   onSkillClick,
   onInterestClick,
@@ -565,18 +568,35 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
                   {person.name}
                 </h3>
-                <div className="flex items-center justify-center lg:justify-start gap-2 text-lg text-blue-700 dark:text-blue-400 mb-2">
-                  <Briefcase size={18} />
-                  {person.role}
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-2">
+                  <Briefcase size={18} className="text-blue-600 dark:text-blue-400" />
+                  {person.roles && person.roles.length > 0 ? (
+                    person.roles.map((role: string, index: number) => (
+                      <button
+                        key={index}
+                        onClick={() => onRoleClick?.(role)}
+                        className={`${getPillClasses('role', true)} text-sm`}
+                      >
+                        {role}
+                      </button>
+                    ))
+                  ) : (
+                    <button
+                      onClick={() => onRoleClick?.(person.role)}
+                      className={`${getPillClasses('role', true)} text-sm`}
+                    >
+                      {person.role}
+                    </button>
+                  )}
                 </div>
                 {person.team && (
-                  <div 
-                    className="flex items-center justify-center lg:justify-start gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer transition-colors duration-200"
+                  <button 
+                    className={`${getPillClasses('team', true)} flex items-center gap-2 mx-auto lg:mx-0 w-fit`}
                     onClick={() => onTeamClick?.(person.team)}
                   >
                     <MapPin size={16} />
                     {person.team}
-                  </div>
+                  </button>
                 )}
               </div>
 
@@ -643,13 +663,13 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
                       </div>
                                              <div className="flex flex-wrap gap-2">
                          {person.skills.map((skill: string, index: number) => (
-                           <span
+                           <button
                              key={index}
-                             className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 rounded-full text-sm font-medium border border-green-200 dark:border-green-700 cursor-pointer hover:bg-green-200 dark:hover:bg-green-800/50 transition-colors duration-200"
+                             className={`${getPillClasses('skill', true)}`}
                              onClick={() => handlePillClick(skill, 'skill')}
                            >
                              {skill}
-                           </span>
+                           </button>
                          ))}
                        </div>
             </div>
@@ -664,15 +684,15 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
                       </div>
                                              <div className="flex flex-wrap gap-2">
                          {person.hobbies.map((hobby: string, index: number) => (
-                           <span
+                           <button
                              key={index}
-                             className="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 rounded-full text-sm font-medium border border-red-200 dark:border-red-700 cursor-pointer hover:bg-red-200 dark:hover:bg-red-800/50 transition-colors duration-200"
+                             className={`${getPillClasses('interest', true)}`}
                              onClick={() => handlePillClick(hobby, 'interest')}
                            >
                              {hobby}
-                           </span>
-            ))}
-          </div>
+                           </button>
+                         ))}
+                       </div>
                     </div>
                   )}
 
@@ -685,15 +705,15 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
                       </div>
                                              <div className="flex flex-wrap gap-2">
                          {person.github_enhanced.languages.topLanguages.slice(0, 5).map((language: string, index: number) => (
-                           <span
+                           <button
                              key={index}
-                             className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium border border-blue-200 dark:border-blue-700 cursor-pointer hover:bg-blue-200 dark:hover:bg-blue-800/50 transition-colors duration-200"
+                             className={`${getPillClasses('language', true)}`}
                              onClick={() => handlePillClick(language, 'skill')}
                            >
                              {language}
-                           </span>
-            ))}
-          </div>
+                           </button>
+                         ))}
+                       </div>
                     </div>
                   )}
                 </div>
