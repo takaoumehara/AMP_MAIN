@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { MapPin, Sparkles, Calendar, Github, Star, Code } from 'lucide-react';
+import { MapPin, Github, Sparkles } from 'lucide-react';
+import { getPillClasses } from '../lib/pillColors';
 
 interface GitHubEnhanced {
   profile: {
@@ -27,7 +28,7 @@ interface GitHubEnhanced {
     topLanguages: string[];
     languageStats: { [key: string]: number };
   };
-  topRepos: Array<{
+  topRepos: {
     name: string;
     description: string | null;
     language: string | null;
@@ -36,7 +37,7 @@ interface GitHubEnhanced {
     html_url: string;
     topics: string[];
     updated_at: string;
-  }>;
+  }[];
 }
 
 interface ProfileCardProps {
@@ -44,13 +45,14 @@ interface ProfileCardProps {
   role: string;
   avatar_initials: string;
   avatar_color: string;
-  profileImage?: string | null;
+  profileImage?: string;
   skills: string[];
   hobbies: string[];
   team: string;
   recentActivity: string;
   github_enhanced?: GitHubEnhanced;
   onClick: () => void;
+  onRoleClick?: (role: string) => void;
   onTeamClick?: (teamName: string) => void;
   onSkillClick?: (skill: string) => void;
   onInterestClick?: (interest: string) => void;
@@ -139,6 +141,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = React.memo(({
   recentActivity,
   github_enhanced,
   onClick,
+  onRoleClick,
   onTeamClick,
   onSkillClick,
   onInterestClick,
@@ -193,24 +196,37 @@ export const ProfileCard: React.FC<ProfileCardProps> = React.memo(({
           </h3>
           
           {/* Role - Primary title */}
-          <p className="text-sm font-semibold text-gray-600 dark:text-gray-400 text-center leading-tight mb-3 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors duration-300">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              // Split role by comma and handle each role
+              const roles = role.split(',').map(r => r.trim()).filter(Boolean);
+              if (roles.length === 1) {
+                onRoleClick?.(roles[0]);
+              } else {
+                // For multiple roles, just use the first one for now
+                onRoleClick?.(roles[0]);
+              }
+            }}
+            className={`${getPillClasses('role', true)} mb-3 transition-all duration-300 hover:scale-105`}
+          >
             {role}
-          </p>
+          </button>
         </div>
 
         {/* Team label and GitHub stats */}
         <div className="flex items-center justify-center gap-2 mb-4">
           {team && (
-            <div 
-              className="flex items-center gap-1 px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 cursor-pointer border border-transparent hover:border-blue-300 dark:hover:border-blue-600"
+            <button 
+              className={`${getPillClasses('team', true)} border transition-all duration-300 hover:scale-105`}
               onClick={(e) => {
                 e.stopPropagation();
                 onTeamClick?.(team);
               }}
             >
-              <MapPin className="w-3 h-3" />
+              <MapPin className="w-3 h-3 mr-1" />
               <span className="truncate max-w-[120px]">{team}</span>
-            </div>
+            </button>
           )}
           
           {/* GitHub activity indicator */}
@@ -228,14 +244,14 @@ export const ProfileCard: React.FC<ProfileCardProps> = React.memo(({
         {/* Color-coded skill tags */}
         <div className="flex flex-wrap gap-2 justify-center mb-4 min-h-[32px]">
           {displayTags.map((tag, index) => {
-            const colors = getSkillColor(tag);
             const isSkill = skills.includes(tag);
             const isHobby = hobbies.includes(tag);
+            const pillType = isSkill ? 'skill' : 'interest';
             
             return (
-              <span 
+              <button 
                 key={`${tag}-${index}`}
-                className={`px-3 py-1 rounded-full text-xs font-semibold border transition-all duration-300 hover:scale-110 hover:shadow-md flex items-center justify-center cursor-pointer ${colors.bg} ${colors.text} ${colors.border} hover:brightness-110`}
+                className={`${getPillClasses(pillType, true)} transition-all duration-300 hover:scale-110 hover:shadow-md`}
                 onClick={(e) => {
                   e.stopPropagation();
                   if (isSkill) {
@@ -246,7 +262,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = React.memo(({
                 }}
               >
                 {tag.length > 12 ? tag.substring(0, 12) + '...' : tag}
-              </span>
+              </button>
             );
           })}
         </div>

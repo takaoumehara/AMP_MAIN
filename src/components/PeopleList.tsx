@@ -5,6 +5,7 @@ import { PeopleListItem } from './PeopleListItem';
 interface PeopleListProps {
   people: any[];
   onCardClick: (index: number) => void;
+  onRoleClick?: (role: string) => void;
   onTeamClick?: (teamName: string) => void;
   onSkillClick?: (skill: string) => void;
   onInterestClick?: (interest: string) => void;
@@ -16,6 +17,7 @@ type SortOrder = 'asc' | 'desc';
 export const PeopleList: React.FC<PeopleListProps> = ({
   people,
   onCardClick,
+  onRoleClick,
   onTeamClick,
   onSkillClick,
   onInterestClick,
@@ -81,8 +83,8 @@ export const PeopleList: React.FC<PeopleListProps> = ({
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-      {/* Header */}
-      <div className="bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600 px-6 py-4">
+      {/* Desktop Header */}
+      <div className="hidden lg:block bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600 px-6 py-4">
         <div className="grid grid-cols-12 gap-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
           <div className="col-span-3">
             <button
@@ -135,19 +137,90 @@ export const PeopleList: React.FC<PeopleListProps> = ({
         </div>
       </div>
 
+      {/* Tablet Header */}
+      <div className="hidden md:block lg:hidden bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600 px-6 py-4">
+        <div className="grid grid-cols-8 gap-3 text-sm font-semibold text-gray-700 dark:text-gray-300">
+          <div className="col-span-3">
+            <button
+              onClick={() => handleSort('name')}
+              className="flex items-center hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              Name
+              <SortIcon field="name" />
+            </button>
+          </div>
+          <div className="col-span-2">
+            <button
+              onClick={() => handleSort('team')}
+              className="flex items-center hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              Team
+              <SortIcon field="team" />
+            </button>
+          </div>
+          <div className="col-span-2">
+            <button
+              onClick={() => handleSort('skillCount')}
+              className="flex items-center hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              Skills
+              <SortIcon field="skillCount" />
+            </button>
+          </div>
+          <div className="col-span-1">
+            <span>Actions</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Header */}
+      <div className="md:hidden bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600 px-3 py-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={() => handleSort('name')}
+              className="flex items-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              Name
+              <SortIcon field="name" />
+            </button>
+            <button
+              onClick={() => handleSort('team')}
+              className="flex items-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              Team
+              <SortIcon field="team" />
+            </button>
+            <button
+              onClick={() => handleSort('skillCount')}
+              className="flex items-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              Skills
+              <SortIcon field="skillCount" />
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* List Items */}
       <div className="divide-y divide-gray-200 dark:divide-gray-600">
-        {sortedPeople.map((person, index) => (
-          <PeopleListItem
-            key={person.id}
-            person={person}
-            index={index}
-            onCardClick={onCardClick}
-            onTeamClick={onTeamClick}
-            onSkillClick={onSkillClick}
-            onInterestClick={onInterestClick}
-          />
-        ))}
+        {sortedPeople.map((person, sortedIndex) => {
+          // Find the original index in the people array
+          const originalIndex = people.findIndex(p => p.id === person.id);
+          
+          return (
+            <PeopleListItem
+              key={person.id}
+              person={person}
+              index={originalIndex}
+              onCardClick={onCardClick}
+              onRoleClick={onRoleClick}
+              onTeamClick={onTeamClick}
+              onSkillClick={onSkillClick}
+              onInterestClick={onInterestClick}
+            />
+          );
+        })}
       </div>
 
       {/* Empty State */}

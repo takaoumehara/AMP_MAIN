@@ -354,10 +354,23 @@ function processPeopleData(lang: 'en' | 'ja') {
     let team = flattenLangObj(person.team, lang) || '';
     team = normalizeTeam(team, lang);
     team = truncateTeam(team, 20);
-    // Normalize roles
+    // Normalize roles and split multiple roles
     const roleArr = Array.isArray(person.role) ? person.role : (person.role ? [person.role] : []);
     const roles = normalizeRoles(roleArr, lang);
-    const role = roles.join(', ');
+    
+    // Split roles that contain commas or 、
+    const splitRoles: string[] = [];
+    roles.forEach(role => {
+      if (role.includes(',') || role.includes('、')) {
+        const parts = role.split(/[,、]/).map(part => part.trim()).filter(Boolean);
+        splitRoles.push(...parts);
+      } else {
+        splitRoles.push(role);
+      }
+    });
+    
+    const role = splitRoles.join(', ');
+    const uniqueRoles = Array.from(new Set(splitRoles));
     const specialty = flattenLangArray(person.specialty, lang) || '';
     const ideas = flattenLangArray(person.ideas, lang) || '';
     const interests = flattenLangArray(person.interests, lang) || '';
@@ -384,7 +397,7 @@ function processPeopleData(lang: 'en' | 'ja') {
       id: person.id,
       name: String(name),
       role: String(role),
-      roles: roles,
+      roles: uniqueRoles, // Store unique roles
       avatar_initials: String(avatar_initials),
       avatar_color: String(avatar_color),
       profileImage,
@@ -629,18 +642,17 @@ const FilterPillsBar: React.FC<FilterPillsBarProps> = ({
 
 
 function AppContent() {
-  const [language, setLanguage] = useState<'en' | 'ja'>('en');
+  const [language, setLanguage] = useState<'en' | 'ja'>('ja');
   const [search, setSearch] = useState('');
   const [selectedFilters, setSelectedFilters] = useState<Filters>({ roles: [], locations: [], skills: [], projects: [], interests: [] });
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [showFullPage, setShowFullPage] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [aiSearchResults, setAiSearchResults] = useState<string[]>([]);
-  const [filterView, setFilterView] = useState<'sidebar' | 'top'>('sidebar');
+  const [filterView, setFilterView] = useState<'sidebar' | 'top'>('top');
   const [isAISearchActive, setIsAISearchActive] = useState(false);
   const [selectedMiscSkills, setSelectedMiscSkills] = useState<string[]>([]);
   const [hybridSearchResults, setHybridSearchResults] = useState<HybridSearchResponse | null>(null);
-  const [searchMode, setSearchMode] = useState<'basic' | 'advanced'>('advanced');
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
 
   const processedPeopleData = useMemo(() => processPeopleData(language), [language]);
@@ -691,6 +703,11 @@ function AppContent() {
       setAiSearchResults([]);
       setIsAISearchActive(false);
     }
+  };
+
+  // Handler for role pill clicks
+  const handleRoleClick = (role: string) => {
+    handleFilterChange('roles', role);
   };
 
   // Handler for team name clicks
@@ -972,12 +989,6 @@ function AppContent() {
                     onViewChange={handleViewModeChange}
                     totalCount={filteredPeople.length}
                   />
-                  <button
-                    onClick={() => setSearchMode(searchMode === 'basic' ? 'advanced' : 'basic')}
-                    className="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-                  >
-                    {searchMode === 'basic' ? 'Advanced' : 'Basic'} Search
-                  </button>
                   <SettingsDropdown
                     language={language}
                     onLanguageChange={handleLanguageSwitch}
@@ -989,20 +1000,12 @@ function AppContent() {
                 </div>
                 
                 <BlurFade delay={0.2}>
-                  {searchMode === 'advanced' ? (
-                    <AdvancedSearchBar
-                      value={search}
-                      onChange={handleSearchChange}
-                      onSearchResults={handleHybridSearchResults}
-                      onAISearch={setAiSearchResults}
-                    />
-                  ) : (
-                    <SearchBar
-                      value={search}
-                      onChange={handleSearchChange}
-                      onAISearch={handleAISearch}
-                    />
-                  )}
+                  <AdvancedSearchBar
+                    value={search}
+                    onChange={handleSearchChange}
+                    onSearchResults={handleHybridSearchResults}
+                    onAISearch={setAiSearchResults}
+                  />
                 </BlurFade>
                 
                 <FilterPillsBar
@@ -1034,12 +1037,13 @@ function AppContent() {
                 )}
               </div>
               
-              <div className="flex-1 overflow-auto pt-2 px-6 pb-6">
+              <div className="flex-1 overflow-auto pt-6 px-3 sm:px-6 pb-6">
                 <BlurFade delay={0.3}>
                   {viewMode === 'grid' ? (
                     <PeopleGrid 
                       people={filteredPeople} 
                       onCardClick={handleCardClick}
+                      onRoleClick={handleRoleClick}
                       onTeamClick={handleTeamClick}
                       onSkillClick={handleSkillClick}
                       onInterestClick={handleInterestClick}
@@ -1048,6 +1052,7 @@ function AppContent() {
                     <PeopleList 
                       people={filteredPeople} 
                       onCardClick={handleCardClick}
+                      onRoleClick={handleRoleClick}
                       onTeamClick={handleTeamClick}
                       onSkillClick={handleSkillClick}
                       onInterestClick={handleInterestClick}
@@ -1073,12 +1078,6 @@ function AppContent() {
                     onViewChange={handleViewModeChange}
                     totalCount={filteredPeople.length}
                   />
-                  <button
-                    onClick={() => setSearchMode(searchMode === 'basic' ? 'advanced' : 'basic')}
-                    className="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-                  >
-                    {searchMode === 'basic' ? 'Advanced' : 'Basic'} Search
-                  </button>
                   <SettingsDropdown
                     language={language}
                     onLanguageChange={handleLanguageSwitch}
@@ -1090,20 +1089,12 @@ function AppContent() {
               </div>
               
               <BlurFade delay={0.2}>
-                {searchMode === 'advanced' ? (
-                  <AdvancedSearchBar
-                    value={search}
-                    onChange={handleSearchChange}
-                    onSearchResults={handleHybridSearchResults}
-                    onAISearch={setAiSearchResults}
-                  />
-                ) : (
-                  <SearchBar
-                    value={search}
-                    onChange={handleSearchChange}
-                    onAISearch={handleAISearch}
-                  />
-                )}
+                <AdvancedSearchBar
+                  value={search}
+                  onChange={handleSearchChange}
+                  onSearchResults={handleHybridSearchResults}
+                  onAISearch={setAiSearchResults}
+                />
               </BlurFade>
               
               <BlurFade delay={0.3}>
@@ -1147,12 +1138,13 @@ function AppContent() {
               )}
             </div>
             
-            <div className="flex-1 overflow-auto px-6 pb-6 relative z-0">
+            <div className="flex-1 overflow-auto px-3 sm:px-6 pb-6 pt-4 relative z-0">
               <BlurFade delay={0.4}>
                 {viewMode === 'grid' ? (
                   <PeopleGrid 
                     people={filteredPeople} 
                     onCardClick={handleCardClick}
+                    onRoleClick={handleRoleClick}
                     onTeamClick={handleTeamClick}
                     onSkillClick={handleSkillClick}
                     onInterestClick={handleInterestClick}
@@ -1161,6 +1153,7 @@ function AppContent() {
                   <PeopleList 
                     people={filteredPeople} 
                     onCardClick={handleCardClick}
+                    onRoleClick={handleRoleClick}
                     onTeamClick={handleTeamClick}
                     onSkillClick={handleSkillClick}
                     onInterestClick={handleInterestClick}
@@ -1193,6 +1186,7 @@ function AppContent() {
             hasNext={selectedIndex < filteredPeople.length - 1}
             onFullPage={handleFullPage}
             showFullPage={showFullPage}
+            onRoleClick={handleRoleClick}
             onTeamClick={handleTeamClick}
             onSkillClick={handleSkillClick}
             onInterestClick={handleInterestClick}

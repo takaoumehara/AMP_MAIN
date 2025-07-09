@@ -5,16 +5,18 @@ import BlurFade from "./ui/blur-fade"
 interface PeopleGridProps {
   onCardClick: (index: number) => void;
   people: any[];
+  onRoleClick?: (role: string) => void;
   onTeamClick?: (teamName: string) => void;
   onSkillClick?: (skill: string) => void;
   onInterestClick?: (interest: string) => void;
 }
 
 // Memoized card component to prevent unnecessary re-renders
-const MemoizedCardWrapper = React.memo(({ person, idx, onCardClick, onTeamClick, onSkillClick, onInterestClick }: { 
+const MemoizedCardWrapper = React.memo(({ person, idx, onCardClick, onRoleClick, onTeamClick, onSkillClick, onInterestClick }: { 
   person: any, 
   idx: number, 
   onCardClick: (idx: number) => void,
+  onRoleClick?: (role: string) => void,
   onTeamClick?: (teamName: string) => void,
   onSkillClick?: (skill: string) => void,
   onInterestClick?: (interest: string) => void
@@ -45,6 +47,7 @@ const MemoizedCardWrapper = React.memo(({ person, idx, onCardClick, onTeamClick,
         recentActivity={person.recentActivity}
         github_enhanced={person.github_enhanced}
         onClick={() => onCardClick(idx)}
+        onRoleClick={onRoleClick}
         onTeamClick={onTeamClick}
         onSkillClick={onSkillClick}
         onInterestClick={onInterestClick}
@@ -53,7 +56,7 @@ const MemoizedCardWrapper = React.memo(({ person, idx, onCardClick, onTeamClick,
   );
 });
 
-export const PeopleGrid = ({ onCardClick, people, onTeamClick, onSkillClick, onInterestClick }: PeopleGridProps) => {
+export const PeopleGrid = ({ onCardClick, people, onRoleClick, onTeamClick, onSkillClick, onInterestClick }: PeopleGridProps) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {people.map((person, idx) => (
@@ -62,6 +65,7 @@ export const PeopleGrid = ({ onCardClick, people, onTeamClick, onSkillClick, onI
           person={person}
           idx={idx}
           onCardClick={onCardClick}
+          onRoleClick={onRoleClick}
           onTeamClick={onTeamClick}
           onSkillClick={onSkillClick}
           onInterestClick={onInterestClick}
