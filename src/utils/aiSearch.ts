@@ -1,7 +1,57 @@
 // AI Search utility for OpenAI API integration
+import { createSearchPatterns, expandSearchTerms } from './synonymMapping';
+
 export interface AISearchResponse {
   matchingIds: string[];
   error?: string;
+  confidence?: number;
+  reasoning?: string;
+  scoredResults?: any[];
+}
+
+// Enhanced prompt engineering with comprehensive synonym support
+function createEnhancedPrompt(csvData: string, query: string): string {
+  const searchPatterns = createSearchPatterns(query);
+  const expandedTerms = expandSearchTerms(query);
+  
+  return `You are searching a database of bootcamp participants to find people who match the user's query.
+
+SEARCH QUERY: "${query}"
+
+CONTEXT:
+- This is a people search for a bootcamp directory
+- Users search for roles, skills, interests, names, or technologies
+- Results will be displayed as profile cards to the user
+- Accuracy is more important than quantity
+
+SEARCH THESE EQUIVALENT TERMS:
+${expandedTerms.join(', ')}
+
+INSTRUCTIONS:
+1. Search ALL fields: name, roles, team, skills, interests, ideas, github_bio, github_company, github_languages, github_repos
+2. Match both Japanese and English terms
+3. Return people who are relevant to the search query
+4. Be inclusive - if someone might be a good match, include them
+
+ROLE MATCHING EXAMPLES:
+- "デザイナー" or "Designer" → Match: Designer, UI Designer, UX Designer, Creative, クリエーター
+- "エンジニア" or "Engineer" → Match: Engineer, Developer, Software Engineer, Programmer, エンジニア
+- "PM" or "プロダクトマネージャー" → Match: Product Manager, PM, Manager, プロダクトマネージャー
+- "AI" → Match: AI, Machine Learning, ML, 人工知能, Data Science
+
+IMPORTANT:
+- For combined roles like "PM, Engineer", match if searching for EITHER role
+- Look beyond just the roles field - check skills, interests, and experience too
+- Someone interested in design but not titled "Designer" could still match "デザイナー"
+
+DATA FORMAT (CSV):
+${csvData}
+
+RESPONSE FORMAT:
+Return a valid JSON array of user IDs only: ["1", "2", "3"]
+No explanations, no additional text, just the array.
+
+Find users matching: ${query}`;
 }
 
 // Load and compress JSON data for system prompt with GitHub data
@@ -57,16 +107,16 @@ async function loadCompressedJSONData(): Promise<string> {
     compressedData.forEach((person: any) => {
       csvLines.push([
         person.id,
-        `"${person.name}"`,
-        `"${person.roles}"`,
-        `"${person.team}"`,
-        `"${person.skills}"`,
-        `"${person.interests}"`,
-        `"${person.ideas}"`,
-        `"${person.github_bio}"`,
-        `"${person.github_company}"`,
-        `"${person.github_languages}"`,
-        `"${person.github_repos}"`
+        `"${person.name.replace(/"/g, '""')}"`, // Escape quotes
+        `"${person.roles.replace(/"/g, '""')}"`,
+        `"${person.team.replace(/"/g, '""')}"`,
+        `"${person.skills.replace(/"/g, '""')}"`,
+        `"${person.interests.replace(/"/g, '""')}"`,
+        `"${person.ideas.replace(/"/g, '""')}"`,
+        `"${person.github_bio.replace(/"/g, '""')}"`,
+        `"${person.github_company.replace(/"/g, '""')}"`,
+        `"${person.github_languages.replace(/"/g, '""')}"`,
+        `"${person.github_repos.replace(/"/g, '""')}"`
       ].join(','));
     });
     
@@ -124,7 +174,48 @@ async function loadCompressedJSONData(): Promise<string> {
   }
 }
 
-// Search users using OpenAI API
+// Enhanced JSON parsing with multiple fallback strategies
+function parseAIResponse(response: string): string[] {
+  // Strategy 1: Direct JSON parsing
+  try {
+    const parsed = JSON.parse(response);
+    if (Array.isArray(parsed)) {
+      return parsed.map(id => String(id));
+    }
+  } catch (e) {
+    // Continue to next strategy
+  }
+  
+  // Strategy 2: Extract JSON array from response
+  const jsonArrayMatch = response.match(/\[[\s\S]*?\]/);
+  if (jsonArrayMatch) {
+    try {
+      const parsed = JSON.parse(jsonArrayMatch[0]);
+      if (Array.isArray(parsed)) {
+        return parsed.map(id => String(id));
+      }
+    } catch (e) {
+      // Continue to next strategy
+    }
+  }
+  
+  // Strategy 3: Extract numbers/IDs from response
+  const numberMatches = response.match(/\d+/g);
+  if (numberMatches) {
+    return numberMatches.map(id => String(id));
+  }
+  
+  // Strategy 4: Look for quoted strings that might be IDs
+  const quotedMatches = response.match(/"(\d+)"/g);
+  if (quotedMatches) {
+    return quotedMatches.map(match => match.replace(/"/g, ''));
+  }
+  
+  console.warn('Failed to parse AI response:', response);
+  return [];
+}
+
+// Search users using OpenAI API with enhanced error handling
 export async function searchUsersWithAI(query: string): Promise<AISearchResponse> {
   const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
   
@@ -148,29 +239,9 @@ export async function searchUsersWithAI(query: string): Promise<AISearchResponse
     
     console.log('Compressed CSV size:', csvData.length, 'characters');
     
-    const systemPrompt = `You are a search assistant. Below is CSV data with user information including GitHub data:
-
-${csvData}
-
-Search through this data based on the user's query. Look for matches in:
-- Names (Japanese and English)
-- Roles and specialties
-- Teams and organizations
-- Skills and interests
-- Ideas and projects
-- GitHub bio and company
-- GitHub programming languages
-- GitHub repository names and descriptions
-
-Return ONLY a JSON array of matching user IDs. Examples:
-- Query: "designer" → ["1", "5", "12"]
-- Query: "Python developer" → ["3", "8"]
-- Query: "React" → ["2", "7", "15"]
-- Query: "machine learning" → ["4", "9"]
-- No matches → []
-
-Be flexible with matching - include partial matches, related terms, and synonyms. Consider GitHub data as valuable technical information.`;
-
+    // Create enhanced prompt
+    const enhancedPrompt = createEnhancedPrompt(csvData, query);
+    
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -178,19 +249,20 @@ Be flexible with matching - include partial matches, related terms, and synonyms
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini', // Use model with larger context window
+        model: 'gpt-4o-mini',
         messages: [
           {
             role: 'system',
-            content: systemPrompt
+            content: 'You are a helpful search assistant for a bootcamp directory. Return only valid JSON arrays of user IDs that match the search query. Focus on being accurate and inclusive.'
           },
           {
             role: 'user',
-            content: query
+            content: enhancedPrompt
           }
         ],
-        max_completion_tokens: 200, // Use new parameter name
-        temperature: 0.1, // Low temperature for consistent results
+        max_completion_tokens: 300,
+        temperature: 0.1, // Very low temperature for consistent results
+        // Removed response_format to avoid confusion between JSON object vs array
       }),
     });
 
@@ -210,41 +282,78 @@ Be flexible with matching - include partial matches, related terms, and synonyms
       };
     }
 
-    try {
-      // Parse the JSON response
-      const matchingIds = JSON.parse(aiResponse);
-      
-      // Ensure it's an array
-      if (!Array.isArray(matchingIds)) {
-        console.error('AI response is not an array:', aiResponse);
-        return {
-          matchingIds: [],
-          error: 'Invalid response format from AI'
-        };
-      }
-
-      // Convert all IDs to strings for consistency
-      const stringIds = matchingIds.map(id => String(id));
-      
-      console.log('AI search results:', stringIds);
-      
-      return {
-        matchingIds: stringIds
-      };
-
-    } catch (parseError) {
-      console.error('Failed to parse AI response:', aiResponse, parseError);
-      return {
-        matchingIds: [],
-        error: 'Failed to parse AI response'
-      };
-    }
+    // Enhanced parsing with fallback strategies
+    const matchingIds = parseAIResponse(aiResponse);
+    
+    console.log('AI search query:', query);
+    console.log('AI raw response:', aiResponse);
+    console.log('AI parsed results:', matchingIds);
+    
+    return {
+      matchingIds,
+      confidence: matchingIds.length > 0 ? 0.8 : 0.1,
+      reasoning: `Found ${matchingIds.length} matches for "${query}"`
+    };
 
   } catch (error) {
     console.error('AI search error:', error);
     return {
       matchingIds: [],
       error: error instanceof Error ? error.message : 'Unknown error occurred'
+    };
+  }
+}
+
+// Fallback search function
+export async function searchUsersWithFallback(query: string): Promise<AISearchResponse> {
+  // Try AI search first
+  const aiResult = await searchUsersWithAI(query);
+  
+  if (!aiResult.error && aiResult.matchingIds.length > 0) {
+    return aiResult;
+  }
+  
+  // If AI fails, try structured search as fallback
+  try {
+    const response = await fetch('/people_with_github.json');
+    const jsonData = await response.json();
+    const participants = jsonData.participants || jsonData;
+    
+    const lowerQuery = query.toLowerCase();
+    const matchingIds: string[] = [];
+    
+    participants.forEach((person: any) => {
+      const searchableText = [
+        person.name?.ja || '',
+        person.name?.en || '',
+        person.role?.map((r: any) => `${r.ja} ${r.en}`).join(' ') || '',
+        person.team?.ja || '',
+        person.team?.en || '',
+        person.specialty?.map((s: any) => `${s.ja} ${s.en}`).join(' ') || '',
+        person.interests?.map((i: any) => `${i.ja} ${i.en}`).join(' ') || '',
+        person.ideas?.map((i: any) => `${i.ja} ${i.en}`).join(' ') || '',
+        person.github_enhanced?.profile.bio || '',
+        person.github_enhanced?.profile.company || '',
+        person.github_enhanced?.languages.topLanguages?.join(' ') || '',
+        person.github_enhanced?.topRepos?.map((repo: any) => `${repo.name} ${repo.description || ''}`).join(' ') || ''
+      ].join(' ').toLowerCase();
+      
+      if (searchableText.includes(lowerQuery)) {
+        matchingIds.push(String(person.id));
+      }
+    });
+    
+    return {
+      matchingIds,
+      confidence: 0.6, // Lower confidence for fallback
+      reasoning: `Fallback search found ${matchingIds.length} matches`
+    };
+    
+  } catch (fallbackError) {
+    console.error('Fallback search also failed:', fallbackError);
+    return {
+      matchingIds: [],
+      error: 'Both AI and fallback search failed'
     };
   }
 } 

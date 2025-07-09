@@ -180,7 +180,7 @@ export const TopFilter: React.FC<TopFilterProps> = ({
         </button>
         
         {isOpen && (
-          <div className={`absolute top-full mt-1 ${getDropdownPosition()} w-80 sm:w-96 md:w-[500px] lg:w-[600px] xl:w-[700px] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg z-[9999] max-h-80 sm:max-h-96 md:max-h-[500px] overflow-hidden`}>
+          <div className={`absolute top-full mt-1 ${getDropdownPosition()} w-80 sm:w-96 md:w-[500px] lg:w-[600px] xl:w-[700px] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg z-[1000] max-h-80 sm:max-h-96 md:max-h-[500px] overflow-hidden`}>
             {/* Search Input */}
             <div className="p-3 border-b border-gray-200 dark:border-gray-600">
               <div className="relative">
@@ -238,7 +238,7 @@ export const TopFilter: React.FC<TopFilterProps> = ({
   };
 
   return (
-    <div className="flex flex-wrap gap-2 sm:gap-3 mb-4 relative z-[100]">
+    <div className="flex flex-wrap gap-2 sm:gap-3 mb-4 relative z-50">
       {(['roles', 'locations', 'skills', 'projects', 'interests'] as FilterKey[]).map(type => renderDropdown(type))}
     </div>
   );
