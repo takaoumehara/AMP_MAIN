@@ -17,6 +17,12 @@ import { AdvancedSearchBar } from './components/AdvancedSearchBar';
 import { HybridSearchResponse } from './utils/hybridSearch';
 import { SearchResultsDebugPanel } from './components/SearchResultsDebugPanel';
 import { performScoredSearch, ScoredSearchResponse } from './utils/advancedScoredSearch';
+import SkillMapToggle, { SkillMapViewMode } from './components/SkillMapToggle';
+import SkillBubbleMap from './components/SkillBubbleMap';
+import { MobileHeader } from './components/MobileHeader';
+import { MobileFilterSheet } from './components/MobileFilterSheet';
+import { MobileSearch } from './components/MobileSearch';
+import { performUnifiedSearch, UnifiedSearchResponse } from './utils/UnifiedSearchEngine';
 
 function uniq(arr: string[]): string[] {
   return Array.from(new Set(arr.filter(Boolean)));
@@ -648,20 +654,22 @@ function AppContent() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [showFullPage, setShowFullPage] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [aiSearchResults, setAiSearchResults] = useState<string[]>([]);
   const [filterView, setFilterView] = useState<'sidebar' | 'top'>('top');
-  const [isAISearchActive, setIsAISearchActive] = useState(false);
   const [selectedMiscSkills, setSelectedMiscSkills] = useState<string[]>([]);
-  const [hybridSearchResults, setHybridSearchResults] = useState<HybridSearchResponse | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
+  const [skillMapViewMode, setSkillMapViewMode] = useState<SkillMapViewMode>('people');
+  
+  // Unified search state
+  const [unifiedSearchResults, setUnifiedSearchResults] = useState<UnifiedSearchResponse | null>(null);
+  const [isSearchActive, setIsSearchActive] = useState(false);
+  
+  // Mobile-specific state
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [showMobileSearch, setShowMobileSearch] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   const processedPeopleData = useMemo(() => processPeopleData(language), [language]);
   const filters = useMemo(() => extractFilters(processedPeopleData, language), [processedPeopleData, language]);
-
-  const handleCardClick = useCallback((index: number) => {
-    setSelectedIndex(index);
-    setShowFullPage(false);
-  }, []);
 
   const handleClose = useCallback(() => {
     setSelectedIndex(null);
@@ -698,10 +706,10 @@ function AppContent() {
         };
       });
     }
-    // Clear AI search results when regular filters are used
-    if (aiSearchResults.length > 0) {
-      setAiSearchResults([]);
-      setIsAISearchActive(false);
+    // Clear unified search results when regular filters are used
+    if (unifiedSearchResults) {
+      setUnifiedSearchResults(null);
+      setIsSearchActive(false);
     }
   };
 
@@ -751,39 +759,41 @@ function AppContent() {
   // View mode handler
   const handleViewModeChange = (mode: ViewMode) => setViewMode(mode);
 
-  // Handle hybrid search results
-  const handleHybridSearchResults = (results: HybridSearchResponse) => {
-    setHybridSearchResults(results);
-    setAiSearchResults(results.results.map(r => r.id));
-    setIsAISearchActive(true);
-    // Clear regular filters when hybrid search is active
-    setSelectedFilters({ roles: [], locations: [], skills: [], projects: [], interests: [] });
+  // Skill map view mode handler
+  const handleSkillMapViewModeChange = (mode: SkillMapViewMode) => {
+    setSkillMapViewMode(mode);
   };
 
-  // Update filteredPeople to handle hybrid search results
+
+
+  // Handle unified search results (replaces hybrid search)
+  const handleUnifiedSearchResults = async (query: string) => {
+    if (!query.trim()) {
+      setUnifiedSearchResults(null);
+      setIsSearchActive(false);
+      return;
+    }
+    
+    try {
+      const results = await performUnifiedSearch(query);
+      setUnifiedSearchResults(results);
+      setIsSearchActive(true);
+      console.log('🎯 Unified search completed:', results);
+    } catch (error) {
+      console.error('❌ Unified search failed:', error);
+      setUnifiedSearchResults(null);
+      setIsSearchActive(false);
+    }
+  };
+
+  // Update filteredPeople to handle unified search results
   const filteredPeople = useMemo(() => {
     let filtered = processedPeopleData;
 
-    // If we have hybrid search results, show only those
-    if (hybridSearchResults && hybridSearchResults.results.length > 0) {
-      filtered = filtered.filter(person =>
-        hybridSearchResults.results.some(result => result.id === String(person.id))
-      );
-      // Sort by search score
-      filtered.sort((a, b) => {
-        const scoreA = hybridSearchResults.results.find(r => r.id === String(a.id))?.score || 0;
-        const scoreB = hybridSearchResults.results.find(r => r.id === String(b.id))?.score || 0;
-        return scoreB - scoreA;
-      });
-      return filtered;
-    }
-
-    // If we have AI search results, show only those
-    if (aiSearchResults.length > 0) {
-      filtered = filtered.filter(person =>
-        aiSearchResults.includes(String(person.id))
-      );
-      return filtered;
+    // If we have unified search results, show only those
+    if (unifiedSearchResults && unifiedSearchResults.results.length > 0) {
+      console.log('🎯 Using unified search results:', unifiedSearchResults.results.length);
+      return unifiedSearchResults.results.map(result => result.person);
     }
 
     // Otherwise, apply regular filters with enhanced search
@@ -913,23 +923,56 @@ function AppContent() {
     }
 
     return filtered;
-  }, [processedPeopleData, search, selectedFilters, aiSearchResults, hybridSearchResults, selectedMiscSkills]);
+  }, [processedPeopleData, search, selectedFilters, unifiedSearchResults, selectedMiscSkills]);
 
-  // Handle AI search results
-  const handleAISearch = (results: string[]) => {
-    setAiSearchResults(results);
-    setIsAISearchActive(true);
-    // Clear regular filters when AI search is active
-    setSelectedFilters({ roles: [], locations: [], skills: [], projects: [], interests: [] });
+  const handleCardClick = useCallback((indexOrPerson: number | any) => {
+    let personIndex: number;
+    
+    // Handle both index (from grid/list) and person object (from skill map)
+    if (typeof indexOrPerson === 'number') {
+      // Direct index from grid/list views
+      personIndex = indexOrPerson;
+    } else {
+      // Person object from skill map - find the index in filteredPeople
+      personIndex = filteredPeople.findIndex(p => p.id === indexOrPerson.id);
+      
+      // If not found in filtered people, try to find in all processed people
+      if (personIndex === -1) {
+        personIndex = processedPeopleData.findIndex(p => p.id === indexOrPerson.id);
+        
+        // If still not found, try by name as fallback
+        if (personIndex === -1) {
+          personIndex = processedPeopleData.findIndex(p => p.name === indexOrPerson.name);
+        }
+      }
+    }
+    
+    // Validation: ensure the index is valid
+    if (personIndex >= 0 && personIndex < filteredPeople.length) {
+      setSelectedIndex(personIndex);
+      setShowFullPage(false);
+    } else {
+      console.error('Person not found in filtered people:', indexOrPerson);
+      // Show error message or handle gracefully
+      // For now, we'll just not open the modal
+    }
+  }, [filteredPeople, processedPeopleData]);
+
+  // Handle unified search (replaces AI search)
+  const handleUnifiedSearch = async (query: string) => {
+    await handleUnifiedSearchResults(query);
   };
 
-  // Clear hybrid search results when regular search/filters are used
+  // Clear unified search results when regular search/filters are used
   const handleSearchChange = (newSearch: string) => {
     setSearch(newSearch);
-    if (hybridSearchResults || aiSearchResults.length > 0) {
-      setHybridSearchResults(null);
-      setAiSearchResults([]);
-      setIsAISearchActive(false);
+    if (newSearch.trim()) {
+      // Trigger unified search for non-empty queries
+      handleUnifiedSearchResults(newSearch);
+    } else {
+      // Clear search results for empty queries
+      setUnifiedSearchResults(null);
+      setIsSearchActive(false);
     }
   };
 
@@ -937,25 +980,75 @@ function AppContent() {
   const handleRemovePill = (pill: FilterPill | { key: string }) => {
     if (pill.key === 'search') {
       setSearch('');
-      if (hybridSearchResults || aiSearchResults.length > 0) {
-        setHybridSearchResults(null);
-        setAiSearchResults([]);
-        setIsAISearchActive(false);
-      }
+      setUnifiedSearchResults(null);
+      setIsSearchActive(false);
     } else if (pill.key === 'clearAll') {
       setSearch('');
       setSelectedFilters({ roles: [], locations: [], skills: [], projects: [], interests: [] });
       setSelectedMiscSkills([]);
-      if (hybridSearchResults || aiSearchResults.length > 0) {
-        setHybridSearchResults(null);
-        setAiSearchResults([]);
-        setIsAISearchActive(false);
-      }
+      setUnifiedSearchResults(null);
+      setIsSearchActive(false);
     } else {
       const [cat, val] = pill.key.split(':');
       setSelectedFilters(prev => ({ ...prev, [cat]: (prev as any)[cat].filter((v: string) => v !== val) }));
     }
   };
+
+  // Mobile-specific handlers
+  const handleMobileViewChange = (view: 'people' | 'skills') => {
+    if (view === 'people') {
+      setSkillMapViewMode('people');
+    } else {
+      setSkillMapViewMode('skills');
+    }
+  };
+
+  const handleMobileGridListChange = (mode: 'grid' | 'list') => {
+    setViewMode(mode);
+  };
+
+  const handleMobileFiltersToggle = () => {
+    setShowMobileFilters(!showMobileFilters);
+  };
+
+  const handleMobileFilterClearAll = () => {
+    setSelectedFilters({ roles: [], locations: [], skills: [], projects: [], interests: [] });
+    setSelectedMiscSkills([]);
+    if (hybridSearchResults || aiSearchResults.length > 0) {
+      setHybridSearchResults(null);
+      setAiSearchResults([]);
+      setIsAISearchActive(false);
+    }
+  };
+
+  const getMobileFilterCount = () => {
+    return Object.values(selectedFilters).reduce((total, arr) => total + arr.length, 0) + selectedMiscSkills.length;
+  };
+
+  // Scroll detection for mobile search auto-hide
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down
+        setShowMobileSearch(false);
+      } else {
+        // Scrolling up
+        setShowMobileSearch(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    // Only enable on mobile
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    if (mediaQuery.matches) {
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   return (
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
@@ -963,82 +1056,47 @@ function AppContent() {
         {/* Simple gradient background */}
         <div className="fixed inset-0 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-950 dark:to-slate-950 z-0"></div>
         
-        {filterView === 'sidebar' ? (
-          // Sidebar Layout
-          <div className="flex h-screen relative z-10">
-            <Sidebar
-              collapsed={sidebarCollapsed}
-              onToggle={handleSidebarToggle}
-              filters={filters}
-              selected={selectedFilters}
-              onFilterChange={handleFilterChange}
-              peopleData={processedPeopleData}
+        {/* Mobile Layout */}
+        <div className="md:hidden relative z-10">
+          {/* Mobile Header */}
+          <MobileHeader
+            title={skillMapViewMode === 'skills' ? (language === 'ja' ? 'スキルマップ' : 'Skill Map') : 'People Discovery'}
+            peopleCount={filteredPeople.length}
+            currentView={skillMapViewMode}
+            onViewChange={handleMobileViewChange}
+            gridListMode={viewMode}
+            onGridListChange={handleMobileGridListChange}
+            language={language}
+            onLanguageChange={handleLanguageSwitch}
+            filterCount={getMobileFilterCount()}
+            onFiltersToggle={handleMobileFiltersToggle}
+          />
+
+          {/* Mobile Search */}
+          {skillMapViewMode === 'people' && (
+            <MobileSearch
+              value={search}
+              onChange={handleSearchChange}
+              onSearchResults={handleHybridSearchResults}
+              onAISearch={setAiSearchResults}
               language={language}
+              isVisible={showMobileSearch}
             />
-            <div className="flex-1 flex flex-col overflow-hidden">
-              <div className="p-6 pb-4">
-                <div className="flex items-center justify-between mb-4">
-                  <BlurFade delay={0.1}>
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-                      People Discovery
-                    </h1>
-                  </BlurFade>
-                                  <div className="flex items-center gap-3">
-                  <ViewToggle
-                    currentView={viewMode}
-                    onViewChange={handleViewModeChange}
-                    totalCount={filteredPeople.length}
-                  />
-                  <SettingsDropdown
+          )}
+
+          {/* Mobile Content */}
+          <div className="pb-6 pt-4">
+            <BlurFade delay={0.2}>
+              {skillMapViewMode === 'skills' ? (
+                <div className="px-2">
+                  <SkillBubbleMap
+                    people={processedPeopleData}
                     language={language}
-                    onLanguageChange={handleLanguageSwitch}
-                    filterView={filterView}
-                    onFilterViewChange={setFilterView}
+                    onPersonClick={handleCardClick}
                   />
-                  <ModeToggle />
                 </div>
-                </div>
-                
-                <BlurFade delay={0.2}>
-                  <AdvancedSearchBar
-                    value={search}
-                    onChange={handleSearchChange}
-                    onSearchResults={handleHybridSearchResults}
-                    onAISearch={setAiSearchResults}
-                  />
-                </BlurFade>
-                
-                <FilterPillsBar
-                  search={search}
-                  selectedFilters={selectedFilters}
-                  onRemove={handleRemovePill}
-                  onMiscSkillToggle={handleMiscSkillToggle}
-                  selectedMiscSkills={selectedMiscSkills}
-                  language={language}
-                />
-                
-                {/* Enhanced Search Results Display */}
-                {hybridSearchResults && (
-                  <SearchResultsDebugPanel
-                    results={hybridSearchResults}
-                    query={search}
-                  />
-                )}
-                
-                {isAISearchActive && !hybridSearchResults && (
-                  <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
-                    <div className="flex items-center gap-2 text-blue-800 dark:text-blue-200">
-                      <SparklesIcon className="h-4 w-4" />
-                      <span className="text-sm font-medium">
-                        AI Search Results: Found {filteredPeople.length} matching user{filteredPeople.length !== 1 ? 's' : ''}
-                      </span>
-                    </div>
-                  </div>
-                )}
-              </div>
-              
-              <div className="flex-1 overflow-auto pt-6 px-3 sm:px-6 pb-6">
-                <BlurFade delay={0.3}>
+              ) : (
+                <div className="px-3">
                   {viewMode === 'grid' ? (
                     <PeopleGrid 
                       people={filteredPeople} 
@@ -1058,111 +1116,465 @@ function AppContent() {
                       onInterestClick={handleInterestClick}
                     />
                   )}
-                </BlurFade>
-              </div>
-            </div>
+                </div>
+              )}
+            </BlurFade>
           </div>
-        ) : (
-          // Top Filter Layout - similar updates
-          <div className="h-screen relative z-0 flex flex-col">
-            <div className="p-6 pb-4 relative z-10 bg-gray-50 dark:bg-gray-900">
-              <div className="flex items-center justify-between mb-4">
-                <BlurFade delay={0.1}>
-                  <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-                    People Discovery
-                  </h1>
-                </BlurFade>
-                <div className="flex items-center gap-3">
-                  <ViewToggle
-                    currentView={viewMode}
-                    onViewChange={handleViewModeChange}
-                    totalCount={filteredPeople.length}
-                  />
-                  <SettingsDropdown
-                    language={language}
-                    onLanguageChange={handleLanguageSwitch}
-                    filterView={filterView}
-                    onFilterViewChange={setFilterView}
-                  />
-                  <ModeToggle />
-                </div>
-              </div>
-              
-              <BlurFade delay={0.2}>
-                <AdvancedSearchBar
-                  value={search}
-                  onChange={handleSearchChange}
-                  onSearchResults={handleHybridSearchResults}
-                  onAISearch={setAiSearchResults}
-                />
-              </BlurFade>
-              
-              <BlurFade delay={0.3}>
-                <div className="mt-4 relative z-10">
-                  <TopFilter
-                    filters={filters}
-                    selected={selectedFilters}
-                    onFilterChange={handleFilterChange}
-                    peopleData={processedPeopleData}
-                    language={language}
-                  />
-                </div>
-              </BlurFade>
-              
-              <FilterPillsBar
-                search={search}
-                selectedFilters={selectedFilters}
-                onRemove={handleRemovePill}
-                onMiscSkillToggle={handleMiscSkillToggle}
-                selectedMiscSkills={selectedMiscSkills}
-                language={language}
+
+          {/* Mobile Filter Sheet */}
+          <MobileFilterSheet
+            isOpen={showMobileFilters}
+            onClose={() => setShowMobileFilters(false)}
+            filters={filters}
+            selected={selectedFilters}
+            onFilterChange={handleFilterChange}
+            onClearAll={handleMobileFilterClearAll}
+            language={language}
+            peopleData={processedPeopleData}
+          />
+        </div>
+
+        {/* Desktop Layout - Hidden on Mobile */}
+        <div className="hidden md:block">
+          {filterView === 'sidebar' ? (
+            // Sidebar Layout - Overlay Mode
+            <div className="h-screen relative z-10">
+              {/* Sidebar Backdrop */}
+              <div 
+                className={`sidebar-backdrop ${!sidebarCollapsed ? 'open' : ''}`}
+                onClick={handleSidebarToggle}
               />
               
-              {/* Enhanced Search Results Display */}
-              {hybridSearchResults && (
-                <SearchResultsDebugPanel
-                  results={hybridSearchResults}
-                  query={search}
+              {/* Overlay Sidebar */}
+              <div className={`sidebar-overlay ${!sidebarCollapsed ? 'open' : ''}`}>
+                <Sidebar
+                  collapsed={false}
+                  onToggle={handleSidebarToggle}
+                  filters={filters}
+                  selected={selectedFilters}
+                  onFilterChange={handleFilterChange}
+                  peopleData={processedPeopleData}
+                  language={language}
                 />
-              )}
+              </div>
               
-              {isAISearchActive && !hybridSearchResults && (
-                <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
-                  <div className="flex items-center gap-2 text-blue-800 dark:text-blue-200">
-                    <SparklesIcon className="h-4 w-4" />
-                    <span className="text-sm font-medium">
-                      AI Search Results: Found {filteredPeople.length} matching user{filteredPeople.length !== 1 ? 's' : ''}
-                    </span>
+              {/* Main Content - Full Width */}
+              <div className="flex flex-col h-screen overflow-hidden">
+                <div className="p-3 sm:p-6 pb-2 sm:pb-4 border-b border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md relative z-50">
+                  {/* Modern Top Navigation Hierarchy - Mobile Optimized */}
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 mb-4 sm:mb-6">
+                    <BlurFade delay={0.1}>
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
+                        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
+                          {skillMapViewMode === 'skills' ? (language === 'ja' ? 'スキルマップ' : 'Skill Map') : 'People Discovery'}
+                        </h1>
+                        
+                        {/* Separate People Count Badge - Mobile Optimized */}
+                        <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 rounded-full w-fit">
+                          <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                          <span className="text-xs sm:text-sm font-semibold text-blue-700 dark:text-blue-300">
+                            {filteredPeople.length} {language === 'ja' ? '人' : 'people'}
+                          </span>
+                        </div>
+                      </div>
+                    </BlurFade>
+                    
+                    {/* Mobile-First Action Group */}
+                    <div className="flex items-center gap-2 sm:gap-4 relative z-50">
+                      <div className="flex items-center gap-1 sm:gap-2 relative z-50">
+                        <SettingsDropdown
+                          language={language}
+                          onLanguageChange={handleLanguageSwitch}
+                          filterView={filterView}
+                          onFilterViewChange={setFilterView}
+                        />
+                        <ModeToggle />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Compact Navigation Row - Mobile Optimized */}
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+                    {/* People Group (Grid | List) */}
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                      <div className="flex items-center bg-white dark:bg-gray-800 rounded-xl p-1 border border-gray-200 dark:border-gray-600 shadow-sm">
+                        {/* People Toggle */}
+                        <button
+                          onClick={() => handleSkillMapViewModeChange('people')}
+                          className={`flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                            skillMapViewMode === 'people'
+                              ? 'bg-blue-600 text-white shadow-md'
+                              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                          }`}
+                        >
+                          <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+                          </svg>
+                          <span>{language === 'ja' ? '人材一覧' : 'People'}</span>
+                        </button>
+                        
+                        {/* Grid/List Sub-options - Only show when People is active */}
+                        {skillMapViewMode === 'people' && (
+                          <div className="flex items-center ml-2 bg-gray-50 dark:bg-gray-700 rounded-lg p-0.5">
+                            {/* Grid Button */}
+                            <button
+                              onClick={() => handleViewModeChange('grid')}
+                              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all duration-200 ${
+                                viewMode === 'grid'
+                                  ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
+                                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                              }`}
+                              title={language === 'ja' ? 'グリッド表示' : 'Grid View'}
+                            >
+                              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                              </svg>
+                              <span className="hidden sm:inline">{language === 'ja' ? 'グリッド' : 'Grid'}</span>
+                            </button>
+                            
+                            {/* List Button */}
+                            <button
+                              onClick={() => handleViewModeChange('list')}
+                              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all duration-200 ${
+                                viewMode === 'list'
+                                  ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
+                                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                              }`}
+                              title={language === 'ja' ? 'リスト表示' : 'List View'}
+                            >
+                              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2zM3 16a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2z" />
+                              </svg>
+                              <span className="hidden sm:inline">{language === 'ja' ? 'リスト' : 'List'}</span>
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {/* Separator */}
+                    <div className="hidden sm:flex items-center">
+                      <div className="w-px h-8 bg-gray-300 dark:bg-gray-600"></div>
+                    </div>
+                    
+                    {/* Skill Map Group */}
+                    <div className="flex items-center">
+                      <button
+                        onClick={() => handleSkillMapViewModeChange('skills')}
+                        className={`flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 border ${
+                          skillMapViewMode === 'skills'
+                            ? 'bg-purple-600 text-white shadow-md border-purple-600'
+                            : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 border-gray-200 dark:border-gray-600'
+                        }`}
+                      >
+                        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                        </svg>
+                        <span>{language === 'ja' ? 'スキルマップ' : 'Skill Map'}</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              )}
-            </div>
-            
-            <div className="flex-1 overflow-auto px-3 sm:px-6 pb-6 pt-4 relative z-0">
-              <BlurFade delay={0.4}>
-                {viewMode === 'grid' ? (
-                  <PeopleGrid 
-                    people={filteredPeople} 
-                    onCardClick={handleCardClick}
-                    onRoleClick={handleRoleClick}
-                    onTeamClick={handleTeamClick}
-                    onSkillClick={handleSkillClick}
-                    onInterestClick={handleInterestClick}
-                  />
-                ) : (
-                  <PeopleList 
-                    people={filteredPeople} 
-                    onCardClick={handleCardClick}
-                    onRoleClick={handleRoleClick}
-                    onTeamClick={handleTeamClick}
-                    onSkillClick={handleSkillClick}
-                    onInterestClick={handleInterestClick}
-                  />
+                
+                {/* Hide search/filter UI when in skill map mode */}
+                {skillMapViewMode !== 'skills' && (
+                  <div className="px-3 sm:px-6 pb-2 sm:pb-4 border-b border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md relative z-40">
+                    <BlurFade delay={0.2}>
+                      <div className="mb-3 sm:mb-4">
+                        <AdvancedSearchBar
+                          value={search}
+                          onChange={handleSearchChange}
+                          onSearchResults={handleHybridSearchResults}
+                          onAISearch={setAiSearchResults}
+                        />
+                      </div>
+                    </BlurFade>
+                    
+                    <BlurFade delay={0.3}>
+                      <div className="mb-3 sm:mb-4 relative z-10">
+                        <TopFilter
+                          filters={filters}
+                          selected={selectedFilters}
+                          onFilterChange={handleFilterChange}
+                          peopleData={processedPeopleData}
+                          language={language}
+                        />
+                      </div>
+                    </BlurFade>
+                    
+                    <FilterPillsBar
+                      search={search}
+                      selectedFilters={selectedFilters}
+                      onRemove={handleRemovePill}
+                      onMiscSkillToggle={handleMiscSkillToggle}
+                      selectedMiscSkills={selectedMiscSkills}
+                      language={language}
+                    />
+                    
+                    {/* Enhanced Search Results Display */}
+                    {hybridSearchResults && (
+                      <SearchResultsDebugPanel
+                        results={hybridSearchResults}
+                        query={search}
+                      />
+                    )}
+                    
+                    {isAISearchActive && !hybridSearchResults && (
+                      <div className="mb-3 sm:mb-4 p-2 sm:p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
+                        <div className="flex items-center gap-2 text-blue-800 dark:text-blue-200">
+                          <SparklesIcon className="h-3 sm:h-4 w-3 sm:w-4" />
+                          <span className="text-xs sm:text-sm font-medium">
+                            AI Search Results: Found {filteredPeople.length} matching user{filteredPeople.length !== 1 ? 's' : ''}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 )}
-              </BlurFade>
+              
+                <div className="flex-1 overflow-auto px-2 sm:px-3 lg:px-6 pb-4 sm:pb-6 pt-2 sm:pt-4 relative z-0 custom-scrollbar">
+                  <BlurFade delay={0.4}>
+                    {skillMapViewMode === 'skills' ? (
+                      <SkillBubbleMap
+                        people={processedPeopleData}
+                        language={language}
+                        onPersonClick={handleCardClick}
+                      />
+                    ) : (
+                      viewMode === 'grid' ? (
+                        <PeopleGrid 
+                          people={filteredPeople} 
+                          onCardClick={handleCardClick}
+                          onRoleClick={handleRoleClick}
+                          onTeamClick={handleTeamClick}
+                          onSkillClick={handleSkillClick}
+                          onInterestClick={handleInterestClick}
+                        />
+                      ) : (
+                        <PeopleList 
+                          people={filteredPeople} 
+                          onCardClick={handleCardClick}
+                          onRoleClick={handleRoleClick}
+                          onTeamClick={handleTeamClick}
+                          onSkillClick={handleSkillClick}
+                          onInterestClick={handleInterestClick}
+                        />
+                      )
+                    )}
+                  </BlurFade>
+                </div>
+              </div>
             </div>
-          </div>
-        )}
+          ) : (
+            // Top Filter Layout - Mobile Optimized
+            <div className="h-screen relative z-0 flex flex-col">
+              <div className="p-3 sm:p-6 pb-2 sm:pb-4 relative z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-700/50">
+                {/* Modern Top Navigation Hierarchy - Mobile Optimized */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 mb-4 sm:mb-6">
+                  <BlurFade delay={0.1}>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
+                      <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
+                        {skillMapViewMode === 'skills' ? (language === 'ja' ? 'スキルマップ' : 'Skill Map') : 'People Discovery'}
+                      </h1>
+                      
+                      {/* Separate People Count Badge - Mobile Optimized */}
+                      <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 rounded-full w-fit">
+                        <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                        <span className="text-xs sm:text-sm font-semibold text-blue-700 dark:text-blue-300">
+                          {filteredPeople.length} {language === 'ja' ? '人' : 'people'}
+                        </span>
+                      </div>
+                    </div>
+                  </BlurFade>
+                  
+                  {/* Mobile Navigation Layout */}
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 relative z-50">
+                    {/* Primary Navigation - Two Clear Groups */}
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+                      {/* People Group (Grid | List) */}
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                        <div className="flex items-center bg-white dark:bg-gray-800 rounded-xl p-1 border border-gray-200 dark:border-gray-600 shadow-sm">
+                          {/* People Toggle */}
+                          <button
+                            onClick={() => handleSkillMapViewModeChange('people')}
+                            className={`flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                              skillMapViewMode === 'people'
+                                ? 'bg-blue-600 text-white shadow-md'
+                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                            }`}
+                          >
+                            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+                            </svg>
+                            <span>{language === 'ja' ? '人材一覧' : 'People'}</span>
+                          </button>
+                          
+                          {/* Grid/List Sub-options - Only show when People is active */}
+                          {skillMapViewMode === 'people' && (
+                            <div className="flex items-center ml-2 bg-gray-50 dark:bg-gray-700 rounded-lg p-0.5">
+                              {/* Grid Button */}
+                              <button
+                                onClick={() => handleViewModeChange('grid')}
+                                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all duration-200 ${
+                                  viewMode === 'grid'
+                                    ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
+                                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                                }`}
+                                title={language === 'ja' ? 'グリッド表示' : 'Grid View'}
+                              >
+                                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                  <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                                </svg>
+                                <span className="hidden sm:inline">{language === 'ja' ? 'グリッド' : 'Grid'}</span>
+                              </button>
+                              
+                              {/* List Button */}
+                              <button
+                                onClick={() => handleViewModeChange('list')}
+                                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all duration-200 ${
+                                  viewMode === 'list'
+                                    ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
+                                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                                }`}
+                                title={language === 'ja' ? 'リスト表示' : 'List View'}
+                              >
+                                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2zM3 16a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2z" />
+                                </svg>
+                                <span className="hidden sm:inline">{language === 'ja' ? 'リスト' : 'List'}</span>
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      
+                      {/* Separator */}
+                      <div className="hidden sm:flex items-center">
+                        <div className="w-px h-8 bg-gray-300 dark:bg-gray-600"></div>
+                      </div>
+                      
+                      {/* Skill Map Group */}
+                      <div className="flex items-center">
+                        <button
+                          onClick={() => handleSkillMapViewModeChange('skills')}
+                          className={`flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 border ${
+                            skillMapViewMode === 'skills'
+                              ? 'bg-purple-600 text-white shadow-md border-purple-600'
+                              : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 border-gray-200 dark:border-gray-600'
+                          }`}
+                        >
+                          <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                          </svg>
+                          <span>{language === 'ja' ? 'スキルマップ' : 'Skill Map'}</span>
+                        </button>
+                      </div>
+                    </div>
+                    
+                    {/* Secondary Action Group - Settings - Mobile Optimized */}
+                    <div className="flex items-center gap-1 sm:gap-2 justify-end sm:justify-start relative z-50">
+                      <SettingsDropdown
+                        language={language}
+                        onLanguageChange={handleLanguageSwitch}
+                        filterView={filterView}
+                        onFilterViewChange={setFilterView}
+                      />
+                      <ModeToggle />
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Hide search/filter UI when in skill map mode */}
+                {skillMapViewMode !== 'skills' && (
+                  <div className="pb-3 sm:pb-4 relative z-40">
+                    <BlurFade delay={0.2}>
+                      <div className="mb-3 sm:mb-4">
+                        <AdvancedSearchBar
+                          value={search}
+                          onChange={handleSearchChange}
+                          onSearchResults={handleHybridSearchResults}
+                          onAISearch={setAiSearchResults}
+                        />
+                      </div>
+                    </BlurFade>
+                    
+                    <BlurFade delay={0.3}>
+                      <div className="mb-3 sm:mb-4 relative z-10">
+                        <TopFilter
+                          filters={filters}
+                          selected={selectedFilters}
+                          onFilterChange={handleFilterChange}
+                          peopleData={processedPeopleData}
+                          language={language}
+                        />
+                      </div>
+                    </BlurFade>
+                    
+                    <FilterPillsBar
+                      search={search}
+                      selectedFilters={selectedFilters}
+                      onRemove={handleRemovePill}
+                      onMiscSkillToggle={handleMiscSkillToggle}
+                      selectedMiscSkills={selectedMiscSkills}
+                      language={language}
+                    />
+                    
+                    {/* Enhanced Search Results Display */}
+                    {hybridSearchResults && (
+                      <SearchResultsDebugPanel
+                        results={hybridSearchResults}
+                        query={search}
+                      />
+                    )}
+                    
+                    {isAISearchActive && !hybridSearchResults && (
+                      <div className="mb-3 sm:mb-4 p-2 sm:p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
+                        <div className="flex items-center gap-2 text-blue-800 dark:text-blue-200">
+                          <SparklesIcon className="h-3 sm:h-4 w-3 sm:w-4" />
+                          <span className="text-xs sm:text-sm font-medium">
+                            AI Search Results: Found {filteredPeople.length} matching user{filteredPeople.length !== 1 ? 's' : ''}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+              
+              <div className="flex-1 overflow-auto px-2 sm:px-3 lg:px-6 pb-4 sm:pb-6 pt-2 sm:pt-4 relative z-0 custom-scrollbar">
+                <BlurFade delay={0.4}>
+                  {skillMapViewMode === 'skills' ? (
+                    <SkillBubbleMap
+                      people={processedPeopleData}
+                      language={language}
+                      onPersonClick={handleCardClick}
+                    />
+                  ) : (
+                    viewMode === 'grid' ? (
+                      <PeopleGrid 
+                        people={filteredPeople} 
+                        onCardClick={handleCardClick}
+                        onRoleClick={handleRoleClick}
+                        onTeamClick={handleTeamClick}
+                        onSkillClick={handleSkillClick}
+                        onInterestClick={handleInterestClick}
+                      />
+                    ) : (
+                      <PeopleList 
+                        people={filteredPeople} 
+                        onCardClick={handleCardClick}
+                        onRoleClick={handleRoleClick}
+                        onTeamClick={handleTeamClick}
+                        onSkillClick={handleSkillClick}
+                        onInterestClick={handleInterestClick}
+                      />
+                    )
+                  )}
+                </BlurFade>
+              </div>
+            </div>
+          )}
+        </div>
         
         {/* Sparkles background effect */}
         <div className="fixed inset-0 pointer-events-none z-0">
