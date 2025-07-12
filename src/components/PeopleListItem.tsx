@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Eye, ExternalLink, Github, Star, GitFork, MapPin } from 'lucide-react';
+import { Eye, ExternalLink, Github, Star, GitFork } from 'lucide-react';
 import { getPillClasses } from '../lib/pillColors';
 
 interface PeopleListItemProps {
@@ -26,11 +26,6 @@ export const PeopleListItem: React.FC<PeopleListItemProps> = ({
   const handleImageError = () => {
     setImageError(true);
   };
-
-  // Combine skills and hobbies for display
-  const allSkills = [...(person.skills || []), ...(person.hobbies || [])];
-  const displaySkills = allSkills.slice(0, 3);
-  const remainingCount = allSkills.length - 3;
 
   // GitHub stats
   const githubStats = person.github_enhanced?.stats;
@@ -77,12 +72,35 @@ export const PeopleListItem: React.FC<PeopleListItemProps> = ({
 
         {/* Role Column */}
         <div className="col-span-2">
-          <button
-            onClick={() => onRoleClick?.(person.role)}
-            className={`${getPillClasses('role', true)} truncate`}
-          >
-            {person.role}
-          </button>
+          <div className="flex flex-wrap gap-1">
+            {(person.roles && person.roles.length > 0) ? (
+              person.roles.slice(0, 2).map((individualRole: string, index: number) => (
+                <button
+                  key={index}
+                  onClick={() => onRoleClick?.(individualRole)}
+                  className={`${getPillClasses('role', true)} text-xs`}
+                >
+                  {individualRole.length > 8 ? `${individualRole.substring(0, 8)}...` : individualRole}
+                </button>
+              ))
+            ) : (
+              // Fallback: split role by comma
+                             person.role.split(',').map((r: string) => r.trim()).filter(Boolean).slice(0, 2).map((individualRole: string, index: number) => (
+                <button
+                  key={index}
+                  onClick={() => onRoleClick?.(individualRole)}
+                  className={`${getPillClasses('role', true)} text-xs`}
+                >
+                  {individualRole.length > 8 ? `${individualRole.substring(0, 8)}...` : individualRole}
+                </button>
+              ))
+            )}
+            {((person.roles && person.roles.length > 2) || (!person.roles && person.role.split(',').length > 2)) && (
+              <span className={`${getPillClasses('default', false)} text-xs`}>
+                +{(person.roles ? person.roles.length - 2 : person.role.split(',').length - 2)}
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Team Column */}
@@ -91,7 +109,6 @@ export const PeopleListItem: React.FC<PeopleListItemProps> = ({
             onClick={() => onTeamClick?.(person.team)}
             className={`${getPillClasses('team', true)} max-w-full`}
           >
-            <MapPin className="w-3 h-3 mr-1 flex-shrink-0" />
             <span className="truncate">
               {person.team.length > 15 ? `${person.team.substring(0, 15)}...` : person.team}
             </span>
@@ -101,18 +118,29 @@ export const PeopleListItem: React.FC<PeopleListItemProps> = ({
         {/* Skills & Interests Column */}
         <div className="col-span-3">
           <div className="flex flex-wrap gap-1">
-            {displaySkills.slice(0, 2).map((skill, skillIndex) => (
+            {/* Skills */}
+            {person.skills.slice(0, 1).map((skill: string, skillIndex: number) => (
               <button
-                key={skillIndex}
+                key={`skill-${skillIndex}`}
                 onClick={() => onSkillClick?.(skill)}
                 className={`${getPillClasses('skill', true)}`}
               >
                 {skill.length > 10 ? `${skill.substring(0, 10)}...` : skill}
               </button>
             ))}
-            {allSkills.length > 2 && (
+            {/* Interests */}
+            {person.hobbies.slice(0, Math.max(0, 2 - person.skills.slice(0, 1).length)).map((hobby: string, hobbyIndex: number) => (
+              <button
+                key={`hobby-${hobbyIndex}`}
+                onClick={() => onInterestClick?.(hobby)}
+                className={`${getPillClasses('interest', true)}`}
+              >
+                {hobby.length > 10 ? `${hobby.substring(0, 10)}...` : hobby}
+              </button>
+            ))}
+            {(person.skills.length + person.hobbies.length) > 2 && (
               <span className={`${getPillClasses('default', false)}`}>
-                +{allSkills.length - 2}
+                +{(person.skills.length + person.hobbies.length) - 2}
               </span>
             )}
           </div>
@@ -199,7 +227,6 @@ export const PeopleListItem: React.FC<PeopleListItemProps> = ({
             onClick={() => onTeamClick?.(person.team)}
             className={`${getPillClasses('team', true)} max-w-full`}
           >
-            <MapPin className="w-3 h-3 mr-1 flex-shrink-0" />
             <span className="truncate">
               {person.team.length > 10 ? `${person.team.substring(0, 10)}...` : person.team}
             </span>
@@ -209,18 +236,29 @@ export const PeopleListItem: React.FC<PeopleListItemProps> = ({
         {/* Skills Column */}
         <div className="col-span-2">
           <div className="flex flex-wrap gap-1">
-            {displaySkills.slice(0, 1).map((skill, skillIndex) => (
+            {/* Skills */}
+            {person.skills.slice(0, 1).map((skill: string, skillIndex: number) => (
               <button
-                key={skillIndex}
+                key={`skill-${skillIndex}`}
                 onClick={() => onSkillClick?.(skill)}
                 className={`${getPillClasses('skill', true)}`}
               >
                 {skill.length > 8 ? `${skill.substring(0, 8)}...` : skill}
               </button>
             ))}
-            {allSkills.length > 1 && (
+            {/* Interests */}
+            {person.hobbies.slice(0, Math.max(0, 1 - person.skills.slice(0, 1).length)).map((hobby: string, hobbyIndex: number) => (
+              <button
+                key={`hobby-${hobbyIndex}`}
+                onClick={() => onInterestClick?.(hobby)}
+                className={`${getPillClasses('interest', true)}`}
+              >
+                {hobby.length > 8 ? `${hobby.substring(0, 8)}...` : hobby}
+              </button>
+            ))}
+            {(person.skills.length + person.hobbies.length) > 1 && (
               <span className={`${getPillClasses('default', false)}`}>
-                +{allSkills.length - 1}
+                +{(person.skills.length + person.hobbies.length) - 1}
               </span>
             )}
           </div>
@@ -283,35 +321,68 @@ export const PeopleListItem: React.FC<PeopleListItemProps> = ({
             
             {/* Role and Team */}
             <div className="flex items-center space-x-2 mt-1">
-              <button
-                onClick={() => onRoleClick?.(person.role)}
-                className={`${getPillClasses('role', true)}`}
-              >
-                {person.role}
-              </button>
+              <div className="flex flex-wrap gap-1">
+                {(person.roles && person.roles.length > 0) ? (
+                  person.roles.slice(0, 2).map((individualRole: string, index: number) => (
+                    <button
+                      key={index}
+                      onClick={() => onRoleClick?.(individualRole)}
+                      className={`${getPillClasses('role', true)} text-xs`}
+                    >
+                      {individualRole.length > 8 ? `${individualRole.substring(0, 8)}...` : individualRole}
+                    </button>
+                  ))
+                ) : (
+                  // Fallback: split role by comma
+                  person.role.split(',').map((r: string) => r.trim()).filter(Boolean).slice(0, 2).map((individualRole: string, index: number) => (
+                    <button
+                      key={index}
+                      onClick={() => onRoleClick?.(individualRole)}
+                      className={`${getPillClasses('role', true)} text-xs`}
+                    >
+                      {individualRole.length > 8 ? `${individualRole.substring(0, 8)}...` : individualRole}
+                    </button>
+                  ))
+                )}
+                {((person.roles && person.roles.length > 2) || (!person.roles && person.role.split(',').length > 2)) && (
+                  <span className={`${getPillClasses('default', false)} text-xs`}>
+                    +{(person.roles ? person.roles.length - 2 : person.role.split(',').length - 2)}
+                  </span>
+                )}
+              </div>
               <button
                 onClick={() => onTeamClick?.(person.team)}
                 className={`${getPillClasses('team', true)}`}
               >
-                <MapPin className="w-3 h-3 mr-1" />
                 {person.team.length > 12 ? `${person.team.substring(0, 12)}...` : person.team}
               </button>
             </div>
             
             {/* Skills */}
             <div className="flex flex-wrap gap-1 mt-2">
-              {displaySkills.slice(0, 2).map((skill, skillIndex) => (
+              {/* Skills */}
+              {person.skills.slice(0, 1).map((skill: string, skillIndex: number) => (
                 <button
-                  key={skillIndex}
+                  key={`skill-${skillIndex}`}
                   onClick={() => onSkillClick?.(skill)}
                   className={`${getPillClasses('skill', true)}`}
                 >
                   {skill.length > 10 ? `${skill.substring(0, 10)}...` : skill}
                 </button>
               ))}
-              {allSkills.length > 2 && (
+              {/* Interests */}
+              {person.hobbies.slice(0, Math.max(0, 2 - person.skills.slice(0, 1).length)).map((hobby: string, hobbyIndex: number) => (
+                <button
+                  key={`hobby-${hobbyIndex}`}
+                  onClick={() => onInterestClick?.(hobby)}
+                  className={`${getPillClasses('interest', true)}`}
+                >
+                  {hobby.length > 10 ? `${hobby.substring(0, 10)}...` : hobby}
+                </button>
+              ))}
+              {(person.skills.length + person.hobbies.length) > 2 && (
                 <span className={`${getPillClasses('default', false)}`}>
-                  +{allSkills.length - 2}
+                  +{(person.skills.length + person.hobbies.length) - 2}
                 </span>
               )}
             </div>

@@ -3102,6 +3102,26 @@
       ],
       "specialty": [
         {
+          "ja": "Figma",
+          "en": "Figma"
+        },
+        {
+          "ja": "UX戦略",
+          "en": "UX Strategy"
+        },
+        {
+          "ja": "UXリサーチ",
+          "en": "UX Research"
+        },
+        {
+          "ja": "ワークショップ",
+          "en": "Workshop"
+        },
+        {
+          "ja": "ビジュアルデザイン",
+          "en": "Visual Design"
+        },
+        {
           "ja": "Mobile/Web dev",
           "en": "Mobile/Web dev"
         }

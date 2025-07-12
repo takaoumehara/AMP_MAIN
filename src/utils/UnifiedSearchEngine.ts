@@ -412,6 +412,12 @@ class UnifiedSearchEngine {
     // First try unified profile search
     const profileResults = await this.searchPeople(query);
     
+    // AI検索を一時的に無効化 - 白画面問題の修正
+    // 常にプロファイル検索の結果を返す
+    return profileResults;
+    
+    // 以下のAI検索部分をコメントアウト
+    /*
     // If we have good results, return them
     if (profileResults.results.length > 0 && !profileResults.error) {
       return profileResults;
@@ -462,6 +468,7 @@ class UnifiedSearchEngine {
     }
     
     return profileResults; // Return original results even if empty
+    */
   }
 }
 
