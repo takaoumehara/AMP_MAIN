@@ -103,18 +103,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
   };
 
   return (
-    <div className={`h-full bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 ${collapsed ? 'w-16' : 'w-72'}`}>
-      <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-700">
+    <div className={`h-full bg-transparent transition-all duration-300 ${collapsed ? 'w-16' : 'w-full'}`}>
+      <div className="flex items-center justify-between p-4 border-b border-gray-200/50 dark:border-gray-700/50">
         <h1 className={`text-xl font-semibold text-gray-900 dark:text-gray-100 transition-all duration-300 ${collapsed ? 'hidden' : 'block'}`}>
           {getFiltersTitle()}
         </h1>
-        <button onClick={onToggle} className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400">
+        <button onClick={onToggle} className="p-2 rounded hover:bg-gray-100/50 dark:hover:bg-gray-800/50 text-gray-600 dark:text-gray-400">
           {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
         </button>
       </div>
       
       {!collapsed && (
-        <div className="p-4 space-y-6 overflow-y-auto h-full">
+        <div className="p-4 space-y-6 overflow-y-auto h-full custom-scrollbar">
           {/* Role Section */}
           <div>
             <div className="flex items-center justify-between cursor-pointer mb-3" onClick={() => toggleSection('roles')}>

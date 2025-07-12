@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Github, Sparkles } from 'lucide-react';
+import { Github, Sparkles } from 'lucide-react';
 import { getPillClasses } from '../lib/pillColors';
 
 interface GitHubEnhanced {
@@ -43,6 +43,7 @@ interface GitHubEnhanced {
 interface ProfileCardProps {
   name: string;
   role: string;
+  roles?: string[]; // Individual roles array
   avatar_initials: string;
   avatar_color: string;
   profileImage?: string;
@@ -132,6 +133,7 @@ const generateHighlight = (person: { skills: string[], hobbies: string[], recent
 export const ProfileCard: React.FC<ProfileCardProps> = React.memo(({
   name,
   role,
+  roles,
   avatar_initials,
   avatar_color,
   profileImage,
@@ -154,7 +156,6 @@ export const ProfileCard: React.FC<ProfileCardProps> = React.memo(({
 
   // Combine skills and hobbies for tag display
   const allTags = [...skills, ...hobbies];
-  const displayTags = allTags.slice(0, 3);
   
   // Generate highlight
   const highlight = generateHighlight({ skills, hobbies, recentActivity, role, github_enhanced });
@@ -195,23 +196,37 @@ export const ProfileCard: React.FC<ProfileCardProps> = React.memo(({
             {name}
           </h3>
           
-          {/* Role - Primary title */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              // Split role by comma and handle each role
-              const roles = role.split(',').map(r => r.trim()).filter(Boolean);
-              if (roles.length === 1) {
-                onRoleClick?.(roles[0]);
-              } else {
-                // For multiple roles, just use the first one for now
-                onRoleClick?.(roles[0]);
-              }
-            }}
-            className={`${getPillClasses('role', true)} mb-3 transition-all duration-300 hover:scale-105`}
-          >
-            {role}
-          </button>
+          {/* Role Pills - Individual roles */}
+          <div className="flex flex-wrap gap-2 justify-center mb-3">
+            {(roles && roles.length > 0) ? (
+              roles.map((individualRole: string, index: number) => (
+                <button
+                  key={index}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onRoleClick?.(individualRole);
+                  }}
+                  className={`${getPillClasses('role', true)} transition-all duration-300 hover:scale-105`}
+                >
+                  {individualRole}
+                </button>
+              ))
+            ) : (
+              // Fallback: split role by comma if roles array not available
+              role.split(',').map(r => r.trim()).filter(Boolean).map((individualRole: string, index: number) => (
+                <button
+                  key={index}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onRoleClick?.(individualRole);
+                  }}
+                  className={`${getPillClasses('role', true)} transition-all duration-300 hover:scale-105`}
+                >
+                  {individualRole}
+                </button>
+              ))
+            )}
+          </div>
         </div>
 
         {/* Team label and GitHub stats */}
@@ -224,7 +239,6 @@ export const ProfileCard: React.FC<ProfileCardProps> = React.memo(({
                 onTeamClick?.(team);
               }}
             >
-              <MapPin className="w-3 h-3 mr-1" />
               <span className="truncate max-w-[120px]">{team}</span>
             </button>
           )}
@@ -243,28 +257,38 @@ export const ProfileCard: React.FC<ProfileCardProps> = React.memo(({
 
         {/* Color-coded skill tags */}
         <div className="flex flex-wrap gap-2 justify-center mb-4 min-h-[32px]">
-          {displayTags.map((tag, index) => {
-            const isSkill = skills.includes(tag);
-            const isHobby = hobbies.includes(tag);
-            const pillType = isSkill ? 'skill' : 'interest';
-            
-            return (
-              <button 
-                key={`${tag}-${index}`}
-                className={`${getPillClasses(pillType, true)} transition-all duration-300 hover:scale-110 hover:shadow-md`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (isSkill) {
-                    onSkillClick?.(tag);
-                  } else if (isHobby) {
-                    onInterestClick?.(tag);
-                  }
-                }}
-              >
-                {tag.length > 12 ? tag.substring(0, 12) + '...' : tag}
-              </button>
-            );
-          })}
+          {/* Skills */}
+          {skills.slice(0, 2).map((skill, index) => (
+            <button 
+              key={`skill-${index}`}
+              className={`${getPillClasses('skill', true)} transition-all duration-300 hover:scale-110 hover:shadow-md`}
+              onClick={(e) => {
+                e.stopPropagation();
+                onSkillClick?.(skill);
+              }}
+            >
+              {skill.length > 12 ? skill.substring(0, 12) + '...' : skill}
+            </button>
+          ))}
+          {/* Hobbies/Interests */}
+          {hobbies.slice(0, Math.max(0, 3 - skills.slice(0, 2).length)).map((hobby, index) => (
+            <button 
+              key={`hobby-${index}`}
+              className={`${getPillClasses('interest', true)} transition-all duration-300 hover:scale-110 hover:shadow-md`}
+              onClick={(e) => {
+                e.stopPropagation();
+                onInterestClick?.(hobby);
+              }}
+            >
+              {hobby.length > 12 ? hobby.substring(0, 12) + '...' : hobby}
+            </button>
+          ))}
+          {/* Show remaining count */}
+          {(skills.length + hobbies.length) > 3 && (
+            <span className={`${getPillClasses('default', false)} transition-all duration-300`}>
+              +{(skills.length + hobbies.length) - 3}
+            </span>
+          )}
         </div>
 
         {/* Recent activity highlight - flex-grow to take remaining space */}

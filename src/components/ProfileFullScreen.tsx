@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { MapPin, ExternalLink, Github, User, Briefcase, Lightbulb, Heart, FileText, Code, Users, Calendar, Star, GitFork, Activity, Linkedin, Zap, Target, Sparkles, TrendingUp, Clock, X } from 'lucide-react';
+import { ExternalLink, Github, User, Briefcase, Lightbulb, Heart, FileText, Code, Users, Calendar, Star, GitFork, Activity, Linkedin, Zap, Target, Sparkles, TrendingUp, Clock, X } from 'lucide-react';
 import { getPillClasses } from '../lib/pillColors';
 
 interface ProfileFullScreenProps {
@@ -235,7 +235,6 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
                       className="flex items-center gap-2 text-lg text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer transition-colors duration-200"
                       onClick={() => onTeamClick?.(person.team)}
                     >
-                      <MapPin size={18} />
                       {person.team}
                     </div>
                   )}
@@ -594,7 +593,6 @@ export const ProfileFullScreen: React.FC<ProfileFullScreenProps> = ({
                     className={`${getPillClasses('team', true)} flex items-center gap-2 mx-auto lg:mx-0 w-fit`}
                     onClick={() => onTeamClick?.(person.team)}
                   >
-                    <MapPin size={16} />
                     {person.team}
                   </button>
                 )}

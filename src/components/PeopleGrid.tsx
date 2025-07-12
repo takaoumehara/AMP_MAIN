@@ -38,6 +38,7 @@ const MemoizedCardWrapper = React.memo(({ person, idx, onCardClick, onRoleClick,
       <ProfileCard 
         name={person.name}
         role={person.role}
+        roles={person.roles}
         avatar_initials={person.avatar_initials}
         avatar_color={person.avatar_color}
         profileImage={person.profileImage}

@@ -1,0 +1,3276 @@
+{
+    "participants": [
+      {
+        "id": 1,
+        "name": {
+          "ja": "髙橋祐樹",
+          "en": "Yuki Takahashi"
+        },
+        "profile_url": "https://note.com/yuki0627",
+        "github_account": "yuki0627",
+        "team": {
+          "ja": "CommunityRadio EchoLab(仮)",
+          "en": "CommunityRadio EchoLab (Provisional)"
+        },
+        "role": [
+          {
+            "ja": "PM",
+            "en": "PM"
+          },
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "マネジメント",
+            "en": "Management"
+          },
+          {
+            "ja": "バックエンド",
+            "en": "Backend"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "コミュニティラジオ",
+            "en": "Community Radio"
+          },
+          {
+            "ja": "常時起動型AI",
+            "en": "Always-on AI"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "TTS関連",
+            "en": "TTS-related"
+          }
+        ],
+        "concurrent_possible": {
+          "ja": "可能",
+          "en": "Possible",
+          "value": true
+        },
+        "rocket_incubator": {
+          "ja": "",
+          "en": "",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        }
+      },
+      {
+        "id": 2,
+        "name": {
+          "ja": "中里俊也",
+          "en": "Shunya Nakazato"
+        },
+        "profile_url": "N/A",
+        "github_account": "shunya-nakazato",
+        "team": {
+          "ja": "come come club(仮)",
+          "en": "come come club (Provisional)"
+        },
+        "role": [
+          {
+            "ja": "フルスタック",
+            "en": "Full-stack"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "自動運転",
+            "en": "Autonomous Driving"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "GPS",
+            "en": "GPS"
+          }
+        ],
+        "concurrent_possible": {
+          "ja": "可能",
+          "en": "Possible",
+          "value": true
+        },
+        "rocket_incubator": {
+          "ja": "",
+          "en": "",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "",
+          "en": "",
+          "value": false
+        }
+      },
+      {
+        "id": 3,
+        "name": {
+          "ja": "小檜山結稀",
+          "en": "Yuki Kobiyama"
+        },
+        "profile_url": "N/A",
+        "github_account": "asterism45",
+        "team": {
+          "ja": "altermis（仮）",
+          "en": "altermis (Provisional)"
+        },
+        "role": [
+          {
+            "ja": "PM",
+            "en": "PM"
+          },
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          },
+          {
+            "ja": "PM（CS）",
+            "en": "PM (CS)"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "パーソナルAI",
+            "en": "Personal AI"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "ロボティクス",
+            "en": "Robotics"
+          }
+        ],
+        "concurrent_possible": {
+          "ja": "可能",
+          "en": "Possible",
+          "value": true
+        },
+        "rocket_incubator": {
+          "ja": "",
+          "en": "",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "",
+          "en": "",
+          "value": false
+        }
+      },
+      {
+        "id": 4,
+        "name": {
+          "ja": "志田遥飛",
+          "en": "Haruhi Shida"
+        },
+        "profile_url": "https://www.linkedin.com/in/haruhi-shida-3b5455249/",
+        "github_account": "hs4449889",
+        "team": {
+          "ja": "ジナラシ",
+          "en": "Jinarashi"
+        },
+        "role": [
+          {
+            "ja": "PM",
+            "en": "PM"
+          },
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "AI領域全般",
+            "en": "General AI field"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "補助金申請を支援するAIサービス",
+            "en": "AI service to support subsidy applications"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI",
+            "en": "AI"
+          },
+          {
+            "ja": "BPO",
+            "en": "BPO"
+          }
+        ],
+        "concurrent_possible": {
+          "ja": "不可",
+          "en": "Not Possible",
+          "value": false
+        },
+        "rocket_incubator": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        },
+        "graphai_ai_podcaster": {
+          "ja": "いいえ",
+          "en": "No",
+          "value": false
+        }
+      },
+      {
+        "id": 5,
+        "name": {
+          "ja": "菅原和将",
+          "en": "Kazumasa Sugawara"
+        },
+        "profile_url": "N/A",
+        "github_account": "sugamass",
+        "team": {
+          "ja": "EchoLab(仮)",
+          "en": "EchoLab (Provisional)"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "AI podcasterのサービス化",
+            "en": "Commercialization of AI podcaster"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI",
+            "en": "AI"
+          }
+        ],
+        "concurrent_possible": {
+          "ja": "不可",
+          "en": "Not Possible",
+          "value": false
+        },
+        "rocket_incubator": {
+          "ja": "",
+          "en": "",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "",
+          "en": "",
+          "value": false
+        }
+      },
+      {
+        "id": 6,
+        "name": {
+          "ja": "對馬啓太",
+          "en": "Keita Tsushima"
+        },
+        "profile_url": "https://www.linkedin.com/in/keitatsushima/",
+        "github_account": "KeitaTsushima",
+        "team": {
+          "ja": "ガボン",
+          "en": "Gabon"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "コンサル/営業",
+            "en": "Consulting/Sales"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "PokePal",
+            "en": "PokePal"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI",
+            "en": "AI"
+          },
+          {
+            "ja": "IoT",
+            "en": "IoT"
+          }
+        ],
+        "summary": {
+          "ja": "コンサルティング会社やスタートアップを経て独立し、大企業の新規事業をサポートするコンサルティング会社の営業やプロジェクトのお手伝いをするかたわら、自分のプロダクトを作りたいと思い、今回の持ち込み企画を少しずつ進めていました。ちょうどブートキャンプの募集が開始されたところだったため、自分の経験程度で大丈夫かなと不安に思いながらも、思い切って応募をさせていただきました！",
+          "en": "After working at a consulting firm and a startup, I became independent and have been supporting new business development for large corporations while also wanting to create my own product. I was gradually moving forward with this project idea when the bootcamp recruitment started. Although I was anxious about whether my experience would be sufficient, I decided to apply!"
+        },
+        "project_details": {
+          "ja": "今回のプロジェクトでは、エッジデバイス上で稼働する音声ベースの対話ツール（PokePalと呼んでいます）を作り、介護施設の入所者との会話や会話の記憶、呼び起こしを通して、介護士さんの業務サポートを行えるようなプロダクトを開発したいと考えています。プロダクトの導入先は、自分のキャリアの経験上イメージが湧きやすい介護施設や病院を最初に考えています。",
+          "en": "In this project, I want to develop a product that can support the work of caregivers by creating a voice-based communication tool (which I call PokePal) that runs on an edge device, enabling conversation with residents of nursing homes, remembering conversations, and recalling them. For the initial implementation, I am considering nursing homes and hospitals, as I can easily envision them based on my career experience."
+        },
+        "concurrent_possible": {
+          "ja": "不可",
+          "en": "Not Possible",
+          "value": false
+        },
+        "rocket_incubator": {
+          "ja": "",
+          "en": "",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "",
+          "en": "",
+          "value": false
+        }
+      },
+      {
+        "id": 7,
+        "name": {
+          "ja": "渥美嘉樹",
+          "en": "Yoshiki Atsumi"
+        },
+        "profile_url": "https://www.linkedin.com/in/yoshiki-atsumi",
+        "github_account": "demotech-jp",
+        "team": {
+          "ja": "未定",
+          "en": "Undecided"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "政治・選挙",
+            "en": "Politics/Elections"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "AIで民主主義をアップデート",
+            "en": "Update democracy with AI"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI",
+            "en": "AI"
+          }
+        ],
+        "summary": {
+          "ja": "今年の1月まで、静岡県菊川市で市議会議員をしておりました。現在は、「選挙ドットコム」という選挙プラットフォームを運営する、イチニ株式会社でシステム開発部に所属しております。プライベートでは、一般社団法人デモテクという団体で、民主主義のアップデートに挑戦しています。",
+          "en": "Until January of this year, I was a city council member in Kikugawa City, Shizuoka Prefecture. Currently, I belong to the system development department at Ichini Co., Ltd., which operates the election platform 'Senkyo.com'. In my private life, I am challenging to update democracy through a general incorporated association called Demotech."
+        },
+        "project_details": {
+          "ja": "1.AIボートマッチ\n概要：立候補者の政策や経歴などを学習して、有権者の質問に答える、或いはおすすめの候補者を提示するChatbot\n現状：選挙公報を学習させた簡易なものを既に作成済み。\n改善案：選挙公報以外のリソースの活用や、リソース収集の自動化、より中立性・正確性の高い回答など\n\n2.政治家の一般質問データベース\n概要：政治家の最も重要な仕事である「一般質問」の内容をデータベース化し、有権者に分かりやすく提供する\n現状：人力でタイトルのみをデータベース化し、LookerStudioダッシュボード化したのもを作成済み。\n改善案：データベース化の自動化、タイトル以外情報の収集、AIを活用したより分かりやすいUIなど\n\n3.その他\n日本の民主主義をアップデートに繋がるあらゆる取り組みを実現したいです",
+          "en": "1. AI Vote Match\nOverview: A chatbot that learns candidates' policies and backgrounds to answer voters' questions or suggest recommended candidates.\nCurrent Status: A simple version trained on election gazettes has already been created.\nImprovement Plan: Utilization of resources other than election gazettes, automation of resource collection, and more neutral and accurate answers.\n\n2. Politician's General Question Database\nOverview: A database of the content of 'general questions,' the most important job of a politician, provided to voters in an easy-to-understand manner.\nCurrent Status: A version with only titles manually databased and turned into a Looker Studio dashboard has been created.\nImprovement Plan: Automation of databasing, collection of information other than titles, and a more user-friendly UI using AI.\n\n3. Others\nI want to realize all kinds of initiatives that will lead to updating Japan's democracy."
+        },
+        "concurrent_possible": {
+          "ja": "",
+          "en": "",
+          "value": false
+        },
+        "rocket_incubator": {
+          "ja": "",
+          "en": "",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "",
+          "en": "",
+          "value": false
+        }
+      },
+      {
+        "id": 8,
+        "name": {
+          "ja": "中山聖司",
+          "en": "Seiji Nakayama"
+        },
+        "profile_url": "https://www.sijis.me/",
+        "github_account": "n-seiji",
+        "team": {
+          "ja": "未定",
+          "en": "Undecided"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "機械学習",
+            "en": "Machine Learning"
+          },
+          {
+            "ja": "位置情報系",
+            "en": "Location-based services"
+          },
+          {
+            "ja": "動くものを作ること",
+            "en": "Making things that move"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "podcast作りたい!",
+            "en": "I want to make a podcast!"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "技術ならなんでも",
+            "en": "Any technology"
+          }
+        ],
+        "concurrent_possible": {
+          "ja": "可能",
+          "en": "Possible",
+          "value": true
+        },
+        "rocket_incubator": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        },
+        "graphai_ai_podcaster": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        }
+      },
+      {
+        "id": 9,
+        "name": {
+          "ja": "兒玉涼",
+          "en": "Ryo Kodama"
+        },
+        "profile_url": "https://www.linkedin.com/in/rkodama/",
+        "github_account": "x4066x",
+        "team": {
+          "ja": "未定",
+          "en": "Undecided"
+        },
+        "role": [
+          {
+            "ja": "PM",
+            "en": "PM"
+          },
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          },
+          {
+            "ja": "営業",
+            "en": "Sales"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "技術営業",
+            "en": "Technical Sales"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "Clineのようなブラウザエージェント",
+            "en": "A browser agent like Cline"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "ロボティクス",
+            "en": "Robotics"
+          }
+        ],
+        "summary": {
+          "ja": "Twitterで中嶋さんの投稿を見て参加しました。普段はAIベンチャーで受託案件のプロジェクトマネージャーをしています。元はITインフラの会社で営業やSEをしていました。現在は業務でコーディングをする機会はありませんが、LLMが好きでたまに趣味でLLMアプリを開発することがあります。ChatGPT以降は日々AI系のニュースを追いかけています。",
+          "en": "I decided to participate after seeing Mr. Nakajima's post on Twitter. I usually work as a project manager for contract projects at an AI venture. I originally worked in sales and as an SE at an IT infrastructure company. I don't have opportunities to code in my current job, but I like LLMs and sometimes develop LLM apps as a hobby. Since the advent of ChatGPT, I have been following AI-related news daily."
+        },
+        "project_details": {
+          "ja": "今回は、ブラウザ拡張機能を使ったブラウザエージェントを作ろうと思っています。Clineみたいなインパクトはないと思いますが、日々の仕事が楽になるようなオープンソースが形になれば良いなと思っています。",
+          "en": "This time, I'm thinking of creating a browser agent using a browser extension. I don't think it will have the same impact as Cline, but I hope to create an open-source tool that makes daily work easier."
+        },
+        "concurrent_possible": {
+          "ja": "不可",
+          "en": "Not Possible",
+          "value": false
+        },
+        "rocket_incubator": {
+          "ja": "いいえ",
+          "en": "No",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "いいえ",
+          "en": "No",
+          "value": false
+        }
+      },
+      {
+        "id": 10,
+        "name": {
+          "ja": "武藤駿嗣",
+          "en": "Shunji Muto"
+        },
+        "profile_url": "N/A",
+        "github_account": "shunji-muto",
+        "team": {
+          "ja": "未定",
+          "en": "Undecided"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "Web(FE/BE/Infra)",
+            "en": "Web (FE/BE/Infra)"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "ロボティクス",
+            "en": "Robotics"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "ロボティクス",
+            "en": "Robotics"
+          }
+        ],
+        "summary": {
+          "ja": "武藤駿嗣（むとう しゅんじ）と申します。普段はIT会社でWebアプリケーションエンジニアとして、教育系の新規事業案件のシステム開発に携わっています。現在は主にフロントエンドとインフラを担当しています。同じ熱意を持った方々と1年間で世に出せるプロダクトを作りたいと思い、今回参加させていただきました。目標としては、1年間で実際のユーザがいるところまでプロダクトを作り上げたいと考えています。",
+          "en": "My name is Shunji Muto. I usually work as a web application engineer at an IT company, involved in system development for new education-related business projects. Currently, I am mainly in charge of the front-end and infrastructure. I decided to participate this time because I want to create a product that can be released to the world in one year with people who share the same passion. My goal is to build the product to the point where it has actual users within a year."
+        },
+        "project_details": {
+          "ja": "具体的なテーマはまだ決めていませんが、一番興味があるのはエッジデバイスを使ったローカルLLMのプロダクトです。ハードウェアの経験は豊富ではありませんが、以前から興味を持っており、この機会に挑戦してみたいと思っています。一方で、スキル適正としてはWeb系なので、自分の能力が活かせそうなプロジェクトにも関心があります。",
+          "en": "I haven't decided on a specific theme yet, but I'm most interested in a local LLM product using an edge device. I don't have extensive hardware experience, but I've been interested in it for a while and would like to take on the challenge. On the other hand, since my skills are more suited to web development, I'm also interested in projects where I can leverage my abilities."
+        },
+        "concurrent_possible": {
+          "ja": "応相談",
+          "en": "Negotiable",
+          "value": "△"
+        },
+        "rocket_incubator": {
+          "ja": "",
+          "en": "",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "",
+          "en": "",
+          "value": false
+        }
+      },
+      {
+        "id": 11,
+        "name": {
+          "ja": "新井イェンセン維人",
+          "en": "Korehito Arai Jensen"
+        },
+        "profile_url": "N/A",
+        "github_account": "KoretyAutomate",
+        "team": {
+          "ja": "FP&A Automation",
+          "en": "FP&A Automation"
+        },
+        "role": [
+          {
+            "ja": "PM/Engineer",
+            "en": "PM/Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "FP&A",
+            "en": "FP&A"
+          },
+          {
+            "ja": "sns Marketing",
+            "en": "SNS Marketing"
+          },
+          {
+            "ja": "Geo-expansion",
+            "en": "Geo-expansion"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "FP&A Automation",
+            "en": "FP&A Automation"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI Agent",
+            "en": "AI Agent"
+          }
+        ],
+        "summary": {
+          "ja": "はじめまして！アメリカ在住の新井イェンセン 維人（アライイェンセン コレヒト）と申します。FP&Aと呼ばれる職種が長く、自分の仕事の一部をAIに置き換える為に社内で立ち上げたプロジェクトの内、守秘義務に違反しない部分を持ち込みプロジェクトとして今回応募しました。",
+          "en": "Hello! My name is Korehito Arai Jensen, and I live in the United States. I have a long career in a field called FP&A, and I have applied with a project that is a part of an internal project I launched to replace some of my work with AI, specifically the parts that do not violate confidentiality obligations."
+        },
+        "project_details": {
+          "ja": "具体的には売上及びコスト（製造原価と販管費）の差異分析の自動化で、ERPシステムから抽出できるハードデータに、より信頼度の劣る社外データを連動させる形でより深い分析ができるようにする予定です。既に部分的にPoCはあり、社外のソフトウェアベンダーともMockを基に話したのですが、やりたいことを一気通貫してできるソフトウェアが現時点で見つからないことから、自分で作ってしまおうと判断した次第です。",
+          "en": "Specifically, I plan to automate the variance analysis of sales and costs (manufacturing costs and SG&A expenses), enabling deeper analysis by linking hard data extracted from the ERP system with less reliable external data. A partial PoC already exists, and I have discussed it with external software vendors based on a mock-up, but since I couldn't find any software that could do everything I wanted in one go, I decided to build it myself."
+        },
+        "contributions": {
+          "ja": "・大企業への導入の際にハードルとなりうる点の確認\n・SNSアフィリエイト（5万人以上のアカウントを個人で運営していた時期があります）\n・欧州10年、中国/アメリカ各1年住んでいた経験があるので、グローバル展開を検討している方の相談\n・ファイナンスの観点からの意見",
+          "en": "・Identifying potential hurdles when introducing to large corporations.\n・SNS affiliation (I have experience personally operating an account with over 50,000 followers).\n・Consultation for those considering global expansion, based on my experience living in Europe for 10 years, and China/USA for 1 year each.\n・Opinions from a finance perspective."
+        },
+        "concurrent_possible": {
+          "ja": "応相談",
+          "en": "Negotiable",
+          "value": "△"
+        },
+        "rocket_incubator": {
+          "ja": "いいえ",
+          "en": "No",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "いいえ",
+          "en": "No",
+          "value": false
+        }
+      },
+      {
+        "id": 12,
+        "name": {
+          "ja": "松本一将",
+          "en": "Kazumasa Matsumoto"
+        },
+        "profile_url": "https://x.com/kazumasamatsumo",
+        "github_account": "Kazumasa",
+        "team": {
+          "ja": "Arcanex",
+          "en": "Arcanex"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "TypeScript",
+            "en": "TypeScript"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "考え中",
+            "en": "Thinking"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI Agent",
+            "en": "AI Agent"
+          }
+        ],
+        "summary": {
+          "ja": "はじめまして。松本一将（まつもとかづまさ）と申します。AIを活用したプロダクトを作ってみたいと思いまして、プログラムに参加したいと思いました。TypeScriptが得意なので、フロントエンドもバックエンドも両方TypeScriptであれば何かしら作ることはできます。",
+          "en": "Nice to meet you. My name is Kazumasa Matsumoto. I wanted to try creating a product using AI, so I decided to participate in this program. I am proficient in TypeScript, so I can create something if both the front-end and back-end are in TypeScript."
+        },
+        "concurrent_possible": {
+          "ja": "応相談",
+          "en": "Negotiable",
+          "value": "△"
+        },
+        "rocket_incubator": {
+          "ja": "",
+          "en": "",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "",
+          "en": "",
+          "value": false
+        }
+      },
+      {
+        "id": 13,
+        "name": {
+          "ja": "砂田憲廣",
+          "en": "Norihiro Sunada"
+        },
+        "profile_url": "N/A",
+        "github_account": "norihirosunada",
+        "team": {
+          "ja": "EchoLab(仮)",
+          "en": "EchoLab (Provisional)"
+        },
+        "role": [
+          {
+            "ja": "PM",
+            "en": "PM"
+          },
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "DS",
+            "en": "Data Science"
+          },
+          {
+            "ja": "Mobile",
+            "en": "Mobile"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "ポッドキャスト",
+            "en": "Podcast"
+          },
+          {
+            "ja": "AIエージェント開発プラットフォーム",
+            "en": "AI Agent Development Platform"
+          },
+          {
+            "ja": "NFTプラットフォーム",
+            "en": "NFT Platform"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "ロボティクス",
+            "en": "Robotics"
+          },
+          {
+            "ja": "世界モデル",
+            "en": "World Model"
+          }
+        ],
+        "concurrent_possible": {
+          "ja": "可能",
+          "en": "Possible",
+          "value": true
+        },
+        "rocket_incubator": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        },
+        "graphai_ai_podcaster": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        }
+      },
+      {
+        "id": 14,
+        "name": {
+          "ja": "斉藤喬智",
+          "en": "Takatoshi Saito"
+        },
+        "profile_url": "N/A",
+        "github_account": "Taka499",
+        "team": {
+          "ja": "EchoLab(仮)",
+          "en": "EchoLab (Provisional)"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "AI/backend",
+            "en": "AI/Backend"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "AI Podcast",
+            "en": "AI Podcast"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI Agent",
+            "en": "AI Agent"
+          }
+        ],
+        "concurrent_possible": {
+          "ja": "応相談",
+          "en": "Negotiable",
+          "value": "△"
+        },
+        "rocket_incubator": {
+          "ja": "",
+          "en": "",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        }
+      },
+      {
+        "id": 15,
+        "name": {
+          "ja": "川橋博昭",
+          "en": "Hiroaki Kawahashi"
+        },
+        "profile_url": "N/A",
+        "github_account": "MejikaAkira",
+        "team": {
+          "ja": "未定",
+          "en": "Undecided"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "web3",
+            "en": "web3"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "リアルタイムデータ分析AIアプリ",
+            "en": "Real-time data analysis AI app"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI Agent",
+            "en": "AI Agent"
+          }
+        ],
+        "summary": {
+          "ja": "みなさま、はじめまして。個人で参加します、川橋です。今回、初めての参加となります。仕事ではソフトウェアの技術営業をしています。また、個人事業主として、web3アプリやNFTやトークンの発行もしています。プログラミングを学び始めて3年ほどです。今回の活動を通じて成長していければと思います。",
+          "en": "Hello everyone, my name is Kawahashi and I am participating individually. This is my first time participating. I work in technical sales for software. As a sole proprietor, I also issue web3 apps, NFTs, and tokens. I have been learning to program for about 3 years. I hope to grow through this activity."
+        },
+        "project_details": {
+          "ja": "主にはopneaiなどのツールを使い、リアルタイムにデータ分析をしてくれるAIアプリ開発を考えています。",
+          "en": "I am mainly considering developing an AI application that uses tools like OpenAI to perform real-time data analysis."
+        },
+        "concurrent_possible": {
+          "ja": "応相談",
+          "en": "Negotiable",
+          "value": "△"
+        },
+        "rocket_incubator": {
+          "ja": "",
+          "en": "",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "",
+          "en": "",
+          "value": false
+        }
+      },
+      {
+        "id": 16,
+        "name": {
+          "ja": "ヨハン・ネスルンド",
+          "en": "Johan Naslund"
+        },
+        "profile_url": "https://www.linkedin.com/in/johan-naslund",
+        "github_account": "humacss",
+        "team": {
+          "ja": "Arcanex",
+          "en": "Arcanex"
+        },
+        "role": [
+          {
+            "ja": "Founder",
+            "en": "Founder"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "エンジニア",
+            "en": "Engineer"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "MMORPGゲームArcanex",
+            "en": "MMORPG Game Arcanex"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "Game Development",
+            "en": "Game Development"
+          },
+          {
+            "ja": "AI Generation",
+            "en": "AI Generation"
+          },
+          {
+            "ja": "Asset Creation (Music, Sound, 3D Models, Animation etc.)",
+            "en": "Asset Creation (Music, Sound, 3D Models, Animation etc.)"
+          },
+          {
+            "ja": "Virtual World Building",
+            "en": "Virtual World Building"
+          }
+        ],
+        "summary": {
+          "ja": "今年は個人でアイデアを開発しています。MMORPGのゲーム「Arcanex」を作っています。このブートキャンプでの私の目標は、このゲームエンジンを構築し、アルゴリズムとAIを使ってコンテンツを生み出すことです。一人で進めるか、興味を持ってくれる人と一緒にコラボレーションしながら進めたいと思っています。",
+          "en": "This year I'm developing an idea on my own. I'm making an MMORPG game called 'Arcanex'. My goal in this bootcamp is to build out the game engine and generate content using algorithms and AI. I'm open to working on it alone or collaborating with anyone who is interested."
+        },
+        "project_details": {
+          "ja": "特に、AIやアルゴリズムを使ったコンテンツ生成のパイプライン開発に興味があるエンジニアやクリエイターの方を探しています。具体的には、今年中に生成したいコンテンツとして以下を考えています：3Dモデルとアニメーション、音楽、効果音、ストーリーナレーション、NPCの会話、マップやダンジョンの生成、NPCのAI。もし上記のどれかに興味があるなら、私のゲームに興味がなくてもぜひ連絡してください！たとえば、AIで音楽を生成することに興味があるけどゲームには関わらないという場合でも、ブートキャンプの期間中に一緒にコラボできるかもしれません。",
+          "en": "I'm especially looking for engineers and creators interested in developing content generation pipelines using AI and algorithms. Specifically, the content I want to generate this year includes: 3D models and animations, music, sound effects, story narration, NPC conversations, map and dungeon generation, and NPC AI. If you're interested in any of these, please contact me even if you're not interested in my game! For example, if you're interested in generating music with AI but not in games, we might still be able to collaborate during the bootcamp."
+        },
+        "concurrent_possible": {
+          "ja": "可能",
+          "en": "Possible",
+          "value": true
+        },
+        "rocket_incubator": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        },
+        "graphai_ai_podcaster": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        }
+      },
+      {
+        "id": 17,
+        "name": {
+          "ja": "マッコーレー瑛黎奈",
+          "en": "Elena McAulay"
+        },
+        "profile_url": "https://linkedin.com/in/elena-mcaulay",
+        "github_account": "elenajapan",
+        "team": {
+          "ja": "未定",
+          "en": "Undecided"
+        },
+        "role": [
+          {
+            "ja": "PR/広報",
+            "en": "PR/Public Relations"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "PR",
+            "en": "PR"
+          },
+          {
+            "ja": "マネジメント",
+            "en": "Management"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "レストラン自動提案サービス",
+            "en": "Automatic restaurant suggestion service"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI",
+            "en": "AI"
+          }
+        ],
+        "summary": {
+          "ja": "マッコーレー瑛黎奈（えれな）と申します。3rdからPR/広報/マーケティングで参加しております。大学卒業後、外務省国際経済課で２年間勤務し、今秋からシカゴ大学（Booth School of Business）でMBA、ハーバード大学（Harvard Kennedy School）でMPP（公共政策修士）を取得予定です。大学時代はフードライターやインフルエンサーのSNS運用やITコンサルのマーケティングのインターンに従事しておりました。その経験を活かしながら、今回のBootcampでは皆様の活動の魅力や社会的意義の可視化といった側面で貢献できればと考えています。",
+          "en": "My name is Elena McAulay. I am participating from the 3rd bootcamp in PR/Public Relations/Marketing. After graduating from university, I worked for two years at the International Economic Affairs Division of the Ministry of Foreign Affairs, and this fall I plan to obtain an MBA at the University of Chicago (Booth School of Business) and an MPP (Master of Public Policy) at Harvard University (Harvard Kennedy School). During my university years, I was involved in internships in SNS management for food writers and influencers, and marketing for an IT consultant. I hope to contribute to this Bootcamp by leveraging that experience to visualize the appeal and social significance of everyone's activities."
+        },
+        "project_details": {
+          "ja": "目標は、新しい価値を生み出す皆様の挑戦を広く発信し、同世代を勇気づけ、挑戦することへのポジティブな連鎖を生み出すことで、社会全体に新たな活力をもたらすことです。",
+          "en": "My goal is to widely disseminate the challenges of everyone creating new value, to encourage our generation, to create a positive chain reaction for taking on challenges, and thereby bring new vitality to society as a whole."
+        },
+        "concurrent_possible": {
+          "ja": "不可",
+          "en": "Not Possible",
+          "value": false
+        },
+        "rocket_incubator": {
+          "ja": "",
+          "en": "",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "",
+          "en": "",
+          "value": false
+        }
+      },
+      {
+        "id": 18,
+        "name": {
+          "ja": "有野嵐",
+          "en": "Ran Arino"
+        },
+        "profile_url": "https://www.linkedin.com/in/ran-arino-25253022b/",
+        "github_account": "RanArino",
+        "team": {
+          "ja": "未定(個人？)",
+          "en": "Undecided (Solo?)"
+        },
+        "role": [
+          {
+            "ja": "Engineer/Developer",
+            "en": "Engineer/Developer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "AI駆動開発",
+            "en": "AI-driven Development"
+          },
+          {
+            "ja": "機械学習",
+            "en": "Machine Learning"
+          },
+          {
+            "ja": "データ分析",
+            "en": "Data Analysis"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "情報を構造化する知識プラットフォーム",
+            "en": "Knowledge platform for structuring information"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI Agent",
+            "en": "AI Agent"
+          },
+          {
+            "ja": "RAG",
+            "en": "RAG"
+          },
+          {
+            "ja": "ML",
+            "en": "ML"
+          },
+          {
+            "ja": "AR",
+            "en": "AR"
+          },
+          {
+            "ja": "MCP",
+            "en": "MCP"
+          }
+        ],
+        "summary": {
+          "ja": "こんにちは、有野 嵐（ありの らん）です。Bootcampには初めての参加となります。2025年4月にData Science & Analytics学士コースに必要な履修を終え、6−8月ごろに正式に卒業となります。現在（この自己紹介の執筆時）は、カナダのトロント在住ですが、2025年の5月中旬には日本に帰国予定です。この4−5年間は、特にPythonを中心にデータ分析や機械学習モデルの構築に取り組んできました。ソフトウェア開発、インフラ環境や、その他プログラミング言語 (Golang、Typescriptなど)に関しては、約1年ほど前から独学で進めています。将来的には、データ分析ドリブンのソフトウェア・システム開発を推進していきたいと考えています。具体的には、分析業務の自動化と最適化を念頭に置いたデータベース設計やアーキテクチャ構築などです。このBootcampには、自分で実際にソフトウェアを開発する手順を体験して、システム構築の際の包括的な視野と解像度の高い視点を身につけることを目的に参加します。したがって、持ち込みのアイデア・プロジェクトの開発を目指します。",
+          "en": "Hello, I'm Ran Arino. This is my first time participating in the Bootcamp. I will complete the required courses for my Bachelor's in Data Science & Analytics in April 2025 and will officially graduate around June-August. As of writing this, I am living in Toronto, Canada, but I plan to return to Japan in mid-May 2025. For the past 4-5 years, I have been focusing on data analysis and building machine learning models, primarily using Python. I have been self-studying software development, infrastructure environments, and other programming languages (like Golang, Typescript) for about a year. In the future, I want to promote data analysis-driven software and system development. Specifically, this includes database design and architecture construction with the automation and optimization of analytical tasks in mind. I am participating in this Bootcamp to experience the process of developing software myself and to gain a comprehensive and high-resolution perspective on system construction. Therefore, I aim to develop my own brought-in idea/project."
+        },
+        "project_details": {
+          "ja": "デモンストレーション用のレポジトリにて、プロジェクトの概要を公開しています。ご興味を持っていただいた場合には、https://github.com/RanArino/demo より参照ください。\n概要：本プロジェクトは、大量のテキスト・ドキュメント情報を情報の粒度に応じて階層的に構造化し、それをインタラクティブな2D/3D空間上に可視化する「ナレッジ探索・情報構造化プラットフォーム」の開発を目的としています。従来型の線形的な情報整理方法（PDF、Markdown、チャット履歴など）や、粒度が揃わないベクトル検索結果による情報過多問題を解決することを狙いとしています。GoogleのNotebookLMに見られる高度なRAG（検索拡張生成）技術と、NotionやObsidianの柔軟なドキュメント管理思想を融合し、単なる検索を超えた「知識の構造化と活用」を目指します。AIエージェントが多様なSaaSと連携する際の「情報ハブ（仲介役）」となり、「とりあえずデータを渡せば、構造化された知識を出力する」サービスとしてのポジションニングを目指します。\n主な特徴：プラットフォームは、「階層的な情報構造化」「インタラクティブな2D/3D可視化」「自然言語検索と対話型ナビゲーション」をコア機能に据えます。ドキュメント（テキスト、PDF、Web、音声文字起こし等）をベクトル化し、意味的な関連性に応じたクラスタリングと階層構造を自動生成。ユーザーは、概要レベルから段階的に詳細情報へドリルダウン可能であり、AIチャット履歴もGitワークフローのように分岐・統合して整理できます。これにより、対話履歴が「思考の記録」として蓄積・活用可能になります。\n技術スタック：フロントエンドはNext.jsをベースに、Shadcn UI、HeroUI、Tailwind CSS等で直感的UIを構築。2D/3D可視化にはreact-force-graph-3dやThree.jsを使用します。バックエンドはGo言語を主軸とし、API通信にはRESTful APIとgRPC（検討中）を想定。ベクトル検索にはQdrantを採用し、機械学習パートはPythonを利用して次元削減・クラスタリング・将来的なLLM・Embeddingモデルファインチューニングを担います。LLMモデルには、Google Vertex AIを主軸として、OpenRouterの導入も検討し、柔軟なテキスト処理を実現します。\n展望：本システムは、研究者やビジネスパーソン、AIエージェント開発者など、膨大な情報を扱う全ユーザーに対し、「直感的な知識探索」「情報の構造的理解」「新たなインサイトの発見」を支援します。将来的には、RESTful APIや独自プロトコル（MCP）を通じたAIエージェント連携、Chrome拡張やWeb AR機能など、拡張性の高いサービス群を展開予定です。インフラはAWS/GCPを中心に構築し、認証（Clerk）、サブスクリプション管理（Stripe）、通知機能（Resend）等の外部サービスも組み合わせる方針です。",
+          "en": "I have published the project overview in a demonstration repository. If you are interested, please refer to it at https://github.com/RanArino/demo.\nOverview: This project aims to develop a 'Knowledge Exploration and Information Structuring Platform' that hierarchically structures large amounts of text and document information according to its granularity and visualizes it in an interactive 2D/3D space. It aims to solve the problems of conventional linear information organization methods (PDF, Markdown, chat history, etc.) and information overload due to vector search results with inconsistent granularity. By fusing advanced RAG (Retrieval-Augmented Generation) technology seen in Google's NotebookLM with the flexible document management philosophy of Notion and Obsidian, we aim for 'knowledge structuring and utilization' that goes beyond simple search. It aims to position itself as a service that acts as an 'information hub (intermediary)' when AI agents collaborate with various SaaS, 'outputting structured knowledge by simply passing data.'\nMain Features: The platform's core features are 'hierarchical information structuring,' 'interactive 2D/3D visualization,' and 'natural language search and conversational navigation.' Documents (text, PDF, Web, voice transcription, etc.) are vectorized, and clustering and hierarchical structures are automatically generated according to semantic relevance. Users can drill down from the overview level to detailed information in stages, and AI chat histories can also be organized by branching and merging like a Git workflow. This allows conversation histories to be accumulated and utilized as a 'record of thought.'\nTech Stack: The front end is based on Next.js, with an intuitive UI built using Shadcn UI, HeroUI, Tailwind CSS, etc. For 2D/3D visualization, react-force-graph-3d and Three.js will be used. The back end will be mainly in Go, with RESTful API and gRPC (under consideration) for API communication. Qdrant will be used for vector search, and the machine learning part will use Python for dimensionality reduction, clustering, and future LLM/Embedding model fine-tuning. For the LLM model, Google Vertex AI will be the main choice, with consideration for introducing OpenRouter to achieve flexible text processing.\nOutlook: This system will support all users who handle vast amounts of information, such as researchers, business people, and AI agent developers, in 'intuitive knowledge exploration,' 'structural understanding of information,' and 'discovery of new insights.' In the future, we plan to develop a highly extensible service group, including AI agent collaboration through RESTful API and proprietary protocols (MCP), Chrome extensions, and Web AR functions. The infrastructure will be built mainly on AWS/GCP, and we plan to combine external services such as authentication (Clerk), subscription management (Stripe), and notification functions (Resend)."
+        },
+        "concurrent_possible": {
+          "ja": "不可",
+          "en": "Not Possible",
+          "value": false
+        },
+        "rocket_incubator": {
+          "ja": "",
+          "en": "",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "",
+          "en": "",
+          "value": false
+        }
+      },
+      {
+        "id": 19,
+        "name": {
+          "ja": "小島一也",
+          "en": "Kazuya Kojima"
+        },
+        "profile_url": "https://www.linkedin.com/in/kazuya-kojima/",
+        "github_account": "kkoji",
+        "team": {
+          "ja": "未定",
+          "en": "Undecided"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "Webアプリ開発",
+            "en": "Web App Development"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "料理アシスタントアプリ",
+            "en": "Cooking assistant app"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI",
+            "en": "AI"
+          }
+        ],
+        "concurrent_possible": {
+          "ja": "可能",
+          "en": "Possible",
+          "value": true
+        },
+        "rocket_incubator": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        },
+        "graphai_ai_podcaster": {
+          "ja": "",
+          "en": "",
+          "value": false
+        }
+      },
+      {
+        "id": 20,
+        "name": {
+          "ja": "山崎智則",
+          "en": "Tomonori Yamazaki"
+        },
+        "profile_url": "N/A",
+        "github_account": "tomonoriyamazaki",
+        "team": {
+          "ja": "toytalk",
+          "en": "toytalk"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "インフラエンジニア/AWS",
+            "en": "Infrastructure Engineer/AWS"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "生成AIおもちゃ",
+            "en": "Generative AI toy"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "ボイス生成",
+            "en": "Voice Generation"
+          }
+        ],
+        "summary": {
+          "ja": "はじめまして！山崎智則と申します。ハッカソンは今回が初挑戦となります。普段はインフラエンジニアとして、社内のクラウドCoEの業務に携わっていますが、この機会を通じて「動くものを形にする」ことにチャレンジしたいと思っています。",
+          "en": "Nice to meet you! My name is Tomonori Yamazaki. This is my first time participating in a hackathon. I usually work as an infrastructure engineer, involved in the internal cloud CoE, but I want to take this opportunity to challenge myself to 'give shape to something that works'."
+        },
+        "project_details": {
+          "ja": "ハッカソンでは、「生成AIを活用したキャラクターおもちゃの開発」に取り組む予定です。子供たちがキャラクターと楽しく会話できれば、遊びながら自然と語彙力や言葉のキャッチボールをする力を育むことができるかもしれません。そして、夢中になってくれたら、親（私）にとっても大きな助けになるはずです。また、周りのお友達やパパ友・ママ友に見せたときに、みんなで一緒に盛り上がれる存在にもなれるのではないかと考えています。個人での開発を予定していますが、Slackで皆さんの進捗を見ながら刺激を受けつつ頑張りたいと思います。ハイエンドPCを新調したので色々と試せる準備はできています。",
+          "en": "At the hackathon, I plan to work on the 'development of a character toy utilizing generative AI.' If children can have fun conversations with the character, they might naturally develop their vocabulary and conversational skills while playing. And if they get absorbed in it, it would be a great help for me as a parent. I also think it could become something that everyone can get excited about together when shown to friends, and other dads and moms. I plan to develop it individually, but I want to do my best while being inspired by everyone's progress on Slack. I've bought a new high-end PC, so I'm ready to try various things."
+        },
+        "concurrent_possible": {
+          "ja": "不可",
+          "en": "Not Possible",
+          "value": false
+        },
+        "rocket_incubator": {
+          "ja": "",
+          "en": "",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "",
+          "en": "",
+          "value": false
+        }
+      },
+      {
+        "id": 21,
+        "name": {
+          "ja": "水上 渚",
+          "en": "Nagisa Mizukami"
+        },
+        "profile_url": "https://www.linkedin.com/in/nagisamizukmai/",
+        "github_account": "nagisamizukami",
+        "team": {
+          "ja": "MagicHolic",
+          "en": "MagicHolic"
+        },
+        "role": [
+          {
+            "ja": "Founder, PM",
+            "en": "Founder, PM"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "ゲーム・漫画・アニメ業界で12年以上の経験。ByteDanceでの海外展開経験あり。",
+            "en": "Over 12 years of experience in the game, manga, and anime industries. Experience with overseas expansion at ByteDance."
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "既存IPやインディ漫画をAIでモーションコミック化し、グローバル展開する「デジタルスタジオ/エージェンシー」モデルに挑戦中。",
+            "en": "Challenging a 'digital studio/agency' model to create motion comics from existing IPs and indie manga using AI for global expansion."
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI",
+            "en": "AI"
+          },
+          {
+            "ja": "エンタメ",
+            "en": "Entertainment"
+          },
+          {
+            "ja": "IP開発",
+            "en": "IP Development"
+          },
+          {
+            "ja": "海外展開",
+            "en": "Overseas Expansion"
+          }
+        ],
+        "concurrent_possible": {
+          "ja": "応相談",
+          "en": "Negotiable",
+          "value": "△"
+        },
+        "rocket_incubator": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        },
+        "graphai_ai_podcaster": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        }
+      },
+      {
+        "id": 22,
+        "name": {
+          "ja": "廣田 裕介",
+          "en": "Yusuke Hirota"
+        },
+        "profile_url": "https://www.linkedin.com/in/yusuke-hirota-204a01150/",
+        "github_account": "hiro-yuske",
+        "team": {
+          "ja": "Esper",
+          "en": "Esper"
+        },
+        "role": [
+          {
+            "ja": "Founder, PM",
+            "en": "Founder, PM"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "Founder of Neuron X, ex-Amazon",
+            "en": "Founder of Neuron X, ex-Amazon"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "オンラインショップ向けのAIエージェント開発。Tiktok Shopの日本上陸に向けて、Short動画用AIエージェント開発中。",
+            "en": "Developing AI agents for online shops. Currently developing an AI agent for short videos in preparation for Tiktok Shop's launch in Japan."
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AIエージェント",
+            "en": "AI Agent"
+          },
+          {
+            "ja": "MCP",
+            "en": "MCP"
+          },
+          {
+            "ja": "ブロックチェーン",
+            "en": "Blockchain"
+          }
+        ],
+        "summary": {
+          "ja": "はじめまして。Bootcamp1st, 2ndから継続参加の廣田です。3rdでも継続参加、メンターとして参加させていただきます！プロジェクトは、オンラインショップ向けのAI native CRMの開発です。E-Commerce領域でイノベーションを起こし、本領域における日本発ユニコーン企業を創業したいと考えております。次の5年でグローバルマーケットにおける生成AI分野におけるアドバンテージを獲り、将来の日本がテック競争力のある明るい未来を創ることにチャレンジします。",
+          "en": "Nice to meet you. I'm Hirota, a continuing participant from the 1st and 2nd Bootcamps. I will also be participating in the 3rd as a continuing member and mentor! My project is the development of an AI-native CRM for online shops. I aim to innovate in the e-commerce field and found a unicorn company from Japan in this area. In the next five years, I will challenge myself to gain an advantage in the generative AI field in the global market and create a bright future where Japan has tech competitiveness."
+        },
+        "contributions": {
+          "ja": "E-commerce（EC）における専門性\nEC領域のオートメーション、マーケティング、パーソナライゼーションにおける専門性\nAmazonでのエンジニア、デザイナーとのプロダクト開発経験\nグローバル（Amazon US, EU, APAC）でのプロジェクト経験\nプロダクトのGo To Market戦略の策定、実行\nVCや投資家とのコミュニケーション、ネゴシエーション、資金調達\n米国トップVCのアクセラでの知見シェア\nメンターとして、上記のナレッジ、ノウハウ、人の紹介など。",
+          "en": "Expertise in E-commerce (EC)\nExpertise in automation, marketing, and personalization in the EC domain\nProduct development experience with engineers and designers at Amazon\nGlobal project experience (Amazon US, EU, APAC)\nFormulation and execution of product Go-To-Market strategies\nCommunication, negotiation, and fundraising with VCs and investors\nKnowledge sharing from a top US VC accelerator\nAs a mentor, sharing the above knowledge, know-how, and introductions."
+        },
+        "concurrent_possible": {
+          "ja": "可能",
+          "en": "Possible",
+          "value": true
+        },
+        "rocket_incubator": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        },
+        "graphai_ai_podcaster": {
+          "ja": "いいえ",
+          "en": "No",
+          "value": false
+        }
+      },
+      {
+        "id": 23,
+        "name": {
+          "ja": "毛利 真克",
+          "en": "Masakatsu Mouri"
+        },
+        "profile_url": "https://x.com/mouri45",
+        "github_account": "mouri45",
+        "team": {
+          "ja": "未定",
+          "en": "Undecided"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "Unity",
+            "en": "Unity"
+          },
+          {
+            "ja": "XR",
+            "en": "XR"
+          },
+          {
+            "ja": "Web",
+            "en": "Web"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "対話型AIエージェント",
+            "en": "Conversational AI Agent"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AIエージェント",
+            "en": "AI Agent"
+          }
+        ],
+        "summary": {
+          "ja": "はじめまして！毛利と申します！仕事は、小規模なWebシステム開発支援の会社を経営しつつ自分でも現場でコードを書いています。Apple Vision ProやXRアプリを開発したり、ハッカソンに参加したり技術勉強会を開催するのが好きです。最近はAIエージェントに興味が出てきており、ブートキャンプでは、XRとAIエージェントを組み合わせたようなアプリの開発を検討中です。",
+          "en": "Nice to meet you! My name is Mouri! For work, I run a company that supports small-scale web system development, and I also write code in the field myself. I enjoy developing for Apple Vision Pro and XR apps, participating in hackathons, and holding technical study sessions. Recently, I've become interested in AI agents, and at the bootcamp, I'm considering developing an app that combines XR and AI agents."
+        },
+        "background": {
+          "ja": "【略歴】\n1998年にゲームプログラマとしてキャリアをスタート。PlayStation、Nintendo64、Dreamcastなどのゲームの開発に従事。その後、SI業界にて複数のエンタープライズシステム開発プロジェクトのアーキテクトを担当。\n2006年に経済産業省管轄のIT人材発掘プロジェクト、未踏ソフトウェア創造事業に採択。\n2008年に先端技術によるソフトウェア開発を得意とした技術者集団、株式会社あゆたを創業。2017年に株式会社デジタルアイデンティティ(現 株式会社Orchestra Holdings【6533】)へ売却。株式会社Sharing Innovations【4178】に社名変更時に代表取締役副社長に就任(2019年退任)\n2020年に株式会社TechFirst Leaders創業し、代表取締役CEOに就任。\n他、技術勉強会100回以上開催、技術カンファレンス登壇経験、Googleやmixi主催のハッカソン優勝経験、複数のアプリ開発コンテスト入賞など技術者としての活動とスタートアップ企業のCTOや起業家コミュニティ/育成プログラムのメンターなど起業支援/育成の活動を行っている。",
+          "en": "【Biography】\nStarted his career as a game programmer in 1998. Engaged in the development of games for PlayStation, Nintendo 64, Dreamcast, etc. Later, he was in charge of the architect for multiple enterprise system development projects in the SI industry.\nIn 2006, he was selected for the Mitou Software Creation Project, an IT human resource discovery project under the jurisdiction of the Ministry of Economy, Trade and Industry.\nIn 2008, he founded Ayuta Co., Ltd., a group of engineers specializing in software development using advanced technology. Sold to Digital Identity Co., Ltd. (now Orchestra Holdings Co., Ltd. [6533]) in 2017. Appointed Representative Director and Vice President when the company name was changed to Sharing Innovations Co., Ltd. [4178] (resigned in 2019).\nIn 2020, he founded TechFirst Leaders Co., Ltd. and became Representative Director and CEO.\nIn addition, he has held over 100 technical study sessions, has experience speaking at technical conferences, has won hackathons sponsored by Google and mixi, has won multiple app development contests, and is active as an engineer and in supporting/nurturing entrepreneurs as a CTO of a startup company and a mentor for an entrepreneur community/training program."
+        },
+        "recent_activities": {
+          "ja": "【直近のXR関連の活動】\nApple Vision ProアプリのハッカソンVisionDevCampにて、Unity賞とMost Familiar賞を受賞\n「TOKYO NODE XR HACKATHON powered by PLATEAU 」にて「ARプロゴルファー虎！」がPLATEAU Prize 受賞 / ヒーローズリーグ2024にて特別賞受賞\n「enXross HACKATHON」にて「東京ドームシティ ドリームジャーニー ！」がImmersal賞を受賞\n「MR HACKATHON 2024」にて「スペーシャル忍者ホッケー！」がgonengo賞 のちApple Vision Pro日本発売に合わせてリリース\nTOKYO NODE OPEN LAB 2024 / XR PARADEにてApple Vision Proアプリ「スペーシャルスラッシュ！」および「ARプロゴルファー虎！」を展示\nApple Vision Pro米国発売に合わせて「Spatial Pinball Ninja」をローンチタイトルとしてリリース\nNEWVIEW SCHOOLに参加し、Spatial Computing時代の音楽プレイヤーをコンセプトとした「Spatial Music Player」のプロトタイプを開発\n「小田急線みやげwithARハッカソン」にて未来の旅行をコンセプトとしたApple Vision Proアプリ「箱根温泉珍道中！with Spatial Computing！」を開発\nLODGE XR Talkに5ヶ月連続体験ブースを出展\nvisionOS Engineer Meetup、XRミーティング、XR CREATORS PITCHなどでLT登壇",
+          "en": "【Recent XR-related Activities】\nWon the Unity Award and Most Familiar Award at the VisionDevCamp Apple Vision Pro app hackathon.\n'AR Pro Golfer Tora!' won the PLATEAU Prize at the 'TOKYO NODE XR HACKATHON powered by PLATEAU' / Special Award at Heroes League 2024.\n'Tokyo Dome City Dream Journey!' won the Immersal Award at the 'enXross HACKATHON'.\n'Spatial Ninja Hockey!' won the gonengo award at 'MR HACKATHON 2024' and was later released in conjunction with the Japanese launch of Apple Vision Pro.\nExhibited the Apple Vision Pro apps 'Spatial Slash!' and 'AR Pro Golfer Tora!' at TOKYO NODE OPEN LAB 2024 / XR PARADE.\nReleased 'Spatial Pinball Ninja' as a launch title for the US release of Apple Vision Pro.\nParticipated in NEWVIEW SCHOOL and developed a prototype for 'Spatial Music Player,' a music player concept for the Spatial Computing era.\nDeveloped the Apple Vision Pro app 'Hakone Onsen Chin-dochu! with Spatial Computing!', a future travel concept, at the 'Odakyu Line Miyage with AR Hackathon'.\nExhibited a hands-on booth at LODGE XR Talk for 5 consecutive months.\nPresented lightning talks at visionOS Engineer Meetup, XR Meeting, XR CREATORS PITCH, etc."
+        },
+        "investments": {
+          "ja": "【スタートアップ投資】\n投資先スタートアップ 14社 内1社上場 (エンジェル投資5社 StokedCapital経由7社 PowerAngels経由1社 その他1社)\nStoked Capital Limited Partner ( https://stoked.jp )\n投資家コミュニティ Power Angels に投資家として参画 ( https://power-angels.com )",
+          "en": "【Startup Investments】\nInvested in 14 startups, 1 of which is listed (5 angel investments, 7 via StokedCapital, 1 via PowerAngels, 1 other)\nStoked Capital Limited Partner ( https://stoked.jp )\nParticipating as an investor in the investor community Power Angels ( https://power-angels.com )"
+        },
+        "support_activities": {
+          "ja": "【スタートアップ/起業家支援】\niU 情報経営イノベーション専門職大学 客員教授( https://www.i-u.ac.jp/ )\n経済産業省近畿経済産業局主催U30関西起業家コミュニティ メンター( https://next-innovation.go.jp/u30/community/ )\n超起業学校スタートアッププログラム メンター( https://lot.or.jp/iessp/ )\nスタートアップアドバイザーアカデミー卒業( https://unicornfarm.jp/saa/ )\nその他、スタートアップ企業CTO、顧問など",
+          "en": "【Startup/Entrepreneur Support】\nVisiting Professor at iU Information Management Innovation Professional University ( https://www.i-u.ac.jp/ )\nMentor for the U30 Kansai Entrepreneur Community sponsored by the Kinki Bureau of Economy, Trade and Industry ( https://next-innovation.go.jp/u30/community/ )\nMentor for the Super Entrepreneur School Startup Program ( https://lot.or.jp/iessp/ )\nGraduated from the Startup Advisor Academy ( https://unicornfarm.jp/saa/ )\nOther roles include CTO and advisor for startup companies."
+        },
+        "concurrent_possible": {
+          "ja": "未定",
+          "en": "Undecided",
+          "value": "未定"
+        },
+        "rocket_incubator": {
+          "ja": "いいえ",
+          "en": "No",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "未定",
+          "en": "Undecided",
+          "value": "未定"
+        }
+      },
+      {
+        "id": 24,
+        "name": {
+          "ja": "平澤 寅庄",
+          "en": "Tosho Hirasawa"
+        },
+        "profile_url": "https://toshohirasawa.github.io/",
+        "github_account": "toshohirasawa",
+        "team": {
+          "ja": "AI 弁理士 @NexaScience",
+          "en": "AI Patent Attorney @NexaScience"
+        },
+        "role": [
+          {
+            "ja": "PdM",
+            "en": "PdM"
+          },
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "ML",
+            "en": "ML"
+          },
+          {
+            "ja": "NLP",
+            "en": "NLP"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "エンジニア・研究者が気軽に相談できるAI弁理士",
+            "en": "An AI patent attorney that engineers and researchers can easily consult"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI全般",
+            "en": "General AI"
+          }
+        ],
+        "summary": {
+          "ja": "平澤 寅庄（ひらさわ とうしょう）と申します。BootCamp にはチーム＆持ち込みプロジェクトで参加します。自チームのプロジェクトに留まらず、多くの方との議論を通じて勉強させて頂けると幸いです。",
+          "en": "My name is Tosho Hirasawa. I am participating in the BootCamp with a team and a brought-in project. I would be happy to learn not only through my own team's project but also through discussions with many people."
+        },
+        "background": {
+          "ja": "2011-2018: 新卒で Outlook Consulting に入社。リードエンジニアとして製品開発や開発プロセス改善に従事。主に C#/HTML/Javascript を使用して、Microsoft 基盤（Windows, SQL Server, SharePoint など）上のパッケージアプリケーション作成を行った。\n2018-2024: 情報科学の博士課程を修了。専門は自然言語処理（特に機械翻訳）。Python を用いたデータ分析やモデル構築、クラウドソーシングや LSP (Language Service Provider) を用いたデータ作成に取り組んだ。\n2024-現在: 研究所にてリサーチャーとして在籍する傍ら、スタートアップの PdM も務める。Science for Science や AI for Science の研究に従事。研究の他に、GPU向けの大規模推論基盤やRAG基盤の整備・管理を行う。また、複数の大学に客員研究員として在籍している。",
+          "en": "2011-2018: Joined Outlook Consulting as a new graduate. Worked as a lead engineer on product development and development process improvement. Mainly created package applications on Microsoft platforms (Windows, SQL Server, SharePoint, etc.) using C#/HTML/Javascript.\n2018-2024: Completed a doctoral course in information science. Specialized in natural language processing (especially machine translation). Worked on data analysis and model building using Python, and data creation using crowdsourcing and LSPs (Language Service Providers).\n2024-Present: While working as a researcher at a research institute, also serves as a PdM for a startup. Engaged in research on Science for Science and AI for Science. In addition to research, maintains and manages large-scale inference infrastructure and RAG infrastructure for GPUs. Also holds positions as a visiting researcher at multiple universities."
+        },
+        "project_overview": {
+          "ja": "AI 技術を用いて弁理士が行う業務を自動化・支援する『AI 弁理士』サービスを開発しています。将来的には、多様な検索（キーワード、類似文献、書誌情報、特定セクション等）による先行技術調査、請求項の構成要件比較・分析、特許査定確率予測、侵害リスク分析、価値評価などの機能を網羅する予定です。BootCamp では、特許特有の言葉遣いに不慣れな技術者や研究者の皆様が、普段お使いの技術用語で、直感的に精度の高い先行技術調査を行える機能を提供することを目指します。これにより、複雑な特許調査のハードルを劇的に下げ、アイデア創出や研究開発を加速させます。",
+          "en": "We are developing an 'AI Patent Attorney' service that automates and supports the work performed by patent attorneys using AI technology. In the future, we plan to cover functions such as prior art searches using various search methods (keywords, similar documents, bibliographic information, specific sections, etc.), comparison and analysis of claim components, patent grant probability prediction, infringement risk analysis, and value assessment. At the BootCamp, we aim to provide a function that allows engineers and researchers unfamiliar with patent-specific terminology to conduct intuitive and highly accurate prior art searches using their usual technical terms. This will dramatically lower the hurdle of complex patent searches and accelerate idea creation and research and development."
+        },
+        "concurrent_possible": {
+          "ja": "応相談",
+          "en": "Negotiable",
+          "value": "△"
+        },
+        "rocket_incubator": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        },
+        "graphai_ai_podcaster": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        }
+      },
+      {
+        "id": 25,
+        "name": {
+          "ja": "森野正博",
+          "en": "Masahiro Morino"
+        },
+        "profile_url": "https://www.linkedin.com/in/masahiro-morino-8b6198210/",
+        "github_account": "masamori0083",
+        "team": {
+          "ja": "Arcanex",
+          "en": "Arcanex"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "フルスタック",
+            "en": "Full-stack"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "エージェントを組み込んだ衛星の軌道計算やミッションプランニング",
+            "en": "Satellite orbit calculation and mission planning incorporating agents"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AIエージェント",
+            "en": "AI Agent"
+          },
+          {
+            "ja": "衛星開発",
+            "en": "Satellite Development"
+          },
+          {
+            "ja": "エッジAI",
+            "en": "Edge AI"
+          }
+        ],
+        "summary": {
+          "ja": "はじめまして！BootCamp 3rd に参加させていただくことになりました、森野と申します。現在はフリーランスエンジニアとして、Webアプリケーション・クラウドのインフラ構築など多岐に渡って業務をしてます。最近は組み込みも始めました。主に使用している言語はPython, JS, C++です。最近はGoも書いてます。プライベートでは、衛星運用のプロジェクトに携わっていまして、衛星の軌道計算やミッションプランニングにエージェントを組み込めないかと考えるようになり、このプロジェクトができないかなと思っています。また、アート分野でもエージェントが使えたら面白そうだと考えています。今回のBootCampでは、特にエージェントを組み込む開発で面白そうなプロジェクトがあれば積極的に関わっていきたいと思います。また、自分のプロジェクトも進めていくつもりです。エージェント開発・宇宙開発・アートに興味がある方と、ぜひ交流を深められれば幸いです。",
+          "en": "Nice to meet you! My name is Morino, and I will be participating in BootCamp 3rd. I am currently a freelance engineer working on a wide range of tasks, including web application and cloud infrastructure construction. I have also recently started working with embedded systems. The main languages I use are Python, JS, and C++. I've also been writing Go recently. In my private life, I am involved in a satellite operation project, which has led me to think about whether agents could be incorporated into satellite orbit calculations and mission planning, and I am considering this as a potential project. I also think it would be interesting to use agents in the field of art. In this BootCamp, I would like to actively get involved in any interesting projects, especially those involving the integration of agents. I also plan to advance my own project. I would be happy to deepen my exchange with those interested in agent development, space development, and art."
+        },
+        "concurrent_possible": {
+          "ja": "可能",
+          "en": "Possible",
+          "value": true
+        },
+        "rocket_incubator": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        },
+        "graphai_ai_podcaster": {
+          "ja": "いいえ",
+          "en": "No",
+          "value": false
+        }
+      },
+      {
+        "id": 26,
+        "name": {
+          "ja": "金山佳毅",
+          "en": "Yoshiki Kanayama"
+        },
+        "profile_url": "https://www.linkedin.com/in/yoshikikanayama/",
+        "github_account": "Yoshiki Kanayama",
+        "team": {
+          "ja": "未定 (or 個人)",
+          "en": "Undecided (or Solo)"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "Web開発",
+            "en": "Web Development"
+          },
+          {
+            "ja": "iOSアプリ",
+            "en": "iOS App"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "家庭向け生活マネジメントアプリ",
+            "en": "Household life management app"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI",
+            "en": "AI"
+          },
+          {
+            "ja": "ロボット",
+            "en": "Robot"
+          },
+          {
+            "ja": "IoT",
+            "en": "IoT"
+          }
+        ],
+        "summary": {
+          "ja": "金山佳毅 (かなやま よしき) と申します。ソフトウェアエンジニアとして、主に基幹システムの運用開発を行っております。今回、BootCamp 3rdには持ち込みプロジェクトで参加させていただこうと思っております。",
+          "en": "My name is Yoshiki Kanayama. As a software engineer, I mainly work on the operation and development of core systems. I am planning to participate in BootCamp 3rd with a brought-in project."
+        },
+        "project_details": {
+          "ja": "以下にβ版のWebアプリケーションをリリースしていて、以下の機能開発＋モバイルアプリ開発をこのBootCampで行おうと思っております。\nhttps://twolife.jp/introduction\n■概要\n家庭向け生活マネジメントアプリ\n■機能\n可処分時間の最大化を測るための、非コア家事の効率化アプリ\n■開発予定\n・全てのアプリケーションの共有機能\n・通知機能（メール、Line）\n・家計簿機能\n・レシピ機能\n・ビュー、コントローラAI化\n・iOSアプリ\n・Androidアプリ\n現状個人開発を行っていて、もし興味を持ってくださる方がいらしゃいましたら、ぜひ一緒に開発できればと思ってます！",
+          "en": "I have released a beta version of a web application at the following link, and I plan to carry out the following feature development + mobile app development in this BootCamp.\nhttps://twolife.jp/introduction\n■ Overview\nHousehold life management app\n■ Function\nAn app for streamlining non-core household chores to maximize disposable time\n■ Development Plan\n・Shared functions for all applications\n・Notification function (email, Line)\n・Household account book function\n・Recipe function\n・AI-powered view and controller\n・iOS app\n・Android app\nI am currently developing this on my own, and if anyone is interested, I would love to develop it together!"
+        },
+        "contributions": {
+          "ja": "ソフトウェアエンジニア歴6年です。Nuxt.js、Vue、Typescriptで開発しているので、その面で貢献できます。また、Python、Java、C++等の経験もありますので、こちらも貢献できます。",
+          "en": "I have 6 years of experience as a software engineer. I develop with Nuxt.js, Vue, and Typescript, so I can contribute in that area. I also have experience with Python, Java, C++, etc., so I can contribute there as well."
+        },
+        "concurrent_possible": {
+          "ja": "可能",
+          "en": "Possible",
+          "value": true
+        },
+        "rocket_incubator": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        },
+        "graphai_ai_podcaster": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        }
+      },
+      {
+        "id": 27,
+        "name": {
+          "ja": "田澤 博康",
+          "en": "Hiroyasu Tazawa"
+        },
+        "profile_url": "N/A",
+        "github_account": "hiroyasu5",
+        "team": {
+          "ja": "Virtual AI Docter（仮）",
+          "en": "Virtual AI Doctor (Provisional)"
+        },
+        "role": [
+          {
+            "ja": "PM",
+            "en": "PM"
+          },
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "医学生4年",
+            "en": "4th year medical student"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "個人特化型 AI-Virtual Doctor：アニメ調3Dアバターとリアルタイム会話・症状チェック・緊急度判定・服薬指導を行うスマホ→VRアプリ",
+            "en": "Personalized AI-Virtual Doctor: A smartphone -> VR app with an anime-style 3D avatar for real-time conversation, symptom checking, triage, and medication guidance."
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI",
+            "en": "AI"
+          },
+          {
+            "ja": "Healthcare",
+            "en": "Healthcare"
+          },
+          {
+            "ja": "Blockchain",
+            "en": "Blockchain"
+          }
+        ],
+        "summary": {
+          "ja": "東京慈恵会医科大学４年の 田澤 博康（たざわ・ひろやす） と申します。持ち込み企画 「バーチャル AI お医者さん」 で参加いたします。 （かっこいい名前も募集中）",
+          "en": "I am Hiroyasu Tazawa, a 4th-year student at The Jikei University School of Medicine. I will be participating with the brought-in project 'Virtual AI Doctor'. (Also looking for a cool name)."
+        },
+        "project_overview": {
+          "ja": "ビジョン アニメ風の AI 医師アバターと \"気軽・正確・安心\" に会話できる体験を提供し、将来は VR/AR にまで拡張して どこでも『かかりつけ AI ドクター』 を実現する。\n核心機能\n緊急度判定 (トリアージ)\n診断支援 — 症状から鑑別疾患を提示\n服薬アドバイス\n対人ハードルの高い相談 (メンタル・見せにくい部位 など)\n問題提起（Pain）\n予約・費用・心理的ハードルが高い既存オンライン診療\nそもそも 人間に診察されたくない / 人と関わりたくない 層の取り残し\nターゲットユーザー像\n忙しい社会人\n軽症で受診をためらう若年層\nメンタル相談をためらう人\n病院そのものに抵抗のある人\n差別化ポイント\n自然言語でのシームレス対話 UX (選択肢ポチポチではない)\nアニメ調 UI ＆ 高 EQ で孤独感をケア\n『裏切らない味方』となる伴走型 AI",
+          "en": "Vision: To provide an experience where users can converse with an anime-style AI doctor avatar 'casually, accurately, and with peace of mind,' and in the future, expand to VR/AR to realize a 'personal AI doctor' anywhere.\nCore Functions:\n- Triage (Urgency assessment)\n- Diagnostic support — Suggests differential diagnoses from symptoms\n- Medication advice\n- Consultation for sensitive issues (mental health, hard-to-show body parts, etc.)\nProblem (Pain):\n- Existing online consultations have high hurdles (reservations, cost, psychological barriers)\n- Leaving behind the segment of people who do not want to be examined by humans / do not want to interact with people\nTarget User Profile:\n- Busy professionals\n- Young people who hesitate to see a doctor for minor symptoms\n- People who hesitate to seek mental health consultation\n- People who are resistant to hospitals themselves\nDifferentiation Points:\n- Seamless conversational UX with natural language (not just clicking options)\n- Anime-style UI & high EQ to care for feelings of loneliness\n- A companion AI that becomes a 'loyal ally'"
+        },
+        "implementation_status": {
+          "ja": "3D アバター表示: VRoid Studio → Unity 表示済み\n音声合成 & リップシンク: VOICEVOX で生成、Unity で同期\nデプロイ: GitHub Build で動作確認 https://github.com/hiroyasu5/Virtual-AI-Dr",
+          "en": "3D Avatar Display: VRoid Studio → Displayed in Unity\nVoice Synthesis & Lip Sync: Generated with VOICEVOX, synchronized in Unity\nDeployment: Operation confirmed with GitHub Build https://github.com/hiroyasu5/Virtual-AI-Dr"
+        },
+        "tech_stack_and_team": {
+          "ja": "領域: 技術 / ツール\n3D & モーション: Unity\n音声認識 / 生成 & NLP: Python, OpenAI API (Whisper / ChatGPT / Voicevox)\n開発メンバー: コード初心者エンジニア 2 名 (私 + 友人)\n医療監修: 研究室指導医 1 名（予定）",
+          "en": "Area: Technology / Tools\n3D & Motion: Unity\nVoice Recognition / Generation & NLP: Python, OpenAI API (Whisper / ChatGPT / Voicevox)\nDevelopment Members: 2 beginner engineers (myself + a friend)\nMedical Supervision: 1 research lab supervisor (planned)"
+        },
+        "roadmap": {
+          "ja": "短期: Unity で Whisper → ChatGPT → Voicevox の通信を実装し、リアルタイム対話を実現\n中期: 表情パターン／細かな Viseme 制御, キャラのポージング (うなずく・考える・喜ぶ) 追加\n長期: VR / AR 展開 & 個人最適化されたパーソナル医師 AI",
+          "en": "Short-term: Implement Whisper → ChatGPT → Voicevox communication in Unity to achieve real-time conversation.\nMid-term: Add expression patterns / detailed Viseme control, and character posing (nodding, thinking, rejoicing).\nLong-term: VR / AR expansion & a personalized personal doctor AI."
+        },
+        "seeking_support": {
+          "ja": "患者データの保護に関する知見のある方（長期的に必須）\n 将来的に避けて通れないテーマとして、医療データのセキュリティやプライバシー保護の専門性をお持ちの方にぜひ関わっていただきたいと考えています。\n開発面での支援（短期的・実務的）\n コード実装やアイディア面で詰まることも多いため、実装の壁打ちや技術的な相談に乗ってくださるエンジニアの方にサポートいただけるととても心強いです。\n💡 アドバイザー・メンター大歓迎です！",
+          "en": "Seeking Support:\n- Someone with knowledge of patient data protection (essential in the long term). As this is an unavoidable theme in the future, we would like to involve someone with expertise in medical data security and privacy protection.\n- Development support (short-term, practical). Since we often get stuck on code implementation and ideas, it would be very encouraging to have the support of an engineer who can help us with implementation challenges and technical consultations.\n💡 Advisors and mentors are very welcome!"
+        },
+        "concurrent_possible": {
+          "ja": "不可",
+          "en": "Not Possible",
+          "value": false
+        },
+        "rocket_incubator": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        },
+        "graphai_ai_podcaster": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        }
+      },
+      {
+        "id": 28,
+        "name": {
+          "ja": "村上 友規",
+          "en": "Yuki Murakami"
+        },
+        "profile_url": "https://note.com/hashikarabota",
+        "github_account": "muchan23",
+        "team": {
+          "ja": "未定",
+          "en": "Undecided"
+        },
+        "role": [
+          {
+            "ja": "PM",
+            "en": "PM"
+          },
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "建設自律化/宇宙",
+            "en": "Construction Autonomy / Space"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "掘削用小型ロボティクス",
+            "en": "Small robotics for excavation"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "ロボティクス",
+            "en": "Robotics"
+          }
+        ],
+        "summary": {
+          "ja": "初めまして！村上友規（ゆうき）です。個人で参加しており、企画を持ち込み進めたいと考えています。土木系の学部を2023年に卒業し、修士課程では宇宙資源に関係する研究室に所属し2025年の3月に卒業しました。現在は、建設領域の自律化に関する事業を行うことを想定し、活動を進めています。大学生時代はCanSatやハイブリッドロケットを製作する団体を立ち上げるなど、宇宙領域でのものづくりに携わっていました。",
+          "en": "Nice to meet you! I'm Yuki Murakami. I am participating individually and would like to bring in and advance a project. I graduated from the civil engineering department in 2023 and completed my master's degree in a space resources-related laboratory in March 2025. Currently, I am working on a business related to autonomy in the construction field. As a university student, I was involved in manufacturing in the space domain, such as launching groups to build CanSats and hybrid rockets."
+        },
+        "project_details": {
+          "ja": "【取り組みたいこと】\n都市の狭隘部や上下水管が混在する場所を対象とした掘削用ロボティクスの開発に取り組みたいと考えています！BootCampを通じてプロダクトのプロトタイプを開発していきたいです。\nロボティクスによる自律化により掘削作業の何を著しく効率化できるかや現状達成できていない要因、スタートアップとしての勝ち方を探索するために、建設業界の方へヒアリングや市場調査、工事作業への理解を同時並行で進めます。\n\n【より深い欲求】\n将来的に宇宙における建設自律化に挑戦したいという思いがあります。\n2030年までにアルテミス計画の一環として人類が月面へ再着陸することが計画されており、イーロン・マスクも最短で2026年に火星への飛行試験、現実的には2031年の有人火星着陸を目指しています。2035年から2045年の間には、月や火星で人類が居住するという選択肢が現実味を帯びると考えています。\nその場合、大量の人員を送り込むリスクを回避するためにも、自律的に建設を行う仕組みが不可欠になると考えています。宇宙で人間が住む世界を達成することに1mmでも貢献するべく活動を進めたいです。",
+          "en": "【What I want to work on】\nI want to develop small robotics for excavation in narrow urban areas and places with mixed water and sewage pipes. Through this BootCamp, I aim to develop a prototype. To explore what aspects of excavation can be significantly streamlined through robotics, the reasons for current limitations, and a winning strategy as a startup, I will simultaneously conduct hearings with people in the construction industry, market research, and deepen my understanding of construction work.\n\n【Deeper Ambition】\nI aspire to tackle construction autonomy in space in the future. As part of the Artemis program, humanity plans to return to the moon by 2030, and Elon Musk aims for a Mars flight test as early as 2026, with a realistic manned Mars landing in 2031. I believe that between 2035 and 2045, the option of human habitation on the Moon or Mars will become a reality. In that case, an autonomous construction system will be essential to avoid the risks of sending large numbers of personnel. I want to contribute, even just 1mm, to achieving a world where humans live in space."
+        },
+        "social_media": {
+          "ja": "【発信】\nnoteとXでの発信を増やしていきたいと思っています！よければフォローお願いします！\nnote: https://note.com/hashikarabota\nX: https://x.com/muchan51",
+          "en": "【Social Media】\nI want to increase my posts on note and X! Please follow me if you'd like!\nnote: https://note.com/hashikarabota\nX: https://x.com/muchan51"
+        },
+        "concurrent_possible": {
+          "ja": "不可",
+          "en": "Not Possible",
+          "value": false
+        },
+        "rocket_incubator": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        },
+        "graphai_ai_podcaster": {
+          "ja": "いいえ",
+          "en": "No",
+          "value": false
+        }
+      },
+      {
+        "id": 29,
+        "name": {
+          "ja": "志佐 凜生",
+          "en": "Rinsei Shisa"
+        },
+        "profile_url": "N/A",
+        "github_account": "rinseishisa",
+        "team": {
+          "ja": "未定",
+          "en": "Undecided"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "情報工学科3年/Raspi",
+            "en": "3rd year, Information Engineering / Raspberry Pi"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "全自動料理ロボット",
+            "en": "Fully Automatic Cooking Robot"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "ロボティクス",
+            "en": "Robotics"
+          }
+        ],
+        "summary": {
+          "ja": "東京国際工科専門職大学 工科学部 情報工学科３年でIoTコースを専攻しています。技術力はまだ発展途上ですが、「人類の生活をより良くする」ことに興味を持っています。Slackを通じて皆様と交流させて頂きながら、自分を成長できればと思います。どうぞよろしくお願いいたします。",
+          "en": "I am a third-year student in the IoT course of the Department of Information Engineering, Faculty of Engineering, at the Tokyo International College of Technology. My technical skills are still developing, but I am interested in 'making human life better.' I hope to grow by interacting with everyone through Slack. I look forward to working with you."
+        },
+        "project_overview": {
+          "ja": "共働き家庭や忙しいサラリーマン世帯を支えるために、自動車と同じくらいの価格で購入できる人型料理ロボットを開発したいと考えています。将来的には料理だけでなく、掃除・洗濯などの家事全般に対応できる汎用家庭ロボットへ拡張する構想です。まずは、「オムライスを完全自動で作れる」ことを最初の目標としています。",
+          "en": "I want to develop a humanoid cooking robot that can be purchased for about the same price as a car to support dual-income families and busy professionals. In the future, I envision expanding it into a general-purpose household robot that can handle not only cooking but also all household chores such as cleaning and laundry. The first goal is to be able to 'make a completely automatic omelet rice'."
+        },
+        "technical_concept": {
+          "ja": "※本技術コンセプトは、ChatGPT-o3の協力を得て作成した初期案です。今後、使用部品や構成は変更・拡張される可能性があります。\n\nアクチュエータ＆関節：　 ハーモニックドライブ内蔵 24 DoF（上半身16 + 脚8）／シリーズ弾性ジョイント\n骨格・筐体：　 CFRP/アルミ複合フレーム、3Dプリント外装、耐熱シリコン皮膚\nエンドエフェクタ ：　 5指ロボットハンド（フォースセンサ付）＋マグネット式ツール交換\n知覚センサ ： ● Intel RealSense D435i ×2\n　　　　　　　● OAK-D-Lite AIカメラ ×1\n　　　　　　　● 力/トルクセンサ ×10\n　　　　　　　● 温度・湿度・赤外線アレイ\n計算ユニット ：　 NVIDIA Jetson Orin NX + 外部GPU Box (RTX A2000) + MCU冗長制御\n電源・駆動 ：　 着脱式リン酸鉄 1 kWh バッテリ + GaN 急速充電器\nソフトウェア / A ： ・Isaac Sim & MuJoCo 併用 RL/PPO\n　　　　　　　　　　・Diffusion Policy fine-tune\n・AWS RoboMaker & IoT Core",
+          "en": "※This technical concept is an initial draft created with the cooperation of ChatGPT-3. The parts and configuration may be changed or expanded in the future.\n\nActuators & Joints: Harmonic Drive built-in 24 DoF (Upper body 16 + Legs 8) / Series Elastic Actuator\nFrame/Chassis: CFRP/Aluminum composite frame, 3D printed exterior, heat-resistant silicone skin\nEnd Effector: 5-finger robot hand (with force sensor) + magnetic tool changer\nPerception Sensors: ● Intel RealSense D435i ×2\n　　　　　　　● OAK-D-Lite AI camera ×1\n　　　　　　　● Force/torque sensors ×10\n　　　　　　　● Temperature, humidity, infrared array\nComputing Unit: NVIDIA Jetson Orin NX + External GPU Box (RTX A2000) + MCU redundant control\nPower/Drive: Detachable LiFePO4 1 kWh battery + GaN fast charger\nSoftware/AI: ・Isaac Sim & MuJoCo combined RL/PPO\n　　　　　　　　　　・Diffusion Policy fine-tune\n・AWS RoboMaker & IoT Core"
+        },
+        "concurrent_possible": {
+          "ja": "可能",
+          "en": "Possible",
+          "value": true
+        },
+        "rocket_incubator": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        },
+        "graphai_ai_podcaster": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        }
+      },
+      {
+        "id": 30,
+        "name": {
+          "ja": "鴨志田 達朗",
+          "en": "Tatsuro Kamoshida"
+        },
+        "profile_url": "https://www.linkedin.com/in/%E9%81%94%E6%9C%97-%E9%B4%A8%E5%BF%97%E7%94%B0-3039a9206",
+        "github_account": "shinnn-kamoshida",
+        "team": {
+          "ja": "Tascale",
+          "en": "Tascale"
+        },
+        "role": [
+          {
+            "ja": "PM",
+            "en": "PM"
+          },
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "フルスタック/GraphDB/暗号",
+            "en": "Full-stack/GraphDB/Cryptography"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "どシンプル AIスケジュール アプリ",
+            "en": "Super simple AI schedule app"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "スケジュール",
+            "en": "Schedule"
+          },
+          {
+            "ja": "教育",
+            "en": "Education"
+          },
+          {
+            "ja": "宇宙",
+            "en": "Space"
+          }
+        ],
+        "summary": {
+          "ja": "はじめまして、Bootcamp 3rd からチーム & 持ち込みで参加させていただきます。鴨志田と申します。エンジニアです。チームでの参加ですが、興味がある分野があれば、お手伝いさせていただければ、ありがたいです。",
+          "en": "Nice to meet you, I will be participating in Bootcamp 3rd as part of a team and with a brought-in project. My name is Kamoshida. I am an engineer. Although I am participating as a team, I would be grateful if I could help out if there are any areas of interest."
+        },
+        "project_details": {
+          "ja": "簡単ですが、以下に記載しています。スケジュールとAIを絡めて、どシンプルで使いやすい（面倒なことはAIがやる）サービスを目指しています。https://github.com/shin-corp/3rd-Singularity-Society-BootCamp",
+          "en": "It's simple, but I've described it below. I'm aiming for a super simple and easy-to-use service that combines scheduling and AI (where the AI handles the tedious tasks). https://github.com/shin-corp/3rd-Singularity-Society-BootCamp"
+        },
+        "concurrent_possible": {
+          "ja": "可能",
+          "en": "Possible",
+          "value": true
+        },
+        "rocket_incubator": {
+          "ja": "いいえ",
+          "en": "No",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        }
+      },
+      {
+        "id": 31,
+        "name": {
+          "ja": "川口 航平",
+          "en": "Kohei Kawaguchi"
+        },
+        "profile_url": "N/A",
+        "github_account": "k-kohey",
+        "team": {
+          "ja": "個人",
+          "en": "Solo"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "フロントエンド",
+            "en": "Front-end"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "LLMアプリケーション",
+            "en": "LLM Application"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI",
+            "en": "AI"
+          }
+        ],
+        "summary": {
+          "ja": "はじめまして、個人持ち込み企画で3rdから参加する川口といいます。普段は都内の事業会社でアプリ開発をしていますが、社員としての仕事とは別に自分で仕事を作りたいと思い参加申込をしました。最近はWebアプリケーションを作る事が多いですが、iOSアプリ開発やSwiftを使ったプログラミングが得意です。プログラムを書くだけではなく、技術発信をすることも好きで去年のiOSDCというイベントではSwiftを使ってゲームボーイアドバンス用のソフトを作る方法を発表しました。",
+          "en": "Nice to meet you, my name is Kawaguchi, and I'm participating from the 3rd bootcamp with a personal project. I usually develop apps at a business company in Tokyo, but I applied to participate because I want to create my own work separate from my job as an employee. Recently, I've been creating a lot of web applications, but I'm good at iOS app development and programming using Swift. I not only like to write programs, but I also like to share technology, and at an event called iOSDC last year, I presented on how to create software for the Game Boy Advance using Swift."
+        },
+        "project_details": {
+          "ja": "Singularity Societyでは個人プロジェクトとして以下のいずれかまたは両方をやって、成果報告できればと思っています。\nLLMを使ったダイエットプランの生成アプリケーション\n友人と開発中です\n声を使ったサイゼリアのオーダーシステムを勝手に作る\nSpeach2OrderというSDKと、そのサンプルアプリを作りたいです\n調整さん+AI機能\n日程調整後にイベント主催者と場所の提供者をマッチングさせたい",
+          "en": "At Singularity Society, I hope to work on one or both of the following as a personal project and report on the results.\n- A diet plan generation application using LLM (currently under development with a friend).\n- Unofficially creating a voice-based ordering system for Saizeriya (I want to create an SDK called Speach2Order and a sample app for it).\n- Chosei-san + AI function (I want to match event organizers with venue providers after schedule adjustments)."
+        },
+        "concurrent_possible": {
+          "ja": "余力があれば",
+          "en": "If I have capacity",
+          "value": "余力があれば"
+        },
+        "rocket_incubator": {
+          "ja": "いいえ",
+          "en": "No",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "いいえ",
+          "en": "No",
+          "value": false
+        }
+      },
+      {
+        "id": 32,
+        "name": {
+          "ja": "金子志宗",
+          "en": "Yoshimune Kaneko"
+        },
+        "profile_url": "https://www.linkedin.com/in/yoshimune-kaneko-1b17305/",
+        "github_account": "kanekop",
+        "team": {
+          "ja": "Another Hour",
+          "en": "Another Hour"
+        },
+        "role": [
+          {
+            "ja": "企画兼開発",
+            "en": "Planning & Development"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "Web開発",
+            "en": "Web Development"
+          },
+          {
+            "ja": "英語コミュニケーション",
+            "en": "English Communication"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "時間軸のずれた時計での生活コミュニティ",
+            "en": "A community living with a time-shifted clock"
+          },
+          {
+            "ja": "学習にハマるツール開発",
+            "en": "Developing tools to get hooked on learning"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "コミュニティ",
+            "en": "Community"
+          },
+          {
+            "ja": "AIによる個人の能力拡張",
+            "en": "Personal ability enhancement by AI"
+          },
+          {
+            "ja": "学習支援",
+            "en": "Learning Support"
+          }
+        ],
+        "summary": {
+          "ja": "はじめまして。第3回 BootCamp に個人参加で、プロジェクト持ち込みの形で参加させていただきます、金子 志宗 (かねこ よしむね) と申します。持ち込みプロジェクト「Another Hour」を持ってきました。興味のある方、是非お声がけください。また、興味や情熱が重なるものがあれば、他のプロジェクトの参加協力も是非させていただきたく思っています。",
+          "en": "Nice to meet you. My name is Yoshimune Kaneko, and I will be participating in the 3rd BootCamp as an individual with a brought-in project. I brought the project 'Another Hour'. If you are interested, please feel free to contact me. Also, if there are other projects where my interests and passions overlap, I would be very happy to participate and cooperate."
+        },
+        "project_details": {
+          "ja": "時間という普遍的な概念に挑戦するプロジェクトです。\nコンセプト\n多くの人が一度は「1日にもう一時間あったらどうか」とは考えたことがあると思います。それを、実現する世の中をつくります。 「Another Hour」は、あなたの1日の時間スケールを自由に設定できるシステムです。まず、ユーザーは主要な活動時間として「Scaled 24」の長さを実時間で定義します。この「Scaled 24」期間中、時間は設定に応じてスケール（圧縮・伸長）されて表示・経過します。その後、実世界の24時（0時）までの残りの時間は、実時間で進む特別な「Another Hour」として活用できます。時計、タイマー、スケジューラーなどのツール群が、このパーソナルな時間管理をサポートします。\n別の時間軸で動くというのは、それだけでワクワクします（厨二病をこじらせてるという部分は否定できないですが）。そして微妙に早く進む時間、の中に生きるというのは、現実的なメリットがあると感じています（運動選手のオーバースピードトレーニングのように神経系の動員を強化する効果など）。\n現状デモ版が動いています。リンクから是非見てみてください。\n稼働中デモアプリ: https://anotherhour2.replit.app/\nGitHub: https://github.com/kanekop/another-hour （READMEに詳細記載）",
+          "en": "This is a project that challenges the universal concept of time.\nConcept\nI think many people have thought at least once, 'What if there was another hour in a day?' We will create a world that makes that a reality. 'Another Hour' is a system that allows you to freely set the time scale of your day. First, the user defines the length of the 'Scaled 24' as their main activity time in real time. During this 'Scaled 24' period, time is displayed and elapses scaled (compressed or expanded) according to the settings. After that, the remaining time until 24:00 (0:00) in the real world can be used as a special 'Another Hour' that proceeds in real time. A set of tools such as clocks, timers, and schedulers supports this personal time management.\nMoving on a different time axis is exciting in itself (I can't deny the part about having a 'chuunibyou' phase). And I feel that living in a time that moves slightly faster has realistic benefits (like the effect of strengthening the mobilization of the nervous system, similar to over-speed training for athletes).\nA demo version is currently running. Please take a look from the link.\nRunning Demo App: https://anotherhour2.replit.app/\nGitHub: https://github.com/kanekop/another-hour (Details in README)"
+        },
+        "bootcamp_goals": {
+          "ja": "このAnother Hour。自分としては、非常に面白いコンセプトだとは思っていますが、このAnother Hourタイムゾーンを楽しんで生活できる基盤をつくらないことには面白さすら伝わらないと感じています。そのために以下の環境を提供できるようにしたいです。\n1. Another Hour クロックとして誰もが目に見える形のデモをWebサービスとして提供（今ここ）\n2. ウェアラブル版Another Hour デバイス開発 (watchOSでのアプリ、ARグラスに常にAnother Hourを表示する機能等)\n3. 通常の24時間、Another Hourタイムゾーンの２つの時間軸を繋ぐスケジューリングエンジン開発。Google Calendarのアドオンや、Another Hourとコンバージョン機能を持つスケジューラー\n4. 上記の1, 2, 3が実現した上で、この新しい時間感覚を実際に試し、フィードバックし合える場を作りたいです。（例：通常の時計機能を一切外して生活する通常のタイムゾーンデトックス合宿 / 常にAnother Hourのタイムゾーンで営業しているカフェ / Another Hourコンセプトと24時間コンセプトが対立する世界の小説、など）",
+          "en": "This 'Another Hour'. I personally think it's a very interesting concept, but I feel that its appeal won't even be conveyed unless I create a foundation where people can enjoy living in this 'Another Hour' time zone. To that end, I want to be able to provide the following environment:\n1. Provide a demo in a visible form for everyone as a web service, the 'Another Hour Clock' (where I am now).\n2. Develop a wearable 'Another Hour' device (an app on watchOS, a function to constantly display 'Another Hour' on AR glasses, etc.).\n3. Develop a scheduling engine that connects the two time axes: the normal 24 hours and the 'Another Hour' time zone. A Google Calendar add-on or a scheduler with 'Another Hour' and conversion functions.\n4. After realizing 1, 2, and 3 above, I want to create a place where we can actually try out this new sense of time and give each other feedback. (e.g., a normal time zone detox camp where you live without any normal clock functions / a cafe that is always open in the 'Another Hour' time zone / a novel about a world where the 'Another Hour' concept and the 24-hour concept conflict, etc.)."
+        },
+        "skills": {
+          "ja": "英語の口頭でのコミュニケーション\nReplit と 生成AI（ChatGPT/Gemini）を駆使した迅速なWebサービス開発（いわゆるバイブコーディング）",
+          "en": "Oral communication in English\nRapid web service development using Replit and Generative AI (ChatGPT/Gemini) (so-called 'vibe coding')"
+        },
+        "concurrent_possible": {
+          "ja": "可能",
+          "en": "Possible",
+          "value": true
+        },
+        "rocket_incubator": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        },
+        "graphai_ai_podcaster": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        }
+      },
+      {
+        "id": 33,
+        "name": {
+          "ja": "佐々木大地",
+          "en": "Daichi Sasaki"
+        },
+        "profile_url": "https://www.linkedin.com/in/sasakid/",
+        "github_account": "da1ssk",
+        "team": {
+          "ja": "梅原タカオ",
+          "en": "Takao Umehara"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "Mobile/Web dev",
+            "en": "Mobile/Web dev"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "検討中",
+            "en": "Under consideration"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "ゴルフ x AI",
+            "en": "Golf x AI"
+          }
+        ],
+        "summary": {
+          "ja": "佐々木大地と申します。ニューヨークでソフトウェアエンジニアをやってます。第1回Bootcampに参加させていただき、Mikanという音声チャットアプリを作りました。画像処理、CGアニメーション関連のソフトやアプリをかれこれ20年以上、ここ数年は仕事でWebアプリを作ってます。今回は高校からの友人で同じくNY在住の @梅原タカオ/EST 君とチームを組んで、我々ならではのインパクトのあるプロダクトを作っていきたいと思ってます。",
+          "en": "My name is Daichi Sasaki. I'm a software engineer in New York. I participated in the 1st Bootcamp and created a voice chat app called Mikan. I have been creating software and apps related to image processing and CG animation for over 20 years, and for the past few years, I have been creating web apps for work. This time, I'm teaming up with my high school friend, Takao Umehara, who also lives in NY, to create a product with a unique impact that only we can make."
+        },
+        "project_ideas": [
+          {
+            "category": {
+              "ja": "🗂 まとめ系",
+              "en": "🗂 Aggregator"
+            },
+            "items": [
+              {
+                "ja": "ワンストップコミュニケーションアプリ → LINEやMessageを一括管理・返信",
+                "en": "One-stop communication app → Manage and reply to LINE and Messages all at once"
+              },
+              {
+                "ja": "Podcastまとめサービス → 興味分野のPodcast内容を自動要約＆配信",
+                "en": "Podcast summary service → Automatically summarize & deliver podcast content in areas of interest"
+              }
+            ]
+          },
+          {
+            "category": {
+              "ja": "💰 ファイナンス",
+              "en": "💰 Finance"
+            },
+            "items": [
+              {
+                "ja": "ファイナンシャルプランナー → 複数口座の残高を月次で自動集計",
+                "en": "Financial planner → Automatically aggregate balances from multiple accounts monthly"
+              },
+              {
+                "ja": "Taxマン → 購入履歴から経費を自動仕分け",
+                "en": "Tax Man → Automatically categorize expenses from purchase history"
+              },
+              {
+                "ja": "年金シミュレータ → 最適な年金・課税の組み合わせを簡単に試算",
+                "en": "Pension simulator → Easily simulate optimal pension and taxation combinations"
+              }
+            ]
+          },
+          {
+            "category": {
+              "ja": "🤖 自動化",
+              "en": "🤖 Automation"
+            },
+            "items": [
+              {
+                "ja": "アプリ自動更新サービス → AppStoreの形式的アップデートを自動化",
+                "en": "App auto-update service → Automate formal updates on the AppStore"
+              },
+              {
+                "ja": "アフィリエイトコンテンツ自動生成 → アフィリ収入を得るサイトを自動で構築",
+                "en": "Automatic affiliate content generation → Automatically build sites that earn affiliate income"
+              }
+            ]
+          },
+          {
+            "category": {
+              "ja": "🏙 リアルワールド",
+              "en": "🏙 Real World"
+            },
+            "items": [
+              {
+                "ja": "おにぎり＆ラーメン屋 → NYで安くて手軽な日本食を提供",
+                "en": "Onigiri & Ramen shop → Provide cheap and easy Japanese food in NY"
+              },
+              {
+                "ja": "alternate side parking マッチング → NYの駐車移動を代行してくれる人を探す",
+                "en": "Alternate side parking matching → Find someone to move your car for you in NY"
+              },
+              {
+                "ja": "断捨離マインダー → 購入履歴から不要物を提案",
+                "en": "Declutter-minder → Suggest items to get rid of from purchase history"
+              }
+            ]
+          },
+          {
+            "category": {
+              "ja": "⛳ ゴルフ",
+              "en": "⛳ Golf"
+            },
+            "items": [
+              {
+                "ja": "音声AIキャディー → レベル別に最適アドバイスするAIキャディ",
+                "en": "Voice AI caddy → AI caddy that gives optimal advice by level"
+              },
+              {
+                "ja": "ゴルフ場データWikipedia → 地形DBで無料ゴルフアプリ開発を支援",
+                "en": "Golf course data Wikipedia → Support free golf app development with a terrain DB"
+              },
+              {
+                "ja": "ゴルフメンタルアドバイザー → コース中の心の持ちようをナビ",
+                "en": "Golf mental advisor → Navigate your mindset on the course"
+              },
+              {
+                "ja": "ゴルフ場自動予約 → 毎週のゴルフ場予約を自動化",
+                "en": "Automatic golf course booking → Automate weekly golf course reservations"
+              }
+            ]
+          },
+          {
+            "category": {
+              "ja": "🌱 セルフヘルプ",
+              "en": "🌱 Self-Help"
+            },
+            "items": [
+              {
+                "ja": "自分応援 → 毎日少しでも前に進める『自分との対話』支援ツール",
+                "en": "Self-cheering → A tool to support 'dialogue with oneself' to move forward a little every day"
+              },
+              {
+                "ja": "About Me Pallet（スマート自己紹介カード） → コミュニティ別にプロフィールを最適切替・シェア",
+                "en": "About Me Pallet (Smart self-introduction card) → Optimally switch and share profiles by community"
+              }
+            ]
+          }
+        ],
+        "concurrent_possible": {
+          "ja": "不可",
+          "en": "Not Possible",
+          "value": false
+        },
+        "rocket_incubator": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        },
+        "graphai_ai_podcaster": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        }
+      },
+      {
+        "id": 34,
+        "name": {
+          "ja": "梅原タカオ",
+          "en": "Takao Umehara"
+        },
+        "profile_url": "https://www.linkedin.com/in/takaoumehara/",
+        "github_account": "takaooumehara",
+        "team": {
+          "ja": "佐々木大地",
+          "en": "Daichi Sasaki"
+        },
+        "role": [
+          {
+            "ja": "Designer",
+            "en": "Designer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "Mobile/Web dev",
+            "en": "Mobile/Web dev"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "検討中",
+            "en": "Under consideration"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AIな組織ディレクトリ",
+            "en": "AI-powered organizational directory"
+          }
+        ],
+        "summary": {
+          "ja": "こんにちは！梅原タカオです。タカオと呼んでください。ニューヨーク在住のプロダクトデザイナー／クリエイティブディレクター／イノベーションファシリテーターです。現在はVerizonで、プリペイド携帯ブランドのUX/UI改善や価格設計の最適化を手がけています。これまで、コカ・コーラ、IBM、モトローラ、デュポン、NYTimes、Virgin Americaなど、世界的企業のブランドデザインに携わり、Amplify（EdTech）では、没入型教育体験のプロダクト開発において、クリエイティブ全体の指揮をとりました。ブランディングからUIデザイン、クリエイティブディレクション、イノベーション戦略まで、幅広く経験を積んできました。",
+          "en": "Hello! I'm Takao Umehara. Please call me Takao. I am a product designer/creative director/innovation facilitator based in New York. Currently at Verizon, I work on UX/UI improvements and pricing optimization for prepaid mobile brands. I have been involved in brand design for global companies such as Coca-Cola, IBM, Motorola, DuPont, NYTimes, and Virgin America. At Amplify (EdTech), I led the overall creative direction for the product development of immersive educational experiences. I have gained a wide range of experience, from branding to UI design, creative direction, and innovation strategy."
+        },
+        "project_details": {
+          "ja": "また、独自に研究開発した思考フレームワーク「BreakBias」では、「Divide」「Minus」など8つの視点変換ツールを活用し、企業・教育現場における創造的思考やアイデア創出を支援しています。常識や思い込みに揺さぶりをかけ、   チームや社会に\"気づき\"と\"変化\"を起こすことが僕の役割です。おもしろいこと、ワクワクする仕掛けが大好きで、時には祭りやイベントの空間デザインにも関わってきました。問いを楽しみ、人を巻き込み、創造の熱が伝播していくようなプロジェクトをつくり続けたいと思っています。",
+          "en": "In addition, with my independently researched and developed thinking framework 'BreakBias,' I support creative thinking and idea generation in corporate and educational settings by utilizing eight perspective-shifting tools such as 'Divide' and 'Minus'. My role is to shake up common sense and preconceptions, and to bring about 'awareness' and 'change' in teams and society. I love interesting and exciting things, and have sometimes been involved in the spatial design of festivals and events. I want to continue creating projects that enjoy questioning, involve people, and spread the heat of creation."
+        },
+        "concurrent_possible": {
+          "ja": "不可",
+          "en": "Not Possible",
+          "value": false
+        },
+        "rocket_incubator": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        },
+        "graphai_ai_podcaster": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        }
+      },
+      {
+        "id": 35,
+        "name": {
+          "ja": "冨安寛樹",
+          "en": "Hiroki Tomiyasu"
+        },
+        "profile_url": "https://x.com/tomiyasu16",
+        "github_account": "tomiyasu0428",
+        "team": {
+          "ja": "未定",
+          "en": "Undecided"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "農業",
+            "en": "Agriculture"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "農業AIアプリ",
+            "en": "Agriculture AI app"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI",
+            "en": "AI"
+          },
+          {
+            "ja": "ロボット",
+            "en": "Robot"
+          }
+        ],
+        "concurrent_possible": {
+          "ja": "応相談",
+          "en": "Negotiable",
+          "value": "△"
+        },
+        "rocket_incubator": {
+          "ja": "",
+          "en": "",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        }
+      },
+      {
+        "id": 36,
+        "name": {
+          "ja": "永島幹大",
+          "en": "Kanta Nagashima"
+        },
+        "profile_url": "N/A",
+        "github_account": "Kanta-Na",
+        "team": {
+          "ja": "未定",
+          "en": "Undecided"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "営業/ LLM 活用(FT等)",
+            "en": "Sales / LLM Utilization (FT, etc.)"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "Moshiを活用した対話システム/ヒューマノイドロボットの自立歩行システム",
+            "en": "Dialogue system using Moshi / Autonomous walking system for humanoid robots"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "ロボティクス/AI",
+            "en": "Robotics/AI"
+          }
+        ],
+        "summary": {
+          "ja": "エンジニアではありませんが、2年ほど前からPythonや機械学習、自然言語処理を中心に独学で学んできました。そして生成AI等の技術を活用することで、非エンジニアの自分でも社会にインパクトを与えるプロダクト開発に挑戦できると確信し、今回のBootCampへの参加を決意しました。テクノロジーの力で、生活をより楽しく、創造的にし、人々の感性や可能性を広げていけるようなプロダクトをつくりたいと考えています！",
+          "en": "Although I am not an engineer, I have been self-studying Python, machine learning, and natural language processing for about two years. I am convinced that by utilizing technologies such as generative AI, even a non-engineer like myself can challenge myself to develop products that have an impact on society, which is why I decided to participate in this BootCamp. I want to create products that use the power of technology to make life more enjoyable and creative, and to expand people's sensibilities and potential!"
+        },
+        "project_details": {
+          "ja": "現時点で具体的なプロダクト案は確定していませんが、以下のようなテーマに強い関心を持っています：\nMoshiを活用した、双方向で自然な音声対話システム\nニューラルネットを用いたヒューマノイドロボットの自律歩行技術\nApple Vision Proのような空間コンピューティングを活かした新しい体験設計\n\nまだまだ自分一人では限界も多く、技術的にも学ぶことが多いと感じています。だからこそ、この場で皆さんとアイデアを交換しながら、一緒に面白いプロダクトをかたちにしていけたら嬉しいです。ご関心のある方がいらっしゃいましたら、ぜひお気軽にお声がけください。また、自分からもお声がけさせてください！",
+          "en": "Although I don't have a concrete product idea at this time, I have a strong interest in the following themes:\n- An interactive and natural voice dialogue system using Moshi\n- Autonomous walking technology for humanoid robots using neural networks\n- New experience design utilizing spatial computing like Apple Vision Pro\n\nI feel that I still have many limitations on my own and much to learn technically. That's why I would be happy to exchange ideas with everyone here and shape an interesting product together. If you are interested, please feel free to contact me. I will also reach out to you!"
+        },
+        "concurrent_possible": {
+          "ja": "応相談",
+          "en": "Negotiable",
+          "value": "△"
+        },
+        "rocket_incubator": {
+          "ja": "",
+          "en": "",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        }
+      },
+      {
+        "id": 37,
+        "name": {
+          "ja": "佐藤崇史",
+          "en": "Takashi Sato"
+        },
+        "profile_url": "https://x.com/sato_rollin",
+        "github_account": "s8000",
+        "team": {
+          "ja": "Tascale",
+          "en": "Tascale"
+        },
+        "role": [
+          {
+            "ja": "企画／デザイン",
+            "en": "Planning/Design"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "企画／デザイン",
+            "en": "Planning/Design"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "どシンプル AIスケジュール アプリ",
+            "en": "Super simple AI schedule app"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "スケジュール",
+            "en": "Schedule"
+          },
+          {
+            "ja": "AI活用",
+            "en": "AI Utilization"
+          }
+        ],
+        "summary": {
+          "ja": "はじめまして。Bootcamp 3rd からチーム & 持ち込みで参加いたします。佐藤と申します。普段はWebやグラフィックの受託業務をしつつ、複数のECサイト運営やクライアントのWeb運用サポートなどをしております。",
+          "en": "Nice to meet you. I will be participating in Bootcamp 3rd as part of a team and with a brought-in project. My name is Sato. I usually do contract work for web and graphics, while also operating multiple e-commerce sites and supporting clients' web operations."
+        },
+        "project_details": {
+          "ja": "私自身業務で「マイクロプロジェクトを多数同時に回す」というスタイルで仕事をしているのですが、既存のツールではオーバースペックであることが多く、自分にぴったりなプロジェクト管理ツールを欲していました。そして「そのように思う人間が自分ひとりのわけがない。多くの人は苦労しているはずだ」という思い込みのもと、とにかく自分が使いたいものをつくろうと考えています。",
+          "en": "In my own work, I have a style of 'running multiple micro-projects simultaneously,' but existing tools are often overkill, and I wanted a project management tool that was perfect for me. Based on the assumption that 'I can't be the only one who thinks this way. Many people must be struggling,' I'm determined to create something that I myself want to use."
+        },
+        "interests_details": {
+          "ja": "スケジュール管理・共有\n持ち込みプロダクトですでに着手すているのですが、まさに自分がほしいツールを作ろうとしています。\nAIがスケジュールやプロジェクトの管理を助けてくれるツールを目指しています。\n文系おじさんもプログラミングを理解したい\n私自身プログラミングはまったくできません。AIの登場で、「もしや自分でも作れる？？」と思ったものの、思うようにはいきません。そんな私でも、仕事をするうえで技術のことは理解しておかないとまずいという気持ちを強く持っています。でも今さら一から学ぶのもなんか違う。自分でコードを書きたいわけじゃない。そんなところを解決できればと考えています。",
+          "en": "Schedule Management/Sharing\nI'm already working on this as a brought-in project, and I'm trying to create the exact tool I want.\nI'm aiming for a tool where AI helps manage schedules and projects.\nEven a liberal arts guy wants to understand programming\nI can't program at all myself. With the advent of AI, I thought, 'Maybe I can make it myself??' but it's not going as I'd like. Even so, I strongly feel that I need to understand technology for my work. But learning from scratch now feels different. I don't want to write the code myself. I'm thinking about how to solve that."
+        },
+        "background": {
+          "ja": "デザイン系の専門学校を卒業後、数年のフリーター生活を経て会社員としてグラフィックデザイナーに。Webデザインやディレクションを学び、2014年に独立。前職ではデザイン業務から徐々に管理職へ移行し、営業的な業務も担っていました。また、個別の店舗が格安で独自のアプリを利用できるサービスを企画・営業・管理をしていました（すでにサービス終了済）。独立後はWebやグラフィックデザイン、Web制作ディレクションなどの受託制作のみで収入を得ていましたが、独立2ヶ月後にこのままではまずいと思い、次のアクションの資金獲得ためにアフィリエイトに着手。無事にほどほどの資金をつくることができたので、クライアントワークと並行してECサイトを2店舗立ち上げ、運営しています。",
+          "en": "After graduating from a design vocational school and working as a part-timer for several years, I became a graphic designer as a company employee. I learned web design and direction and became independent in 2014. In my previous job, I gradually transitioned from design work to a management position, also taking on sales-related tasks. I also planned, sold, and managed a service that allowed individual stores to use their own apps at a low cost (the service has already been discontinued). After becoming independent, I earned income only from contract work such as web and graphic design and web production direction, but two months after becoming independent, I thought this was not good, so I started affiliate marketing to raise funds for my next action. I was able to raise a moderate amount of funds, so I launched and am operating two e-commerce sites in parallel with my client work."
+        },
+        "concurrent_possible": {
+          "ja": "可能",
+          "en": "Possible",
+          "value": true
+        },
+        "rocket_incubator": {
+          "ja": "",
+          "en": "",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "",
+          "en": "",
+          "value": false
+        }
+      },
+      {
+        "id": 38,
+        "name": {
+          "ja": "三輪拓真",
+          "en": "Takuma Miwa"
+        },
+        "profile_url": "http://takuma-miwa.com/",
+        "github_account": "TakumaMiwa",
+        "team": {
+          "ja": "AI 弁理士 @NexaScience",
+          "en": "AI Patent Attorney @NexaScience"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "NLP",
+            "en": "NLP"
+          },
+          {
+            "ja": "QML",
+            "en": "QML"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "エンジニア・研究者が気軽に相談できるAI弁理士",
+            "en": "An AI patent attorney that engineers and researchers can easily consult"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "対話ボット",
+            "en": "Chatbot"
+          }
+        ],
+        "concurrent_possible": {
+          "ja": "不可",
+          "en": "Not Possible",
+          "value": false
+        },
+        "rocket_incubator": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        },
+        "graphai_ai_podcaster": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        }
+      },
+      {
+        "id": 39,
+        "name": {
+          "ja": "後雄大",
+          "en": "Yudai Ushiro"
+        },
+        "profile_url": "https://www.linkedin.com/in/yudai-ushiro/",
+        "github_account": "yudaiushiro",
+        "team": {
+          "ja": "個人",
+          "en": "Solo"
+        },
+        "role": [
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "フルスタック",
+            "en": "Full-stack"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "QA AIエージェント",
+            "en": "QA AI Agent"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI Agent",
+            "en": "AI Agent"
+          }
+        ],
+        "summary": {
+          "ja": "普段はAIベンチャーでソフトウェアエンジニアとして働いています。前回のGraphAIハッカソンに参加し、こちらのブートキャンプを知り、参加させていただくことにしました。（ハッカソンでは高橋裕樹さんとAI-podcasterのweb版を開発しました）今回のBootCampには、個人参加・プロジェクト持ち込みの形で参加させていただきます。",
+          "en": "I usually work as a software engineer at an AI venture. I participated in the previous GraphAI hackathon, learned about this bootcamp, and decided to participate. (At the hackathon, I developed the web version of AI-podcaster with Yuki Takahashi.) I will be participating in this BootCamp as an individual with a brought-in project."
+        },
+        "project_ideas": [
+          {
+            "title": {
+              "ja": "ソフトウェアQA（品質保証）のためのAIエージェント開発",
+              "en": "AI Agent Development for Software QA (Quality Assurance)"
+            },
+            "concept": {
+              "ja": "ソフトウェア開発におけるQAプロセスを、自然言語指示でテストケース生成・実行でき、UI変更にも自律適応するAIエージェントで効率化・高速化します。最新LLMをネイティブ活用し、高度な自律性と柔軟性を目指します。",
+              "en": "Streamline and accelerate the QA process in software development with an AI agent that can generate and execute test cases based on natural language instructions and autonomously adapt to UI changes. We aim for high autonomy and flexibility by natively utilizing the latest LLMs."
+            }
+          },
+          {
+            "title": {
+              "ja": "AI音声詐欺検知サービス",
+              "en": "AI Voice Fraud Detection Service"
+            },
+            "concept": {
+              "ja": "AIによる音声合成技術を用いた詐欺が増加する中、それをリアルタイムで検知し、被害を未然に防ぐソリューションを開発します。",
+              "en": "As fraud using AI voice synthesis technology increases, we will develop a solution that detects it in real time and prevents damage before it occurs."
+            }
+          },
+          {
+            "title": {
+              "ja": "歯科・医療クリニック向け予約管理AIエージェント",
+              "en": "Appointment Management AI Agent for Dental and Medical Clinics"
+            },
+            "concept": {
+              "ja": "電話や窓口での予約・スケジュール調整といったクリニックの事務作業をAIエージェントが代替し、人件費削減と患者の利便性向上を実現します。",
+              "en": "An AI agent will handle administrative tasks at clinics, such as appointment and schedule adjustments over the phone or at the counter, reducing labor costs and improving patient convenience."
+            }
+          },
+          {
+            "title": {
+              "ja": "AI時代のコーディング面接システム",
+              "en": "Coding Interview System for the AI Era"
+            },
+            "concept": {
+              "ja": "LLMの登場により、エンジニアにはAIを活用した設計・開発・レビューの能力が求められるようになると考えています。そのようなAI活用スキルも含めた技術力を評価する次世代のコーディング面接システムを開発します。",
+              "en": "With the advent of LLMs, I believe engineers will be required to have the ability to design, develop, and review using AI. We will develop a next-generation coding interview system that evaluates technical skills, including such AI utilization skills."
+            }
+          }
+        ],
+        "other_interests": {
+          "ja": "また、プロダクト開発と並行して、「AIネイティブな企業組織運営」にも強い関心があります。上記のアイデアのいずれかが事業として成立する確証が得られたら、営業、経理、法務、マーケティングなど、あらゆる業務を可能な限りAIで自動化し、最小限の人的リソースで運営する会社を起業したいと考えています。",
+          "en": "In parallel with product development, I also have a strong interest in 'AI-native corporate organization management.' If I can confirm that any of the above ideas can be established as a business, I would like to start a company that operates with minimal human resources by automating all possible tasks, such as sales, accounting, legal affairs, and marketing, with AI."
+        },
+        "skills": {
+          "ja": "クラウド・インフラ構築: AWS/Azureを活用したクラウドインフラ設計・構築, TerraformによるInfrastructure as Code実装\nWebアプリケーション開発: Python/FastAPIによるバックエンド開発, Next.js/TypeScript/Reactによるフロントエンド開発\nLLM・AIエージェント開発: LLMを活用したRAGシステムや、AIエージェントの設計・開発, AIツールを活用した開発効率化\n機械学習・データ分析: 機械学習モデルの構築, データパイプライン構築・ETL開発",
+          "en": "Cloud/Infrastructure Construction: Cloud infrastructure design and construction using AWS/Azure, Infrastructure as Code implementation with Terraform\nWeb Application Development: Backend development with Python/FastAPI, Frontend development with Next.js/TypeScript/React\nLLM/AI Agent Development: Design and development of RAG systems and AI agents utilizing LLMs, Development efficiency improvement using AI tools\nMachine Learning/Data Analysis: Construction of machine learning models, Data pipeline construction/ETL development"
+        },
+        "weaknesses": {
+          "ja": "プロダクトの開発以外のこと全般\n開発しようとしているプロダクトの各ドメインに対するドメイン知識は現状そこまでない",
+          "en": "Everything other than product development\nI currently don't have much domain knowledge for the various domains of the products I'm trying to develop"
+        },
+        "concurrent_possible": {
+          "ja": "不可",
+          "en": "Not Possible",
+          "value": false
+        },
+        "rocket_incubator": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        },
+        "graphai_ai_podcaster": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        }
+      },
+      {
+        "id": 40,
+        "name": {
+          "ja": "山本燿司",
+          "en": "Yoji Yamamoto"
+        },
+        "profile_url": "https://singularitysociety.slack.com/docs/TCA1VGL7Q/F08Q89M1QVC",
+        "github_account": "yoji0806",
+        "team": {
+          "ja": "個人",
+          "en": "Solo"
+        },
+        "role": [
+          {
+            "ja": "PM",
+            "en": "PM"
+          },
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "フルスタック/経済学/ゲーム理論/データサイエンス",
+            "en": "Full-stack/Economics/Game Theory/Data Science"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "AI nativeなToggl Track",
+            "en": "AI-native Toggl Track"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI",
+            "en": "AI"
+          },
+          {
+            "ja": "教育",
+            "en": "Education"
+          },
+          {
+            "ja": "防災",
+            "en": "Disaster Prevention"
+          },
+          {
+            "ja": "海",
+            "en": "Ocean"
+          },
+          {
+            "ja": "地方",
+            "en": "Regional"
+          },
+          {
+            "ja": "社会課題",
+            "en": "Social Issues"
+          }
+        ],
+        "summary": {
+          "ja": "社会課題/学問×ビジネスの領域に強く惹かれます。エンジニア歴は6年（1998年生まれ）。個人でのホテルの伝票システム開発から始まりました。一番経験が多いのはデータサイエンス/AIですが、他にもアプリ/バックエンド開発、データセンターでのLinuxサーバー/ネットワーク構築などの業務経験もあります。今は、個人案件を受けながら自治体向けの防災ソフトウェアのサービス事業立ち上げ中です。働いた後は、神戸大学経済学部で数理モデル/ゲーム理論を用いた「権力分立の堅牢性」を研究していました。他にも、より公平で効率的な大学授業分配アルゴリズムの開発（900名規模で実運用中）、AIによる歴史データの構造化、因果推論を用いた研究をしていました！",
+          "en": "I am strongly drawn to the area of social issues/academics x business. I have been an engineer for 6 years (born in 1998). I started with developing a voucher system for a hotel on my own. My most extensive experience is in data science/AI, but I also have work experience in app/backend development, and Linux server/network construction in a data center. Currently, I am launching a disaster prevention software service business for local governments while taking on individual projects. After working, I researched the 'robustness of the separation of powers' using mathematical models/game theory at the Faculty of Economics, Kobe University. I have also worked on the development of a fairer and more efficient university class distribution algorithm (in practical use on a scale of 900 people), the structuring of historical data by AI, and research using causal inference!"
+        },
+        "other_projects": {
+          "ja": "他にも、幾つもの個人プロジェクトが動いています。GitHub や X をご確認ください！\n馬術/バスケットボールのAIコーチング\n論文の繋がりから学問の発展を可視化するプロジェクト\nエイ型の水中スーパースーツ\n社会的な災害用備蓄率を上げるための、防災シミュレーター\n現実と繋がった、生徒のMotivation-Drivenな教育（コンテンツ + 学習ツール開発）",
+          "en": "Several other personal projects are also in progress. Please check my GitHub and X!\n- AI coaching for equestrian/basketball\n- A project to visualize the development of academia from the connection of papers\n- A stingray-shaped underwater supersuit\n- A disaster prevention simulator to increase the social disaster preparedness rate\n- Motivation-driven education for students connected to reality (content + learning tool development)"
+        },
+        "bootcamp_project": {
+          "ja": "完全自動で「何にどれだけ時間を使っているかを可視化する」ソフトウェア\nhttps://github.com/yoji0806/next-toggl-track/tree/main",
+          "en": "Software to 'visualize what you spend your time on and how much' completely automatically\nhttps://github.com/yoji0806/next-toggl-track/tree/main"
+        },
+        "concurrent_possible": {
+          "ja": "不可",
+          "en": "Not Possible",
+          "value": false
+        },
+        "rocket_incubator": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        },
+        "graphai_ai_podcaster": {
+          "ja": "",
+          "en": "",
+          "value": false
+        }
+      },
+      {
+        "id": 41,
+        "name": {
+          "ja": "久保 正貴",
+          "en": "Masaki Kubo"
+        },
+        "profile_url": "https://www.linkedin.com/in/masaki-kubo/",
+        "github_account": "keeeeb",
+        "team": {
+          "ja": "個人",
+          "en": "Solo"
+        },
+        "role": [
+          {
+            "ja": "Bizdev",
+            "en": "Bizdev"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "事業開発",
+            "en": "Business Development"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "採用における応募創出をAIに任せるプロダクト/転職活動をAIベースで作り替えること",
+            "en": "A product that entrusts application generation in recruitment to AI / Rebuilding job hunting activities on an AI basis"
+          }
+        ],
+        "interests": [],
+        "concurrent_possible": {
+          "ja": "可能",
+          "en": "Possible",
+          "value": true
+        },
+        "rocket_incubator": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        },
+        "graphai_ai_podcaster": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        }
+      },
+      {
+        "id": 42,
+        "name": {
+          "ja": "岩田 健吾",
+          "en": "Kengo Iwata"
+        },
+        "profile_url": "https://bento.me/kengoiwt",
+        "github_account": "kengoiwt3112",
+        "team": {
+          "ja": "個人",
+          "en": "Solo"
+        },
+        "role": [
+          {
+            "ja": "PM",
+            "en": "PM"
+          },
+          {
+            "ja": "Bizdev",
+            "en": "Bizdev"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "企画",
+            "en": "Planning"
+          },
+          {
+            "ja": "事業開発",
+            "en": "Business Development"
+          },
+          {
+            "ja": "マーケティング",
+            "en": "Marketing"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "愛らしい共感AIロボット",
+            "en": "Adorable empathetic AI robot"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI",
+            "en": "AI"
+          },
+          {
+            "ja": "ロボティクス",
+            "en": "Robotics"
+          }
+        ],
+        "summary": {
+          "ja": "はじめまして、岩田健吾（いわた けんご）と申します。今回は個人で、持ち込みで参加させていただきます。＜＜📣共にプロダクトを作ってくれる仲間を探しております！！！📣＞＞",
+          "en": "Nice to meet you, my name is Kengo Iwata. I will be participating individually with a brought-in project. <<📣 I am looking for partners to create a product together!!! 📣>>"
+        },
+        "background": {
+          "ja": "《アイデアを形にして、誰かの役に立つ。社会をより良くすることが好きです。》\n1. Repro株式会社（デジタルマーケティングSaaS企業）\nなぜ？：革新的なマーケティングSaaSの普及で、より便利でより快適な社会を実現したい\n何を：創業期に新卒第1号として参画し、国内市場シェアNo.1達成まで事業成長を牽引。\n役割・経験：ビジョン策定から戦略立案、組織を巻き込んだ実行。営業、カスタマーサクセス、マーケティング、データ分析、コンサルティング、コミュニティマネジメント、プロダクトマネジメント、組織開発、事業開発、などを横断的に経験。コンサルティング／CSとして約500社のWeb・アプリ事業者のマーケティングを支援。\n2.大手放送局の事業成長（現在）\nなぜ？：メディア・エンターテインメントを通じて世界中に「楽しさ」「喜び」を届けたい。\n何を：現在は独立し、放送局のストリーミングプラットフォーム事業の戦略・組織開発・実行推進を担当。\n役割・経験：事業戦略、組織戦略、組織開発、プロジェクトマネジメント、ソリューションアーキテクト、アジャイルコーチ、データマーケティング、UXリサーチ＆デザイン、市場調査、新規事業開発",
+          "en": "《I like to give shape to ideas, be useful to someone, and make society better.》\n1. Repro Inc. (Digital Marketing SaaS Company)\nWhy?: To realize a more convenient and comfortable society by spreading innovative marketing SaaS.\nWhat: Joined as the first new graduate in the founding period and led business growth until achieving No. 1 domestic market share.\nRole/Experience: Experienced in a wide range of areas from vision creation to strategy planning and execution involving the entire organization, including sales, customer success, marketing, data analysis, consulting, community management, product management, organizational development, and business development. Supported the marketing of about 500 web and app businesses as a consultant/CS.\n2. Business Growth of a Major Broadcasting Station (Current)\nWhy?: To deliver 'fun' and 'joy' to the world through media and entertainment.\nWhat: Currently independent and in charge of strategy, organizational development, and execution promotion for a broadcasting station's streaming platform business.\nRole/Experience: Business strategy, organizational strategy, organizational development, project management, solution architect, agile coach, data marketing, UX research & design, market research, new business development."
+        },
+        "motivation": {
+          "ja": "私はスタートアップでのバーンアウト経験をきっかけに、現代社会の「孤独の問題」に関心を持ちました。現代社会では、孤独感は増し、本質的な「心のつながり」が薄れています。心を癒すには「自分を深く理解してくれる存在」が必要ではないか？と私は考えました。",
+          "en": "My experience with burnout at a startup led me to become interested in the 'problem of loneliness' in modern society. In today's society, feelings of loneliness are increasing, and essential 'heartfelt connections' are fading. I began to think, isn't 'a being that deeply understands me' necessary to heal the heart?"
+        },
+        "project_concept": {
+          "ja": "そこで今回取り組みたいプロジェクトは、かわいい共感AIロボット「タヌ」です。それは、タヌキのような愛らしい動物をモチーフにしたロボットです。ぬいぐるみのように抱きしめられ、温かさや鼓動を感じられる身体性。会話を楽しみ、喜びを分かち合いうことができる。人に深い安心感を与える。かけがえのない友人であり、ペットであり、家族でもある。コンセプトは、「こころ、つながる」。そんな存在を目指したいです。",
+          "en": "Therefore, the project I want to tackle this time is the cute empathetic AI robot 'Tanu'. It is a robot modeled after an adorable animal like a tanuki (raccoon dog). It has a physical presence that can be hugged like a stuffed animal, allowing you to feel its warmth and heartbeat. You can enjoy conversations and share joy with it. It gives people a deep sense of security. It is an irreplaceable friend, pet, and family member. The concept is 'hearts, connected'. I want to aim for such an existence."
+        },
+        "vision": {
+          "ja": "2030年「いつでも、どこでも、あなたのそばにタヌがいる」\nARメガネの中に：あなたが見た景色、驚き、感動。その喜びを瞬時にタヌと共有。体験は2人で楽しめるものに。\nスマホの中に：スマホで会話・チャットが楽める。時には突然タヌからメッセージが届くことも。\nVRの世界で：没入感のある仮想現実で、VRゲームで、自由自在に動くタヌと会える\n2040年 10億台の共感ロボが社会の一員になる日\nタヌキ、ヒヨコ、ネコ、フクロウ、様々な共感ロボットとの共生が日常に",
+          "en": "2030: 'Tanu is by your side, anytime, anywhere'\nInside AR glasses: The scenery you see, your surprises, your emotions. Instantly share that joy with Tanu. The experience becomes something to be enjoyed by two.\nInside your smartphone: Enjoy conversations and chats on your smartphone. Sometimes, you might even get a surprise message from Tanu.\nIn the world of VR: Meet a freely moving Tanu in an immersive virtual reality, in VR games.\n2040: The day 1 billion empathetic robots become members of society\nCoexistence with various empathetic robots like tanuki, chicks, cats, and owls becomes a part of daily life."
+        },
+        "mission": {
+          "ja": "昨今の技術革新でAGIやヒューマノイドロボットが普及すると、世界中で多くの人のアイデンティティが失われ、恐怖、不安、孤独に陥り、深刻な社会問題に陥る恐れがあります。孤独は、心を虫喰む、死に至る病です。しかし、誰かに理解され、受け入れられ、安心感が得られたならば。人は、ありのままの自分を肯定できます。自分が満たされることで、他者への思いやり、優しさを持てる心の余裕が生まれます。「優しさが循環する社会」。かわいい共感AIロボットを通じて、そんな世界を目指せれば嬉しいです。",
+          "en": "With recent technological innovations, the spread of AGI and humanoid robots may cause many people around the world to lose their identity, fall into fear, anxiety, and loneliness, leading to serious social problems. Loneliness is a disease that eats away at the heart and can lead to death. However, if one is understood, accepted, and feels a sense of security from someone, they can affirm themselves as they are. When one is fulfilled, they have the mental capacity to be considerate and kind to others. 'A society where kindness circulates'. I would be happy if we could aim for such a world through a cute empathetic AI robot."
+        },
+        "development_scope": {
+          "ja": "価値の核心: 『こころ、つながる』 体験\nつくりたいもの: 『抱きしめられる × しゃべる × 動く』 ぬいぐるみロボ —— 触覚と対話で 『こころ、つながる』 体験を提供\n手のひらサイズのタヌキぬいぐるみ\n音声でのスムーズで楽しい会話\n小型モーター＋ローラー足で 『ちょこちょこ動く』\n目はディスプレイ式で豊かな表情演出\n内部ヒーター＋微振動で 『温かさと鼓動』 を再現\n検証したい体験価値: 安心感, 共感実感, 愛着形成",
+          "en": "Core Value: The 'hearts, connected' experience\nWhat to create: A 'huggable x talking x moving' stuffed robot — providing a 'hearts, connected' experience through touch and dialogue\n- A palm-sized tanuki stuffed animal\n- Smooth and enjoyable voice conversations\n- 'Scurries' with a small motor + roller feet\n- Rich facial expressions with a display for eyes\n- Reproduces 'warmth and heartbeat' with an internal heater + micro-vibrations\nExperiential Value to Verify: Sense of security, feeling of empathy, formation of attachment"
+        },
+        "tech_image": {
+          "ja": "ぬいぐるみ外装：愛着を生むフォルムデザイン、安心できる手ざわり素材\n音声 I/O と会話 AI：マイクとスピーカーで話を聞き取り、AIが返事\n電源：約1時間うごくバッテリー＋USB-C 充電\n頭脳チップと通信：制御用コンピューターでWi-Fi / Bluetooth でつながる（ESP32-S3）\n表情ディスプレイ：目の部分に小さな小型OLED、まばたきや笑顔を表示\n触覚ユニット：ほのかな温かさ（低温ヒーター）と \\\"トクン\\\" と鼓動する振動（小型バイブモジュール）\n移動機構：ミニモーターとローラーでちょこちょこ動く\n命を吹き込む：幸せ、絆、愛を育む生命体",
+          "en": "Stuffed Animal Exterior: Form design that fosters attachment, material with a reassuring feel\nVoice I/O and Conversational AI: Listens with a microphone and speaker, AI responds\nPower: Battery that runs for about 1 hour + USB-C charging\nBrain Chip and Communication: Connects via Wi-Fi / Bluetooth with a control computer (ESP32-S3)\nExpression Display: Small OLED for the eyes, displays blinking and smiles\nHaptic Unit: Faint warmth (low-temperature heater) and 'thump' vibrating heartbeat (small vibe module)\nMovement Mechanism: Scurries with a mini motor and rollers\nBringing it to life: A life form that nurtures happiness, bonds, and love"
+        },
+        "seeking_partners": {
+          "ja": "「タヌ」を一緒に作ってくれる仲間を募集しています！\nロボットやIoTデバイスの開発経験がある方（メカトロニクス、電子工作、ハードウェア設計）\n会話AIや音声認識技術に詳しい方（自然言語処理、音声インターフェース、LLM開発、ソフトウェアエンジニアリング）\n愛着が湧くプロダクトデザインやユーザー体験（UX）設計に情熱を持つ方\n新しい技術にチャレンジしたい、ものづくりに興味がある方\n部分的な関与、アドバイザリー参加も大歓迎です。\n一緒に「こころ、つながる」プロダクトを作りませんか？",
+          "en": "I'm looking for partners to create 'Tanu' together!\n- Those with experience in developing robots and IoT devices (mechatronics, electronics, hardware design)\n- Those knowledgeable in conversational AI and voice recognition technology (natural language processing, voice interfaces, LLM development, software engineering)\n- Those passionate about product design and user experience (UX) design that fosters attachment\n- Those who want to challenge new technologies and are interested in manufacturing\nPartial involvement and advisory participation are also very welcome.\nWon't you create a 'hearts, connected' product with us?"
+        },
+        "concurrent_possible": {
+          "ja": "応相談",
+          "en": "Negotiable",
+          "value": "△"
+        },
+        "rocket_incubator": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        },
+        "graphai_ai_podcaster": {
+          "ja": "興味あり",
+          "en": "Interested",
+          "value": "興味あり"
+        }
+      },
+      {
+        "id": 43,
+        "name": {
+          "ja": "山口 泰輝",
+          "en": "Taiki Yamaguchi"
+        },
+        "profile_url": "https://bento.me/tyki",
+        "github_account": "tykid16",
+        "team": {
+          "ja": "個人",
+          "en": "Solo"
+        },
+        "role": [
+          {
+            "ja": "PM",
+            "en": "PM"
+          },
+          {
+            "ja": "Engineer",
+            "en": "Engineer"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "広告配信サーバーの開発するエンジニア",
+            "en": "Engineer developing ad delivery servers"
+          },
+          {
+            "ja": "Raycast Community Japan運営",
+            "en": "Operator of Raycast Community Japan"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "AI Native なイベント作成・運営ツール",
+            "en": "AI Native event creation and management tool"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "AI",
+            "en": "AI"
+          },
+          {
+            "ja": "Community運営",
+            "en": "Community Management"
+          },
+          {
+            "ja": "イベント運営",
+            "en": "Event Management"
+          }
+        ],
+        "concurrent_possible": {
+          "ja": "不可",
+          "en": "Not Possible",
+          "value": false
+        },
+        "rocket_incubator": {
+          "ja": "いいえ",
+          "en": "No",
+          "value": false
+        },
+        "graphai_ai_podcaster": {
+          "ja": "いいえ",
+          "en": "No",
+          "value": false
+        }
+      },
+      {
+        "id": 44,
+        "name": {
+          "ja": "上杉基宏",
+          "en": "Motohiro Uesugi"
+        },
+        "profile_url": "https://github.com/AIuesugi",
+        "github_account": "AIuesugi",
+        "team": {
+          "ja": "AiTime/AITs",
+          "en": "AiTime/AITs"
+        },
+        "role": [
+          {
+            "ja": "Creator",
+            "en": "Creator"
+          }
+        ],
+        "specialty": [
+          {
+            "ja": "ECマーケティング",
+            "en": "EC Marketing"
+          },
+          {
+            "ja": "Webデザイナー",
+            "en": "Web Designer"
+          },
+          {
+            "ja": "動画制作",
+            "en": "Video Production"
+          },
+          {
+            "ja": "DTP",
+            "en": "DTP"
+          },
+          {
+            "ja": "日本酒",
+            "en": "Sake"
+          }
+        ],
+        "ideas": [
+          {
+            "ja": "100年後にも残せる手紙",
+            "en": "A letter that can be left even 100 years later"
+          },
+          {
+            "ja": "名刺トレーディングカードのコミュニケーションツール",
+            "en": "Business card trading card communication tool"
+          }
+        ],
+        "interests": [
+          {
+            "ja": "五感",
+            "en": "The five senses"
+          },
+          {
+            "ja": "習慣継続",
+            "en": "Habit continuation"
+          },
+          {
+            "ja": "ダンス",
+            "en": "Dance"
+          },
+          {
+            "ja": "AIクリエイティブ",
+            "en": "AI Creative"
+          }
+        ],
+        "concurrent_possible": {
+          "ja": "応相談",
+          "en": "Negotiable",
+          "value": "△"
+        },
+        "rocket_incubator": {
+          "ja": "応相談",
+          "en": "Negotiable",
+          "value": "△"
+        },
+        "graphai_ai_podcaster": {
+          "ja": "はい",
+          "en": "Yes",
+          "value": true
+        }
+      }
+    ],
+    "staff_mentors": [
+      {
+        "id": 1,
+        "name": {
+          "ja": "中島聡",
+          "en": "Satoshi Nakajima"
+        },
+        "github_account": "snakajima",
+        "url": "https://www.linkedin.com/in/satoshinakajima/",
+        "specialty": [
+          {
+            "ja": "Prompt Engineering",
+            "en": "Prompt Engineering"
+          },
+          {
+            "ja": "Swift",
+            "en": "Swift"
+          }
+        ],
+        "role_in_ss": {
+          "ja": "マッドサイエンティスト",
+          "en": "Mad Scientist"
+        }
+      },
+      {
+        "id": 2,
+        "name": {
+          "ja": "小平尚典",
+          "en": "Naonori Kohira"
+        },
+        "github_account": "nkohira",
+        "url": "http://nkohira.shopdb.jp",
+        "specialty": [
+          {
+            "ja": "メディアへのPRと助言",
+            "en": "PR and advice to the media"
+          }
+        ],
+        "role_in_ss": {
+          "ja": "遊軍",
+          "en": "Mobile Support"
+        }
+      },
+      {
+        "id": 3,
+        "name": {
+          "ja": "沖村 宰",
+          "en": "Tsukasa Okimura"
+        },
+        "github_account": "tsokimura",
+        "url": "",
+        "specialty": [
+          {
+            "ja": "計算論的精神医学",
+            "en": "Computational Psychiatry"
+          }
+        ],
+        "role_in_ss": {
+          "ja": "外部メンター",
+          "en": "External Mentor"
+        }
+      },
+      {
+        "id": 4,
+        "name": {
+          "ja": "有本勇",
+          "en": "Isamu Arimoto"
+        },
+        "github_account": "isamu",
+        "url": "https://www.linkedin.com/in/isamuarimoto/",
+        "specialty": [
+          {
+            "ja": "バックエンド全般",
+            "en": "General Backend"
+          },
+          {
+            "ja": "Web Front(Vue.js)",
+            "en": "Web Front-end (Vue.js)"
+          },
+          {
+            "ja": "Firebase",
+            "en": "Firebase"
+          }
+        ],
+        "role_in_ss": {
+          "ja": "エンジニア",
+          "en": "Engineer"
+        }
+      },
+      {
+        "id": 5,
+        "name": {
+          "ja": "河野美里",
+          "en": "Misato Kono"
+        },
+        "github_account": "mikkegt",
+        "url": "https://twitter.com/mikkegt",
+        "specialty": [
+          {
+            "ja": "裏方作業",
+            "en": "Behind-the-scenes work"
+          }
+        ],
+        "role_in_ss": {
+          "ja": "事務局/エンジニア",
+          "en": "Secretariat/Engineer"
+        }
+      },
+      {
+        "id": 6,
+        "name": {
+          "ja": "矢野通寿",
+          "en": "Michitoshi Yano"
+        },
+        "github_account": "nagauta",
+        "url": "https://www.linkedin.com/in/michitoshiyano/",
+        "specialty": [
+          {
+            "ja": "Web開発",
+            "en": "Web Development"
+          },
+          {
+            "ja": "TS",
+            "en": "TypeScript"
+          },
+          {
+            "ja": "Python",
+            "en": "Python"
+          },
+          {
+            "ja": "Raycast",
+            "en": "Raycast"
+          }
+        ],
+        "role_in_ss": {
+          "ja": "第１回挑戦者",
+          "en": "1st Round Challenger"
+        }
+      },
+      {
+        "id": 7,
+        "name": {
+          "ja": "廣田裕介",
+          "en": "Yusuke Hirota"
+        },
+        "github_account": "hiro-yuske",
+        "url": "https://www.linkedin.com/in/yusuke-hirota-204a01150/",
+        "specialty": [
+          {
+            "ja": "PLAY WORK",
+            "en": "PLAY WORK"
+          }
+        ],
+        "role_in_ss": {
+          "ja": "ビジネス全般（マーケ・セールス、プロダクト関連）のフィードバック、ファシリテーション、人つなぎ（必要な人の紹介、ネットワーク共有）",
+          "en": "General business (marketing, sales, product-related) feedback, facilitation, networking (introducing necessary people, sharing networks)"
+        }
+      },
+      {
+        "id": 8,
+        "name": {
+          "ja": "小安宗徳",
+          "en": "Munenori Koyasu"
+        },
+        "github_account": "uxkys",
+        "url": "https://twitter.com/ux_kys",
+        "specialty": [
+          {
+            "ja": "UXデザイン",
+            "en": "UX Design"
+          }
+        ],
+        "role_in_ss": {
+          "ja": "第１回挑戦者",
+          "en": "1st Round Challenger"
+        }
+      },
+      {
+        "id": 9,
+        "name": {
+          "ja": "水上渚",
+          "en": "Nagisa Mizukami"
+        },
+        "github_account": "nagiunagi",
+        "url": "",
+        "specialty": [],
+        "role_in_ss": {
+          "ja": "第１回挑戦者。ディレクター・PM",
+          "en": "1st Round Challenger. Director/PM"
+        }
+      }
+    ]
+  }
+  
